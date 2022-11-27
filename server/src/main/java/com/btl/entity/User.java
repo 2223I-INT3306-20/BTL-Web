@@ -1,62 +1,28 @@
 package com.btl.entity;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Data
+@Entity
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"username"})
+})
 public class User {
-    private String id;
-    private String fname;
-    private String lname;
-    private String pass;
-    private String type;
 
-    public String getId() {
-        return id;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String name;
+    private String username;
+    private String email;
+    private String password;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public User(String id, String fname, String lname, String pass, String type) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.pass = pass;
-        this.type = type;
-    }
-
-    public String toString() {
-        return id + " " + fname + " " + lname + " " + type;
-    }
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 }
