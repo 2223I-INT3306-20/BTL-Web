@@ -1,0 +1,82 @@
+<CATALOG>
+    <CD>
+        <STT>1</STT>
+        <Ten>Macbook pro</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>10</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>2</STT>
+        <Ten>Vivobook</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>20</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>3</STT>
+        <Ten>Tuf Gaming</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>30</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>4</STT>
+        <Ten>Tuf Gaming</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>30</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>5</STT>
+        <Ten>Tuf Gaming</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>30</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>6</STT>
+        <Ten>Tuf Gaming</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>30</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>7</STT>
+        <Ten>Tuf Gaming</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>30</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+    <CD>
+        <STT>8</STT>
+        <Ten>Tuf Gaming</Ten>
+        <ThongSo>Intel, Core i7,11500hz, Ram 8GB, SSD 512GB, Man hinh Oled</ThongSo>
+        <SLNhap>30</SLNhap>
+        <SLXuat>8</SLXuat>
+        <GiaNhap>1000</GiaNhap>
+        <GiaBan>2000</GiaBan>
+        <Loi>8000</Loi>
+    </CD>
+</CATALOG>

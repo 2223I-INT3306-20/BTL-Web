@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./admin.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+<body style="background-color:#e4dece;">
+    <nav class="nav">
+        <a href="./admin.html" class="nav-item is-active" active-color="DarkSlateBlue">Danh mục dòng sản phẩm</a>
+        <a href="#" class="nav-item" active-color="DarkKhaki">Cấp tài khoản</a>
+        <a href="#" class="nav-item" active-color="DeepPink">Quản lý danh mục</a>
+        <a href="#" class="nav-item" active-color="LimeGreen">Theo dõi sản phẩm</a>
+        <span class="nav-indicator"></span>
+    </nav>
+    <h1>Bảng Danh Mục Dòng Sản phẩm</h1>
+    <table id="demo"></table>
+
+
+    <script>
+        var indicator = document.querySelector('.nav-indicator');
+        var items = document.querySelectorAll('.nav-item');
+        function handleIndicator(el) {
+                items.forEach(function (item) {
+                    item.classList.remove('is-active');
+                    item.removeAttribute('style');
+                });
+                indicator.style.width = "".concat(el.offsetWidth, "px");
+                indicator.style.left = "".concat(el.offsetLeft, "px");
+                indicator.style.backgroundColor = el.getAttribute('active-color');
+                el.classList.add('is-active');
+                el.style.color = el.getAttribute('active-color');
+            }
+        items.forEach(function (item, index) {
+            item.addEventListener('click', function (e) {
+                handleIndicator(e.target);
+            });
+            item.classList.contains('is-active') && handleIndicator(item);
+        });
+
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                myFunction(this);
+                }
+            };
+            xhttp.open("GET", "danhmuc_sp.xml", true);
+            xhttp.send();
+        }
+        function myFunction(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var table="<tr><th>STT</th><th>Tên Sản Phẩm</th><th>Thông Số Sản Phẩm</th><th>Số Lượng Nhập Kho</th><th>Số Lượng Xuất Kho</th><th>Giá Nhập</th><th>Giá Bán</th><th>Tiền Lời</th></tr>";
+            var x = xmlDoc.getElementsByTagName("CD");
+            for (i = 0; i <x.length; i++) { 
+                table += "<tr><td>" +
+                x[i].getElementsByTagName("STT")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("Ten")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("ThongSo")[0].childNodes[0].nodeValue +
+                "</td><td>" + 
+                x[i].getElementsByTagName("SLNhap")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("SLXuat")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("GiaNhap")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("GiaBan")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("Loi")[0].childNodes[0].nodeValue +
+                "</td></tr>";
+        }
+        document.getElementById("demo").innerHTML = table;
+        }
+        $(document).ready(function(){
+            loadDoc();
+        })
+    </script>
+</body>
+</html>
