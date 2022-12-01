@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/test/**").permitAll()// dùng để test API mà không cần đăng nhập, dùng trước khi chuyển về /api để quản lý !
+                .antMatchers("/products").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
