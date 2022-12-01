@@ -2,6 +2,7 @@ package com.btl.controller;
 
 import com.btl.entity.Product;
 import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -9,9 +10,13 @@ import java.util.List;
 
 @RestController
 //@RolesAllowed("ROLE_FACTORY")
-@RequestMapping("/test")
+@RequestMapping("/factory")
 public class FactoryController {
 
+    @GetMapping("/test")
+    public ResponseEntity<?> getTest() {
+        return ResponseEntity.ok("test successfully!!");
+    }
     /* --------------------------------------- 3 nhiệm vụ đầu -------------------------------------------*/
     @PostMapping("/add")
     public void addProduct(@RequestParam String mtd, @RequestParam long id, @RequestParam long quantity) {

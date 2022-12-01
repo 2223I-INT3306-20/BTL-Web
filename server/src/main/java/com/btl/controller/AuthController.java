@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 
 @RestController
@@ -36,17 +39,42 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginDto){
+        User user = userRepo.findByUsername(loginDto.getUsername()).get();
 
-        //đang lỗi authentication chỗ này
-        /*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsername(), loginDto.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);*/
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         return ResponseEntity.ok("User signed-in successfully!.");
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return ResponseEntity.ok("Log-out successfully!");
+    }
+
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpDTO signUpDto){
+    public ResponseEntity<?> registerUser(@RequestParam String type, @RequestBody SignUpDTO signUpDto){
+    //type đầu vào sẽ nhận type: admin, dealer, service, factory.
+        System.out.println("Created " + type);
+        String typeRole = "";
+        if (type.equals("admin")) {
+            typeRole = "ROLE_ADMIN";
+        } else if (type.equals("dealer")) {
+            typeRole = "ROLE_DEALER";
+        } else if (type.equals("factory")) {
+            typeRole = "ROLE_FACTORY";
+        } else if (type.equals("service")) {
+            typeRole = "ROLE_SERVICE";
+        } else {
+            return ResponseEntity.ok("Type not support!!");
+        }
+
+        System.out.println("Created " + typeRole);
 
         if(userRepo.existsByUsername(signUpDto.getUsername())){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
@@ -57,7 +85,7 @@ public class AuthController {
         user.setUsername(signUpDto.getUsername());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 
-        Role roles = roleRepo.findByName("ROLE_ADMIN").get();
+        Role roles = roleRepo.findByName(typeRole).get();
         user.setRoles(Collections.singleton(roles));
 
         userRepo.save(user);
