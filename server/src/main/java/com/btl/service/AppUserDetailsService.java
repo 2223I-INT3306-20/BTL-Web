@@ -15,11 +15,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 
     private UserRepo userRepo;
 
-    public CustomUserDetailsService(UserRepo userRepo) {
+
+    public AppUserDetailsService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
@@ -28,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with username or email:" + username));
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
