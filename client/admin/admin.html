@@ -4,26 +4,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ADMIN</title>
     <link rel="stylesheet" type="text/css" href="./admin.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style type="text/css">
+        .form-control {
+            margin-left: 200px;
+            width: 70%;
+        }
+        .fl {
+            display: flex;
+        }
+        th {
+            text-align: center;
+        }
 
+        .sx {
+            cursor:pointer;
+        }
+
+        span.arrow::after {
+            content: "\2BC1";
+        }
+
+        th.asc span.arrow::after {
+            content: "\2BC5";
+            background-color: whitesmoke;
+            font-weight: bold;
+        }
+
+        th.desc span.arrow::after {
+            content: "\2BC6";
+            background-color: whitesmoke;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body style="background-color:#e4dece;">
-    <nav class="nav">
-        <a href="./admin.html" class="nav-item is-active" active-color="DarkSlateBlue">Danh mục dòng sản phẩm</a>
-        <a href="#" class="nav-item" active-color="DarkKhaki">Cấp tài khoản</a>
-        <a href="#" class="nav-item" active-color="DeepPink">Quản lý danh mục</a>
-        <a href="#" class="nav-item" active-color="LimeGreen">Theo dõi sản phẩm</a>
+    <nav class="nav1">
+        <a href="./admin.html" class="nav-item1 is-active" active-color="DarkSlateBlue">Danh mục dòng sản phẩm</a>
+        <a href="#" class="nav-item1" active-color="DarkKhaki">Cấp tài khoản</a>
+        <a href="#" class="nav-item1" active-color="DeepPink">Quản lý danh mục sản phẩm</a>
+        <a href="#" class="nav-item1" active-color="LimeGreen">Theo dõi sản phẩm</a>
         <span class="nav-indicator"></span>
     </nav>
     <h1>Bảng Danh Mục Dòng Sản phẩm</h1>
-    <table id="demo"></table>
 
+    <div>
+        <button type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> Thêm
+        </button>
+
+        <button class="btn btn-success" onclick="loadDoc()">
+            <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </button>
+        <button class="btn btn-success">
+            <span class="glyphicon glyphicon-trash"></span> Xóa
+        </button>
+
+        <button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        <div class="collapse" id="navbarCollapse">
+            <div class="fl">
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+    <div class="container">
+        <table id="tblData" class="table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên</th>
+                    <th>Thông Số</th>
+                    <th class="sx">Số Lượng Nhập Kho <span class="arrow"></span></th>
+                    <th class="sx">Số Lượng Xuất Kho <span class="arrow"></span></th>
+                    <th class="sx">Giá Nhập <span class="caret"></span></th>
+                    <th class="sx">Giá Bán <span class="caret"></span></th>
+                    <th class="sx">Tiền Lời <span class="caret"></span></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 
     <script>
         var indicator = document.querySelector('.nav-indicator');
-        var items = document.querySelectorAll('.nav-item');
+        var items = document.querySelectorAll('.nav-item1');
         function handleIndicator(el) {
                 items.forEach(function (item) {
                     item.classList.remove('is-active');
@@ -43,44 +118,131 @@
         });
 
         function loadDoc() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                myFunction(this);
+            this.disabled = true;
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState==4){
+                    if(this.status==200){
+                        let objArr = JSON.parse(this.responseText);
+                        document.querySelector("#tblData tbody").innerHTML = "";
+                        for(let i = 0; i< objArr.length; i++){
+                            let tr = document.createElement("tr");
+                            let c1 = document.createElement("td");
+                            let c2 = document.createElement("td");
+                            let c3 = document.createElement("td");
+                            let c4 = document.createElement("td");
+                            let c5 = document.createElement("td");
+                            let c6 = document.createElement("td");
+                            let c7 = document.createElement("td");
+                            let c8 = document.createElement("td");
+                            c1.innerHTML = objArr[i].stt;
+                            c2.innerHTML = objArr[i].ten;
+                            c3.innerHTML = objArr[i].thongso;
+                            c4.innerHTML = objArr[i].slnhap;
+                            c5.innerHTML = objArr[i].slxuat;
+                            c6.innerHTML = objArr[i].gianhap;
+                            c7.innerHTML = objArr[i].giaban;
+                            c8.innerHTML = objArr[i].loi;
+                            tr.appendChild(c1);
+                            tr.appendChild(c2);
+                            tr.appendChild(c3);
+                            tr.appendChild(c4);
+                            tr.appendChild(c5);
+                            tr.appendChild(c6);
+                            tr.appendChild(c7);
+                            tr.appendChild(c8);
+                            document.querySelector("#tblData tbody").appendChild(tr);
+                        }
+                    }
                 }
-            };
-            xhttp.open("GET", "danhmuc_sp.xml", true);
-            xhttp.send();
-        }
-        function myFunction(xml) {
-            var i;
-            var xmlDoc = xml.responseXML;
-            var table="<tr><th>STT</th><th>Tên Sản Phẩm</th><th>Thông Số Sản Phẩm</th><th>Số Lượng Nhập Kho</th><th>Số Lượng Xuất Kho</th><th>Giá Nhập</th><th>Giá Bán</th><th>Tiền Lời</th></tr>";
-            var x = xmlDoc.getElementsByTagName("CD");
-            for (i = 0; i <x.length; i++) { 
-                table += "<tr><td>" +
-                x[i].getElementsByTagName("STT")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("Ten")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("ThongSo")[0].childNodes[0].nodeValue +
-                "</td><td>" + 
-                x[i].getElementsByTagName("SLNhap")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("SLXuat")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("GiaNhap")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("GiaBan")[0].childNodes[0].nodeValue +
-                "</td><td>" +
-                x[i].getElementsByTagName("Loi")[0].childNodes[0].nodeValue +
-                "</td></tr>";
-        }
-        document.getElementById("demo").innerHTML = table;
+            }
+            xhttp.open("GET","sanpham.json",true);
+            xhttp.send("null");
         }
         $(document).ready(function(){
             loadDoc();
         })
+
+        let col = 0;
+        let dir = "";
+        let tbl = document.getElementById("tblData");
+
+        tbl.rows[0].cells[3].onclick = function() {
+            if (col == 3) tbl.rows[0].cells[3].classList.remove(dir);
+            else if (col == 4) tbl.rows[0].cells[4].classList.remove(dir);
+            
+            if (col == 3) {
+                if (dir == "asc") {
+                    dir = "desc";
+                } else {
+                    dir = "asc";
+                }
+            } else {
+                col = 3;
+                dir = "asc";
+            }
+            this.classList.add(dir);
+            tblSort();
+        };
+        tbl.rows[0].cells[4].onclick = function() {
+            if (col == 3) tbl.rows[0].cells[3].classList.remove(dir);
+            else if (col == 4) tbl.rows[0].cells[4].classList.remove(dir);
+            if (col == 4) {
+                if (dir == "asc") {
+                    dir = "desc";
+                } else {
+                    dir = "asc";
+                }
+            } else {
+                col = 4;
+                dir = "asc";
+            }
+            this.classList.add(dir);
+            tblSort();
+        };
+
+
+        function tblSort() {
+            let rows = tbl.rows;
+            for (var i = 1; i < rows.length; i++) {
+                for (var j = i+1; j < rows.length; j++) {
+                    if ((dir == "asc" && rows[i].cells[col].innerHTML.toLowerCase() > 
+                            rows[j].cells[col].innerHTML.toLowerCase()) || 
+                        (dir == "desc" && rows[i].cells[col].innerHTML.toLowerCase() < 
+                            rows[j].cells[col].innerHTML.toLowerCase())
+                        )
+                    {	
+                        tmp = rows[i].cells[1].innerHTML;
+                        rows[i].cells[1].innerHTML = rows[j].cells[1].innerHTML;
+                        rows[j].cells[1].innerHTML = tmp;
+
+                        tmp = rows[i].cells[2].innerHTML;
+                        rows[i].cells[2].innerHTML = rows[j].cells[2].innerHTML;
+                        rows[j].cells[2].innerHTML = tmp;
+
+                        tmp = rows[i].cells[3].innerHTML;
+                        rows[i].cells[3].innerHTML = rows[j].cells[3].innerHTML;
+                        rows[j].cells[3].innerHTML = tmp;
+
+                        tmp = rows[i].cells[4].innerHTML;
+                        rows[i].cells[4].innerHTML = rows[j].cells[4].innerHTML;
+                        rows[j].cells[4].innerHTML = tmp;
+
+                        tmp = rows[i].cells[5].innerHTML;
+                        rows[i].cells[5].innerHTML = rows[j].cells[5].innerHTML;
+                        rows[j].cells[5].innerHTML = tmp;
+
+                        tmp = rows[i].cells[6].innerHTML;
+                        rows[i].cells[6].innerHTML = rows[j].cells[6].innerHTML;
+                        rows[j].cells[6].innerHTML = tmp;
+
+                        tmp = rows[i].cells[7].innerHTML;
+                        rows[i].cells[7].innerHTML = rows[j].cells[7].innerHTML;
+                        rows[j].cells[7].innerHTML = tmp;
+                    }
+                }
+            }
+        }
     </script>
 </body>
 </html>
