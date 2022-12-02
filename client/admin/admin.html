@@ -42,15 +42,35 @@
             background-color: whitesmoke;
             font-weight: bold;
         }
+        .navbar-right {
+            margin-top: 12px;
+            margin-right: 20px;
+        }
     </style>
 </head>
 <body style="background-color:#e4dece;">
-    <nav class="nav1">
-        <a href="./admin.html" class="nav-item1 is-active" active-color="DarkSlateBlue">Danh mục dòng sản phẩm</a>
-        <a href="#" class="nav-item1" active-color="DarkKhaki">Cấp tài khoản</a>
-        <a href="#" class="nav-item1" active-color="DeepPink">Quản lý danh mục sản phẩm</a>
-        <a href="#" class="nav-item1" active-color="LimeGreen">Theo dõi sản phẩm</a>
-        <span class="nav-indicator"></span>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#" >Production Move</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Quản lý danh mục sản phẩm</a></li>
+            <li><a href="#">Quản lý tài khoản</a></li>
+            <li><a href="#">Quản lý danh mục</a></li>
+            <li><a href="#">Theo dõi sản phẩm</a></li>
+          </ul>
+          <ul class="navbar-nav navbar-right">
+            <li><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"></li>
+            <li>
+                <span class="navbar_acc-name">Nguyễn Viết Mạnh</span>
+                <ul>
+                    <li><a href="#">Tài khoản của tôi</a></li>                
+                    <li><a href="/client/login.html">Đăng xuất</a></li>
+                </ul>
+            </li>
+          </div>
+        </ul>
     </nav>
     <h1>Bảng Danh Mục Dòng Sản phẩm</h1>
 

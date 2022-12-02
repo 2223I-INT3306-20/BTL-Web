@@ -14,57 +14,43 @@ body {
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding: 0 10px;
+    
     font-family: Roboto, sans-serif;
     margin: 100px;
 }
-.nav1{
-    
-    display: inline-flex;
-    position: relative;
-    overflow: hidden;
-    width: 980px;
-    background-color: white;
-    padding: 0 100px;
-    line-height: 2em;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(150, 174, 178, 0.8);
-}
-.nav-item1{
-    color: #83818c;
-    padding: 20px;
-    text-decoration: none;
-    transition: 0.3s;
-    margin: 0 7px;
-    position: relative;
-}
-.nav-item1:before{
-    content: '';
-    position: absolute;
-    bottom: -7px;
-    left: 0px;
-    width: 100%;
-    height: 5px;
-    background-color: #dfe2ea;
-    border-radius: 8px 8px 0 0;
-    opacity: 0;
-    transition: 0.3s;
-}
-.nav-item1:not(.is_active):hover:before{
-    opacity: 1;
-    bottom:0;
-}
-.nav-item1:not(.is-active):hover{
-    color: #333;
-    text-decoration: none;
-}
-.nav-indicator{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 4px;
-    transition: 0.4s;
-    height: 5px;
-    border-radius: 8px 8px 0 0;
+
+.navbar_acc-avt {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-top: -4px;
 }
 
+.navbar_acc-name {
+    color: white;
+    margin-left: 10px;
+    margin-right: 50px;
+}
+
+.nabar_acc-menu {
+    margin-right: 40px;
+}
+
+ul li:hover {
+    cursor: pointer;
+}
+
+ul li:hover ul {display: block;}
+ul li ul {
+  position: absolute;
+  width: 200px;
+  display: none;
+}
+ul li ul li { 
+  background: white;
+  margin-right: 10px;
+  display: block; 
+  box-shadow: 0 1px 2px #e0e0e0;
+}
+
+ul li ul li:hover {background: #e0e0e0;list-style: none;text-decoration: none;}
