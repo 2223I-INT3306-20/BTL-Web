@@ -5,17 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
-    <link rel="stylesheet" type="text/css" href="./admin.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style type="text/css">
+        body {
+            text-align: center;
+        }
         .form-control {margin-left: 200px;width: 70%;}
         .fl {display: flex;}
-        th {text-align: center;}
         .panel-heading {background-color: whitesmoke;}
         .sx {cursor:pointer;}
         span.arrow::after {content: "\2BC1";}
@@ -37,8 +39,20 @@
         .panel-table .panel-body .table-bordered > tbody > tr > td {line-height: 34px;}
         .navbar-right {margin-top: 12px;margin-right: 20px;}
         tr,th,td {text-align: center;}
-        .table>thead>tr>th {
-            vertical-align: middle;
+        .table>thead>tr>th {vertical-align: middle;}
+        .dropdown-menu {padding: 0px;}
+        #spbh {margin: auto;}
+        .navbar_acc-avt {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-top: -4px;
+        }
+        ul li:hover {
+            cursor: pointer;
+        }
+        th {
+            background-color:cornflowerblue;
         }
     </style>
 </head>
@@ -52,13 +66,21 @@
             <li class="active"><a data-toggle="pill" href="#qlsp">Quản lý danh mục sản phẩm</a></li>
             <li><a data-toggle="pill" href="#qltk">Quản lý tài khoản</a></li>
             <li><a data-toggle="pill" href="#qldm">Quản lý danh mục</a></li>
-            <li><a data-toggle="pill" href="#">Theo dõi sản phẩm</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Theo dõi sản phẩm<span class="caret"></span></a>    
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="pill" href="#spdb">Đã bán</a></li>
+                    <li><a data-toggle="pill" href="#spsx">Đã sản xuất</a></li>
+                    <li><a data-toggle="pill" href="#spbh">Đã bảo hành</a></li>
+                </ul>
+            </li>
           </ul>
           <ul class="navbar-nav navbar-right">
             <li><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"></li>
-            <li>
-                <span class="navbar_acc-name">Nguyễn Viết Mạnh</span>
-                <ul>
+            <li>&#8194;</li>
+            <li style="color: white;">Nguyễn Viết Mạnh</li>
+            <li>&#8194;</li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
                     <li><a href="#">Tài khoản của tôi</a></li>                
                     <li><a href="/client/login.html">Đăng xuất</a></li>
                 </ul>
@@ -313,6 +335,21 @@
                      </div> 
                     </div>
             </div>
+
+            <div id="spdb" class="tab-pane fade">
+                <canvas id="daban" height="40" width="100"></canvas>
+                <i>Biểu đồ thể hiện số lượng máy đã bán mỗi năm(2017-2022)</i>
+            </div>
+
+            <div id="spsx" class="tab-pane fade">
+                <canvas id="dasx" height="40" width="100"></canvas>
+                <i>Biểu đồ thể hiển số lượng máy đã được sản xuất(2017-2022)</i>
+            </div>
+
+            <div id="spbh" class="tab-pane fade"  style="width: 600px; height: 600px;">
+                <canvas id="dabh" height="40" width="100"></canvas>
+                <i>Biểu đồ thể hiển số lượng máy đã bảo hành năm 2022</i>
+            </div>
         </div>
     </div>
 
@@ -463,6 +500,89 @@
                 }
             }
         }
+
+        const ctx1 = document.getElementById('daban');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+            labels: ['2017', '2018', '2019', '2020', '2021', '2022'],
+            datasets: [{
+                label: 'Macbook',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }, {
+                label: 'ASUS',
+                data: [15, 16, 6, 3, 1, 4],
+                borderWidth: 1
+            }, {
+                label: 'DELL',
+                data: [8, 9, 6, 4, 3, 2],
+                borderWidth: 1
+            }
+            
+            ]
+            },
+            
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+
+        const ctx2 = document.getElementById('dasx');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['2017','2018','2019','2020','2021','2022'],
+                datasets: [{
+                    label: 'Macbook',
+                    data: [80, 70, 89, 49, 60, 90],
+                    fill: false,
+                    borderColor: 'red',
+                    backgroundColor: 'red',
+                    tension: 0.1
+                }, {
+                    label: 'ASUS',
+                    data: [59, 80, 81, 56, 55, 80],
+                    fill: false,
+                    borderColor: 'blue',
+                    backgroundColor: 'blue',
+                    tension: 0.1
+                },  {
+                    label: 'DELL',
+                    data: [70, 84, 86, 60, 66, 87],
+                    fill: false,
+                    borderColor: 'green',
+                    backgroundColor: 'green',
+                    tension: 0.1
+                }
+            ]
+            }
+        });
+
+        const ctx3 = document.getElementById('dabh');
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Macbook','ASUS','DELL'],
+                datasets: [{
+                    label: 'Số máy',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+                
+            }
+        });
+
+
     </script>
 </body>
 </html>
