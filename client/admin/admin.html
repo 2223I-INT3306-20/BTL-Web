@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -12,14 +13,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style type="text/css">
-        body {
-            text-align: center;
-        }
-        .form-control {margin-left: 200px;width: 70%;}
-        .fl {display: flex;}
+        body {text-align: center;}
+        .fl {display: flex;left: 0px;}
         .panel-heading {background-color: whitesmoke;}
-        .sx {cursor:pointer;}
         span.arrow::after {content: "\2BC1";}
         th.asc span.arrow::after {content: "\2BC5";background-color: whitesmoke;font-weight: bold;}
         th.desc span.arrow::after {content: "\2BC6";background-color: whitesmoke;font-weight: bold;}
@@ -42,25 +40,21 @@
         .table>thead>tr>th {vertical-align: middle;}
         .dropdown-menu {padding: 0px;}
         #spbh {margin: auto;}
-        .navbar_acc-avt {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-top: -4px;
-        }
-        ul li:hover {
-            cursor: pointer;
-        }
-        th {
-            background-color:cornflowerblue;
-        }
+        .navbar_acc-avt {width: 30px;height: 30px;border-radius: 50%;margin-top: -4px;}
+        ul li:hover {cursor: pointer;}
+        th {background-color:cornflowerblue;}
+        .navbar{margin-bottom: 0px;}
+        .w3-sidebar{background-color: #222;color: white;position: absolute !important;height: auto;}
+        .w3-bar-block .w3-bar-item{text-align: center;}
     </style>
 </head>
 <body style="background-color:#e4dece;">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
+            <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a>
             <a class="navbar-brand" href="#" >Production Move</a>
+            <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a data-toggle="pill" href="#qlsp">Quản lý danh mục sản phẩm</a></li>
@@ -78,7 +72,6 @@
             <li><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"></li>
             <li>&#8194;</li>
             <li style="color: white;">Nguyễn Viết Mạnh</li>
-            <li>&#8194;</li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Tài khoản của tôi</a></li>                
@@ -88,8 +81,56 @@
           </div>
         </ul>
     </nav>
+
+    <div id="spoiler" class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none">
+        <button class="btn btn-success">
+            <span class="glyphicon glyphicon-trash"></span> Xóa
+        </button>
+        <button class="btn btn-success">
+            <span class="glyphicon glyphicon-pencil"></span> Sửa
+        </button>
+		<a class="w3-bar-item w3-button">Tìm kiếm theo tên</a>
+		<a href="#" class="w3-bar-item w3-button">
+            <div class="fl">
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </a>
+		<a class="w3-bar-item w3-button">Tìm kiếm theo ID</a>
+		<a href="#" class="w3-bar-item w3-button">
+            <div class="fl">
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </a>
+        <a class="w3-bar-item w3-button">Tìm kiếm theo thông số</a>
+		<a href="#" class="w3-bar-item w3-button">
+            <div class="fl">
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </a>
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <a class="w3-bar-item w3-button">Thành viên nhóm</a>
+        <a class="w3-bar-item w3-button"><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"> 20020201-Hồ Ngọc Lâm</a>
+        <a class="w3-bar-item w3-button"><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"> 20020438-Đinh Duy Mạnh</a>
+        <a class="w3-bar-item w3-button"><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"> 20020440-Nguyễn Viết Mạnh</a>
+	</div>
+	<button id="bt" class="w3-button w3-teal w3-xlarsge" style="margin-left: -98%;" 
+        onclick="if(document.getElementById('spoiler') .style.display=='none') {
+                    document.getElementById('spoiler').style.display='';
+                    document.getElementById('spoiler').style.width = '18.75%';
+                    document.getElementById('main').style.marginLeft = '18.75%';
+                    document.getElementById('bt').style.marginLeft = '-60%';
+                }
+                else{
+                    document.getElementById('spoiler').style.display='none';
+                    document.getElementById('main').style.marginLeft = 'auto';
+                    document.getElementById('bt').style.marginLeft = '-98%';
+                }">&#9776;
+    </button>
     <br>
-    <div class="container">
+    <div id="main" class="container">
         <div class="tab-content">
             <div id="qlsp" class="tab-pane fade in active">
                 <h1>Bảng Danh Mục Dòng Sản phẩm</h1>
@@ -98,26 +139,15 @@
                         <div class="row">
                             <div class="col col-xs-6 text-left"><h4>Danh mục sản phẩm</h4></div>
                             <div class="col col-xs-6 text-right">
-                                <button type="button" class="btn btn-success">
-                                    <span class="glyphicon glyphicon-plus"></span> Thêm
-                                </button>
+                                <a href="#">
+                                    <button type="button" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-plus"></span> Thêm
+                                    </button>
+                                </a>
                         
                                 <button class="btn btn-success" onclick="loadDoc()">
                                     <span class="glyphicon glyphicon-refresh"></span> Refresh
                                 </button>
-                                <button class="btn btn-success">
-                                    <span class="glyphicon glyphicon-trash"></span> Xóa
-                                </button>
-                        
-                                <button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                                    <span class="glyphicon glyphicon-search"></span> Search
-                                </button>
-                                <div class="collapse" id="navbarCollapse">
-                                    <div class="fl">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                        <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -182,32 +212,28 @@
                          </tr> 
                         </thead> 
                         <tbody><tr> 
-                         <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                         </td> 
+                         <td><input type="checkbox"></td>
                          <td class="hidden-xs">1</td> 
                          <td>Nguyễn văn A</td> 
                          <td>a@gmail.com</td>
                          <td>admin</td> 
                         </tr> 
                         <tr> 
-                         <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                         </td> 
+                        <td><input type="checkbox"></td>
                          <td class="hidden-xs">2</td> 
                          <td>Nguyễn văn B</td> 
                          <td>b@gmail.com</td> 
                          <td>admin</td> 
                         </tr> 
                         <tr> 
-                         <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                         </td> 
+                        <td><input type="checkbox"></td>
                          <td class="hidden-xs">3</td> 
                          <td>Nguyễn văn C</td> 
                          <td>c@gmail.com</td> 
                          <td>admin</td> 
                         </tr> 
                         <tr> 
-                         <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                         </td> 
+                        <td><input type="checkbox"></td> 
                          <td class="hidden-xs">4</td> 
                          <td>Nguyễn văn D</td> 
                          <td>d@gmail.com</td> 
@@ -236,7 +262,7 @@
                       </div> 
                      </div> 
                     </div> 
-                   </div>
+                </div>
             </div>
 
             <div id="qldm" class="tab-pane fade">
@@ -581,8 +607,6 @@
                 
             }
         });
-
-
     </script>
 </body>
 </html>
