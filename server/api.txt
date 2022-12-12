@@ -1,0 +1,7 @@
+File này ghi các link api của back-end
++ Đăng nhập: /api/auth/login (POST)
+    - body: 'username', 'password'
++ Đăng xuất: /api/auth/ (POST)
+    - body:
++ Đăng ký: /api/auth/signup?type={type} (POST) // type thể hiện loại tài khoản
+    - body: 'name', 'username', 'password'

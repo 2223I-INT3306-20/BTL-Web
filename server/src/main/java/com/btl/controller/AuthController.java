@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Collections;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -40,21 +42,20 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginDto){
         User user = userRepo.findByUsername(loginDto.getUsername()).get();
-
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsername(), loginDto.getPassword()));
-
+        //System.out.println(user.getFirstRole());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return ResponseEntity.ok("User signed-in successfully!.");
+        return ResponseEntity.ok(user.getFirstRole());
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/logout") //chỗ này không cần Response, xử lý logout luôn, không return
     public ResponseEntity<?> logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return ResponseEntity.ok("Log-out successfully!");
+        return ResponseEntity.ok("LOG_OUT");
     }
 
     @PostMapping("/signup")
@@ -71,13 +72,13 @@ public class AuthController {
         } else if (type.equals("service")) {
             typeRole = "ROLE_SERVICE";
         } else {
-            return ResponseEntity.ok("Type not support!!");
+            return ResponseEntity.ok("NOT_SUPPORT");
         }
 
         System.out.println("Created " + typeRole);
 
         if(userRepo.existsByUsername(signUpDto.getUsername())){
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("ALREADY_TAKEN", HttpStatus.BAD_REQUEST);
         }
 
         User user = new User();
@@ -90,7 +91,7 @@ public class AuthController {
 
         userRepo.save(user);
 
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok("SUCCESSFULLY");
 
     }
 }

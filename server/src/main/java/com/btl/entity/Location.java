@@ -3,7 +3,7 @@ package com.btl.entity;
 import lombok.Data;
 
 @Data
-public abstract class Location {
+public class Location {
 
     private long locationId;
     private String locationName;

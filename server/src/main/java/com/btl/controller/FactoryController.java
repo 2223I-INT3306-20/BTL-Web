@@ -1,6 +1,7 @@
 package com.btl.controller;
 
-import com.btl.entity.Product;
+import com.btl.entity.Products;
+import com.btl.entity.Products;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 //@RolesAllowed("ROLE_FACTORY")
+@CrossOrigin(origins = "*")
 @RequestMapping("/factory")
 public class FactoryController {
 
@@ -20,7 +22,7 @@ public class FactoryController {
     /* --------------------------------------- 3 nhiệm vụ đầu -------------------------------------------*/
     @PostMapping("/add")
     public void addProduct(@RequestParam String mtd, @RequestParam long id, @RequestParam long quantity) {
-        Product product = new Product();
+        Products product = new Products();
         if(mtd.equals("in")) {
             //method = in => nhập các sản phẩm mới sản xuất vào
             System.out.println("Nhap sp moi vao kho!");
@@ -38,15 +40,15 @@ public class FactoryController {
         //Thêm một sản phẩm mới vào DB với số lượng là quantity (Nhập các lô sản phẩm mới vừa sản xuất vào kho.)
     }
 
-    private void importProduct(Product product, long quantity) {
+    private void importProduct(Products product, long quantity) {
         System.out.println("Nhap thanh cong");
     }
 
-    private void exportToDealer(Product product, long dealerId, long quantity) {
+    private void exportToDealer(Products product, long dealerId, long quantity) {
         System.out.println("Xuat den " + dealerId + " thanh cong!");
     }
 
-    private void getFailProduct(Product product, long serviceId, long quantity) {
+    private void getFailProduct(Products product, long serviceId, long quantity) {
         System.out.println("Nhap " + quantity + " pham loi tu " + serviceId + " thanh cong");
     }
 

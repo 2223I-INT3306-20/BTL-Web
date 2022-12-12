@@ -1,10 +1,11 @@
 package com.btl.controller;
 
-import com.btl.entity.Product;
+import com.btl.entity.Products;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class DealerController {
 
