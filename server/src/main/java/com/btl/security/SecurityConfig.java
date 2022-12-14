@@ -36,14 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/test/**").permitAll()// dùng để test API mà không cần đăng nhập, dùng trước khi chuyển về /api để quản lý !
                 .antMatchers("/products").permitAll()
-                .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/admin/**").permitAll()
                 .antMatchers("/factory/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FACTORY")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
     }
-
+    //hasAnyAuthority("ROLE_ADMIN")
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)

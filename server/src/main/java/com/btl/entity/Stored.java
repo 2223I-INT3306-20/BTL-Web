@@ -1,6 +1,8 @@
 package com.btl.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,6 +22,11 @@ public class Stored {
     private int locationName; // chứa thông tin nơi lưu kho
     // factory -> 1000, dealer -> 2000, service -> 3000 (kho nào, trung tâm bảo hành nào ...)
 
-    @OneToMany(mappedBy = "location")
-    private Set<Products> products;
+//    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @Fetch(value= FetchMode.SELECT)
+//    private Set<Products> products;
+
+    public String getLocationInfo() {
+        return locationType + ", " + locationName;
+    }
 }

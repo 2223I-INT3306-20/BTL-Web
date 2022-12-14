@@ -1,12 +1,24 @@
 package com.btl.controller;
 
+import com.btl.dto.OptionDTO;
+import com.btl.dto.ProductDTO;
+import com.btl.entity.Options;
 import com.btl.entity.Products;
 import com.btl.entity.Products;
+import com.btl.repo.LocationRepo;
+import com.btl.repo.OptionRepo;
+import com.btl.repo.ProductRepo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,30 +26,99 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping("/factory")
 public class FactoryController {
+    @Autowired
+    ProductRepo productRepo;
+    @Autowired
+    OptionRepo optionRepo;
+    @Autowired
+    LocationRepo locationRepo;
 
-    @GetMapping("/test")
-    public ResponseEntity<?> getTest() {
-        return ResponseEntity.ok("test successfully!!");
+    @GetMapping("/allProduct")
+    @ResponseBody
+    public List<Products> getAllProduct() {
+        List<Products> products = new ArrayList<>();
+        Iterable<Products> productsAll = productRepo.findAll();
+        for (Products product : productsAll) {
+            products.add(product);
+        }
+        return products;
     }
+
+
     /* --------------------------------------- 3 nhiệm vụ đầu -------------------------------------------*/
-    @PostMapping("/add")
-    public void addProduct(@RequestParam String mtd, @RequestParam long id, @RequestParam long quantity) {
-        Products product = new Products();
-        if(mtd.equals("in")) {
-            //method = in => nhập các sản phẩm mới sản xuất vào
-            System.out.println("Nhap sp moi vao kho!");
-            importProduct(product, quantity);
-        } else if (mtd.equals("out")) {
-            //method = out => xuất các sản phẩm đến các đại lý
-            System.out.println("Xuat cac sp moi den cac dai ly");
-            exportToDealer(product, id, quantity);
-        } else if (mtd.equals("fail")){
-            //method = fail => Nhập các sản phẩm lỗi từ các trung tâm bảo hành
-            System.out.println("Nhap cac san pham loi thanh cong");
-            getFailProduct(product, id, quantity);
+    @PostMapping("/makeNew")
+    public ResponseEntity<?> makeNewProduct(@RequestParam long quantity, @RequestBody ProductDTO productDTO) {
+        //sản xuất các sản phẩm mới vào kho
+
+        Products product = productRepo.findByProductSku(productDTO.getProductSku());
+        if (product == null) {
+            product = new Products();
+            product.setProductSku(productDTO.getProductSku());
+            product.setProductName(productDTO.getProductName());
+            product.setProductPrice(productDTO.getProductPrice());
+            product.setProductWeight(productDTO.getProductWeight());
+            product.setProductImg(productDTO.getProductImg());
+            product.setProductCategoryId(productDTO.getProductCategoryId());
+            product.setProductMfg(productDTO.getProductMfg());
+            product.setOption(optionRepo.findOptionsByOptionId(productDTO.getOptionId()));
+            product.setProductStock(quantity);
+            //product.setLocation(locationRepo.findByLocationType("FACTORY"));
+        } else {
+            product.setProductStock(product.getProductStock() + quantity);
         }
 
-        //Thêm một sản phẩm mới vào DB với số lượng là quantity (Nhập các lô sản phẩm mới vừa sản xuất vào kho.)
+        productRepo.save(product);
+
+        return ResponseEntity.ok("SUCCESS");
+
+    }
+    @PostMapping("/toDealer") //chuyển số lượng sản phẩm cho của hàng.
+    public ResponseEntity<?> exportToDealer(@RequestParam long productId, @RequestParam long quantity) {
+        Products products = productRepo.findByProductId(productId);
+        if (quantity > products.getProductStock() || quantity < 0) {
+            return ResponseEntity.ok("QUANTITY IS'NT AVAILABLE!");
+        } else {
+            Products newProduct = products;
+            newProduct.setProductStock(quantity);
+            products.setProductStock(products.getProductStock() - quantity);
+            productRepo.save(newProduct);
+            productRepo.save(products);
+
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/createNewOption")
+    public ResponseEntity<?> createNewOption(@RequestBody OptionDTO optionDTO) {
+        Options options = optionRepo.findByOptionName(optionDTO.getOptionName()).get();
+        if (options != null) {
+            return new ResponseEntity<>("OPTION_AVAILABLE", HttpStatus.BAD_REQUEST);
+        }
+
+        Options newOption = new Options();
+        newOption.setOptionName(optionDTO.getOptionName());
+        newOption.setScreenSize(optionDTO.getScreenSize());
+        newOption.setBattery(optionDTO.getBattery());
+        newOption.setCpuBrand(optionDTO.getCpuBrand());
+        newOption.setCpuName(optionDTO.getCpuName());
+        newOption.setRam(optionDTO.getRam());
+        newOption.setRom(optionDTO.getRom());
+        newOption.setGpu(optionDTO.getGpu());
+
+        optionRepo.save(newOption);
+
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @GetMapping("/allOption")
+    @ResponseBody
+    public List<Options> allOption() {
+        List<Options> options = new ArrayList<>();
+        Iterable<Options> allOption = optionRepo.findAll();
+        for (Options option : allOption) {
+            options.add(option);
+        }
+        return options;
     }
 
     private void importProduct(Products product, long quantity) {

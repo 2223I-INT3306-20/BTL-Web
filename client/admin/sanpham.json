@@ -1,32 +1,122 @@
 [
-    {
-        "stt":"1",
-        "ten":"Macbook",
-        "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
-        "slnhap": "50",
-        "slxuat": "40",
-        "gianhap": "10.0000",
-        "giaban": "20.000",
-        "loi": "100.000"
-    }, 
-    { 
-        "stt":"2",
-        "ten":"ASUS",
-        "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
-        "slnhap": "60",
-        "slxuat": "50",
-        "gianhap": "30.0000",
-        "giaban": "40.000",
-        "loi": "200.000"
-    }, 
-    { 
-        "stt":"3", 
-        "ten":"DELL", 
-        "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
-        "slnhap": "70",
-        "slxuat": "60",
-        "gianhap": "50.0000",
-        "giaban": "60.000",
-        "loi": "300.000"
-    } 
+  {
+    "stt": "1",
+    "ten": "Macbook",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "50",
+    "slxuat": "40",
+    "gianhap": "10.0000",
+    "giaban": "20.000",
+    "loi": "100.000"
+  },
+  {
+    "stt": "2",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "3",
+    "ten": "DELL",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "70",
+    "slxuat": "60",
+    "gianhap": "50.0000",
+    "giaban": "60.000",
+    "loi": "300.000"
+  },
+  {
+    "stt": "4",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "5",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "6",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "7",
+    "ten": "Macbook",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "50",
+    "slxuat": "40",
+    "gianhap": "10.0000",
+    "giaban": "20.000",
+    "loi": "100.000"
+  },
+  {
+    "stt": "8",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "9",
+    "ten": "DELL",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "70",
+    "slxuat": "60",
+    "gianhap": "50.0000",
+    "giaban": "60.000",
+    "loi": "300.000"
+  },
+  {
+    "stt": "10",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "11",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  },
+  {
+    "stt": "12",
+    "ten": "ASUS",
+    "thongso": "Intel, Core i7,11500HZ, Ram 8GB(có thể nâng cấp), SSD 512GB, Màn Hình Oled, Full hd, Phân giải 4k",
+    "slnhap": "60",
+    "slxuat": "50",
+    "gianhap": "30.0000",
+    "giaban": "40.000",
+    "loi": "200.000"
+  }
 ]

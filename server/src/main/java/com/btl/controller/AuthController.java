@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -40,7 +41,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginDto){
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginDto) {
         User user = userRepo.findByUsername(loginDto.getUsername()).get();
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsername(), loginDto.getPassword()));
@@ -52,16 +53,15 @@ public class AuthController {
     @PostMapping("/logout") //chỗ này không cần Response, xử lý logout luôn, không return
     public ResponseEntity<?> logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return ResponseEntity.ok("LOG_OUT");
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestParam String type, @RequestBody SignUpDTO signUpDto){
-    //type đầu vào sẽ nhận type: admin, dealer, service, factory.
-        System.out.println("Created " + type);
+    public ResponseEntity<?> registerUser(@RequestParam String type, @RequestBody SignUpDTO signUpDto) {
+        //type đầu vào sẽ nhận type: admin, dealer, service, factory.
         String typeRole = "";
         if (type.equals("admin")) {
             typeRole = "ROLE_ADMIN";
@@ -77,7 +77,7 @@ public class AuthController {
 
         System.out.println("Created " + typeRole);
 
-        if(userRepo.existsByUsername(signUpDto.getUsername())){
+        if (userRepo.existsByUsername(signUpDto.getUsername())) {
             return new ResponseEntity<>("ALREADY_TAKEN", HttpStatus.BAD_REQUEST);
         }
 
@@ -94,4 +94,6 @@ public class AuthController {
         return ResponseEntity.ok("SUCCESSFULLY");
 
     }
+
+
 }
