@@ -1,36 +1,36 @@
-//document.getElementById('button1').addEventListener('click', getExternal);
-var account = document.getElementById('acc');
-var pass = document.getElementById('pass');
+const form = {
+    acc: document.querySelector("#acc"),
+    password: document.querySelector("#pass"),
+    submit: document.querySelector("#submit"),
+};
+let button = form.submit.addEventListener("click", (e) => {
+    e.preventDefault();
+    const endpoint = "http://localhost:8080/api/auth/login";
 
-// Get external API data
-function login() {
-    fetch('http://localhost:8080/login',{
-
-
-    // Adding method type
+    fetch(endpoint, {
         method: "POST",
-
-        // Adding body or contents to send
-        body: JSON.stringify({
-        acc: account,
-        pass: pass,
-        userId: 1
-    }),
-
-        // Adding headers to the request
+    
         headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-})
-        .then(function(res){
-            return res.json();
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: form.acc.value,
+            password: form.password.value,
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            // code here //
+            if (data.error) {
+                alert("Error Password or Username"); /*displays error message*/
+            } else {
+                window.open(
+                    "./admin/admin.html", "_self");
+            }
         })
-        .then(function(data) {
-            // This is an array so we have to loop through it
-            alert(data);
-
-        })
-        .catch(function(err){
+        .catch((err) => {
             console.log(err);
         });
-}
+});

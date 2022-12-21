@@ -8,9 +8,11 @@ import com.btl.entity.Products;
 import com.btl.repo.LocationRepo;
 import com.btl.repo.OptionRepo;
 import com.btl.repo.ProductRepo;
+import com.btl.response.ProductResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,11 +38,19 @@ public class FactoryController {
 
     @GetMapping("/allProduct")
     @ResponseBody
-    public List<Products> getAllProduct() {
-        List<Products> products = new ArrayList<>();
+    public List<ProductResponse> getAllProduct() {
+        List<ProductResponse> products = new ArrayList<>();
         Iterable<Products> productsAll = productRepo.findAll();
         for (Products product : productsAll) {
-            products.add(product);
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setName(product.getProductName());
+            productResponse.setInfo(product.getOption().getOptionInfo());
+            productResponse.setGiaXuat(100);
+            productResponse.setGiaNhap(90);
+            productResponse.setSlXuat(90);
+            productResponse.setSlNhap(100);
+
+            products.add(productResponse);
         }
         return products;
     }
@@ -90,12 +101,16 @@ public class FactoryController {
 
     @PostMapping("/createNewOption")
     public ResponseEntity<?> createNewOption(@RequestBody OptionDTO optionDTO) {
-        Options options = optionRepo.findByOptionName(optionDTO.getOptionName()).get();
-        if (options != null) {
-            return new ResponseEntity<>("OPTION_AVAILABLE", HttpStatus.BAD_REQUEST);
-        }
+//        Options options = optionRepo.findByOptionName(optionDTO.getOptionName()).get();
+//        if (options != null) {
+//            return new ResponseEntity<>("OPTION_AVAILABLE", HttpStatus.BAD_REQUEST);
+//        }
 
         Options newOption = new Options();
+        newOption.setBrandName(optionDTO.getBrandName());
+        newOption.setResolution(optionDTO.getResolution());
+        newOption.setRomType(optionDTO.getRomType());
+        newOption.setScreenType(optionDTO.getScreenType());
         newOption.setOptionName(optionDTO.getOptionName());
         newOption.setScreenSize(optionDTO.getScreenSize());
         newOption.setBattery(optionDTO.getBattery());
@@ -104,6 +119,7 @@ public class FactoryController {
         newOption.setRam(optionDTO.getRam());
         newOption.setRom(optionDTO.getRom());
         newOption.setGpu(optionDTO.getGpu());
+        newOption.setProducts(null);
 
         optionRepo.save(newOption);
 
@@ -116,10 +132,29 @@ public class FactoryController {
         List<Options> options = new ArrayList<>();
         Iterable<Options> allOption = optionRepo.findAll();
         for (Options option : allOption) {
+            option.setProducts(null);
             options.add(option);
         }
         return options;
     }
+
+    @GetMapping("/getByMFG")
+    @ResponseBody
+    public List<Products> getByMfg(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date mfgDate) {
+        List<Products> products = new ArrayList<>();
+        Iterable<Products> getProductByMfg = productRepo.findByProductMfg(mfgDate);
+        for (Products product : getProductByMfg) {
+            products.add(product);
+        }
+        return products;
+    }
+
+    /* Trả về tỷ lệ lỗi của từng loại */
+//    @GetMapping("/faultRate")
+//    public
+
+
+
 
     private void importProduct(Products product, long quantity) {
         System.out.println("Nhap thanh cong");

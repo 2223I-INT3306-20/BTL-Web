@@ -21,10 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:63343")
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -40,14 +41,21 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+//    @Autowired
+//    JwtUtils jwtUtils;
+
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginDto) {
+    @ResponseBody
+    public List<Role> authenticateUser(@RequestBody LoginDTO loginDto) {
         User user = userRepo.findByUsername(loginDto.getUsername()).get();
+        if (user == null) {
+            return null;
+        }
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsername(), loginDto.getPassword()));
         //System.out.println(user.getFirstRole());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return ResponseEntity.ok(user.getFirstRole());
+        return roleRepo.findByName(user.getFirstRole());
     }
 
     @PostMapping("/logout") //chỗ này không cần Response, xử lý logout luôn, không return
@@ -86,7 +94,7 @@ public class AuthController {
         user.setUsername(signUpDto.getUsername());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 
-        Role roles = roleRepo.findByName(typeRole).get();
+        Role roles = roleRepo.findByName(typeRole).get(0);
         user.setRoles(Collections.singleton(roles));
 
         userRepo.save(user);

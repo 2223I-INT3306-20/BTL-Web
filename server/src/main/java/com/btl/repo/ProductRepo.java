@@ -1,11 +1,14 @@
 package com.btl.repo;
 
+import com.btl.entity.Options;
 import com.btl.entity.Products;
 import com.btl.entity.Stored;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface ProductRepo extends JpaRepository<Products, Long> {
 
@@ -14,7 +17,11 @@ public interface ProductRepo extends JpaRepository<Products, Long> {
 
     Optional<Products> findByProductName(String name);
 
-    //Optional<Products> findByLocation(int locationId);
 
     Products findByProductSku(String SKU);
+
+    List<Products> findByProductMfg(Date date);
+
+    Set<Products> findByOption(Options options);
+
 }
