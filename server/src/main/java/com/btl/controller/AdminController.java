@@ -85,7 +85,7 @@ public class AdminController {
         user.setUsername(signUpDTO.getUsername());
         user.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
 
-        Role roles = roleRepo.findByName(typeRole).get();
+        Role roles = roleRepo.findByName(typeRole).get(0);
         user.setRoles(Collections.singleton(roles));
 
         userRepo.save(user);
