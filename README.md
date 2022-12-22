@@ -35,5 +35,5 @@ Vai trò của các bên tham gia như sau:
 ### Thông tin chương trình
 
 - Back-end   : Spring Boot
-- Front-end  : 
-- Database   : 
+- Front-end  : Bootstrap
+- Database   : MySQL + Spring Boot JPA
