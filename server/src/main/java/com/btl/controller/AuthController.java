@@ -6,10 +6,13 @@ import com.btl.dto.LoginDTO;
 import com.btl.dto.SignUpDTO;
 import com.btl.repo.RoleRepo;
 import com.btl.repo.UserRepo;
+import com.btl.response.AuthResponse;
+import com.btl.service.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:63343")
@@ -41,21 +41,21 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    JwtUtils jwtUtils;
+    @Autowired
+    private TokenAuthenticationService tokenAuthenticationService;
 
     @PostMapping("/login")
     @ResponseBody
-    public List<Role> authenticateUser(@RequestBody LoginDTO loginDto) {
-        User user = userRepo.findByUsername(loginDto.getUsername()).get();
-        if (user == null) {
-            return null;
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+            User user = userRepo.findByUsername(loginDTO.getUsername()).get();
+            String accessToken = tokenAuthenticationService.generateTokenLogin(user);
+            AuthResponse response = new AuthResponse(user.getUsername(), accessToken);
+            return ResponseEntity.ok().body(response);
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getUsername(), loginDto.getPassword()));
-        //System.out.println(user.getFirstRole());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return roleRepo.findByName(user.getFirstRole());
     }
 
     @PostMapping("/logout") //chỗ này không cần Response, xử lý logout luôn, không return
