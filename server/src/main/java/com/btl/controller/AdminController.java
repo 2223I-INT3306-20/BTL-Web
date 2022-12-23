@@ -12,13 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63343")
+@CrossOrigin(origins = "http://localhost:63344")
+@RolesAllowed("ROLE_ADMIN")
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -35,7 +37,7 @@ public class AdminController {
         return ResponseEntity.ok("test succesfully!!");
     }
 
-    @GetMapping("/getLine")
+    @GetMapping("/getLineProduct")
     public ResponseEntity<?> getLineProducts() {
         return null;
     }
@@ -99,7 +101,7 @@ public class AdminController {
         List<User> users = new ArrayList<>();
         Iterable<User> allUser = userRepo.findAll();
         for (User user : allUser) {
-            user.setPassword("hided");
+            //user.setPassword("hided");
             users.add(user);
         }
         return users;

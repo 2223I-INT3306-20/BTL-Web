@@ -116,6 +116,7 @@ body {
     background: linear-gradient(270deg, transparent, #03e9f4);
 }
 
+
 .login-box a span:nth-child(4) {
     bottom: -100%;
     left: 0;
@@ -124,10 +125,14 @@ body {
     background: linear-gradient(360deg, transparent, #03e9f4);
 }
 
-@media screen and (max-width:800px){
+@media screen and (max-width:576px){
+    picture {
+        display: none;
+    }
+
     .login-box {
-        position:absolute;
-        width: 65%;
+        position:relative;
+        width: 100%;
         margin: auto;
     }
 }

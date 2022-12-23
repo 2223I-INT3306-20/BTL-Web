@@ -2,31 +2,27 @@ package com.btl.controller;
 
 import com.btl.dto.OptionDTO;
 import com.btl.dto.ProductDTO;
+import com.btl.entity.OptionGroup;
 import com.btl.entity.Options;
 import com.btl.entity.Products;
 import com.btl.entity.Products;
 import com.btl.repo.LocationRepo;
+import com.btl.repo.OptionGroupRepo;
 import com.btl.repo.OptionRepo;
 import com.btl.repo.ProductRepo;
 import com.btl.response.ProductResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-//@RolesAllowed("ROLE_FACTORY")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:63344")
 @RequestMapping("/factory")
 public class FactoryController {
     @Autowired
@@ -36,6 +32,9 @@ public class FactoryController {
     @Autowired
     LocationRepo locationRepo;
 
+    @Autowired
+    OptionGroupRepo optionGroupRepo;
+
     @GetMapping("/allProduct")
     @ResponseBody
     public List<ProductResponse> getAllProduct() {
@@ -43,7 +42,7 @@ public class FactoryController {
         Iterable<Products> productsAll = productRepo.findAll();
         for (Products product : productsAll) {
             ProductResponse productResponse = new ProductResponse();
-            productResponse.setName(product.getProductName());
+            productResponse.setName(product.getOption().getOptionName());
             productResponse.setInfo(product.getOption().getOptionInfo());
             productResponse.setGiaXuat(100);
             productResponse.setGiaNhap(90);
@@ -136,6 +135,18 @@ public class FactoryController {
             options.add(option);
         }
         return options;
+    }
+
+    @GetMapping("/allGroupOption")
+    @ResponseBody
+    public List<OptionGroup> allGroup() {
+        List<OptionGroup> groups = new ArrayList<>();
+        Iterable<OptionGroup> allGroup = optionGroupRepo.findAll();
+        for (OptionGroup group : allGroup) {
+            group.setOptions(null);
+            groups.add(group);
+        }
+        return groups;
     }
 
     @GetMapping("/getByMFG")

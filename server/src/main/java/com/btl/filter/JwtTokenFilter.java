@@ -7,6 +7,7 @@ import com.btl.repo.UserRepo;
 import com.btl.service.TokenAuthenticationService;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -34,22 +35,23 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Autowired
     private TokenAuthenticationService jwtUtil;
 
-    private UserDetails getUserDetails(String token) {
-        User userDetails = new User();
+    private User getUserDetails(String token) {
+        User user = new User();
         Claims claims = jwtUtil.parseClaims(token);
+        System.out.println(claims);
         String subject = (String) claims.get(Claims.SUBJECT);
-        String roles = (String) claims.get("roles");
+        String role = (String) claims.get("roles");
 
-        roles = roles.replace("[", "").replace("]", "");
-        String[] roleNames = roles.split(",");
-        Role role = roleRepo.findByName(roleNames[0]).get(0);
-        userDetails.setRoles(Collections.singleton(role));
-
+        Role userRole = roleRepo.findByName(role).get(0);
+        //user.setRoles(Collections.singleton(userRole));
+        user.addRole(userRole);
         String[] jwtSubject = subject.split(",");
 
-        userDetails.setUsername(jwtSubject[1]);
-
-        return userDetails;
+        user.setUsername(jwtSubject[1]);
+        user.setId(Integer.parseInt(jwtSubject[0]));
+        //System.out.println(role.getName());
+        System.out.println(user);
+        return user;
     }
 
     @Override
@@ -86,10 +88,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private void setAuthenticationContext(String token, HttpServletRequest request) {
-        UserDetails userDetails = getUserDetails(token);
-
+        //UserDetails userDetails = getUserDetails(token);
+        User user = getUserDetails(token);
         UsernamePasswordAuthenticationToken
-                authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request));

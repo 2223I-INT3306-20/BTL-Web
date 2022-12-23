@@ -1,23 +1,13 @@
 package com.btl.service;
 
 import com.btl.entity.User;
-import com.btl.repo.UserRepo;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security
-        .authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
-
-import static java.util.Collections.emptyList;
 
 @Component
 @Service
@@ -59,27 +49,6 @@ public class TokenAuthenticationService {
         }
 
         return false;
-    }
-
-    public static Authentication getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            // parse the token.
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
-            System.out.println(user);
-            return user != null ?
-                    new UsernamePasswordAuthenticationToken(user, null) :
-                    null;
-        }
-        return null;
-    }
-
-    public String getSubject(String token) {
-        return parseClaims(token).getSubject();
     }
 
     public Claims parseClaims(String token) {

@@ -17,16 +17,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63343")
-@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:63344")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -49,23 +46,27 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             User user = userRepo.findByUsername(loginDTO.getUsername()).get();
             String accessToken = tokenAuthenticationService.generateTokenLogin(user);
-            AuthResponse response = new AuthResponse(user.getUsername(), accessToken);
+            AuthResponse response = new AuthResponse(user.getUsername(), user.getName() , accessToken, user.getFirstRole());
             return ResponseEntity.ok().body(response);
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
-    @PostMapping("/logout") //chỗ này không cần Response, xử lý logout luôn, không return
+
+    /*Logout xử lý bên client*/
+
+   /* @PostMapping("/logout")
     public ResponseEntity<?> logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return ResponseEntity.ok("LOG_OUT");
-    }
+    }*/
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestParam String type, @RequestBody SignUpDTO signUpDto) {

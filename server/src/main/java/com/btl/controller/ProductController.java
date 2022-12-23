@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.security.RolesAllowed;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:63344")
 @RequestMapping("/api/products")
 public class ProductController {
 
@@ -19,6 +19,8 @@ public class ProductController {
     public ResponseEntity<?> getAllProducts() {
         return null;
     }
+
+
 
 
 

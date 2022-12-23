@@ -1,31 +1,21 @@
 package com.btl.response;
 
+import lombok.Data;
 
+@Data
 public class AuthResponse {
     private String username;
+
+    private String name;
+
     private String accessToken;
+    private String role;
 
-    public AuthResponse() { }
-
-    public AuthResponse(String username, String accessToken) {
+    public AuthResponse(String username, String name, String accessToken, String role) {
         this.username = username;
+        this.name = name;
         this.accessToken = accessToken;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+        this.role = role;
     }
 
 }

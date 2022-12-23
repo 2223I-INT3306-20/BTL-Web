@@ -3,7 +3,7 @@ package com.btl.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -23,7 +23,7 @@ public class Sold {
 
     private String soldPrice; //bảo hành trong bao ngày
 
-    private int warrantyDate;
+    private int warrantyDate; //tính theo tháng
 
     private long quantity;
 
