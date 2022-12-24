@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Trung tâm bảo hành</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="/client/css/bootstrap.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand ps-3" href="#">Production Move</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>USER</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Cài đặt</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/client/login.html">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav" class="tab-content">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Thống kê</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#slsp" aria-expanded="true" aria-controls="slsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Số liệu sản phẩm
+                            </a>
+                            <div>
+                                <nav class="sb-sidenav-menu-nested">
+                                    <a class="nav-link active" data-bs-toggle="pill" href="#sptt">Theo tháng</a>
+                                    <a class="nav-link" data-bs-toggle="pill" href="#sptq">Theo quý</a>
+									<a class="nav-link" data-bs-toggle="pill" href="#sptn">Theo năm</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer" style="text-align: center;">
+                        <div><b style="color: white;">Thành viên nhóm</b></div>
+                        <a>Hồ Ngọc Lâm</a><br>
+                        <a>Đinh Duy Mạnh</a><br>
+                        <a>Nguyễn Viết Mạnh</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="tab-pane fade show active" id="sptt" style="width:100%">
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Thống kê số liệu sản phẩm theo tháng</h1><br>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="text-align: center;">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        <i>Biểu đồ thể hiển số lượng sản phẩm đã được bảo hành theo tháng (T1/2022-T12/2022)</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="spdbtt" height="600" width="600"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Bảng phân tích số lượng sản phẩm đã bảo hành theo tháng
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="datatablesSimple4">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Thông số sản phẩm</th>
+                                                <th>Số lượng</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Thông số sản phẩm</th>
+                                                <th>Số lượng</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Macbook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>DELL</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>ASUS</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>11</td>
+                                                <td>ASUS</td>
+                                                <td>66</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>12</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>$170,750</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="sptq" style="width:100%">
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Thống kê số liệu sản phẩm theo quý</h1><br>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="text-align: center;">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        <i>Biểu đồ thể hiển số lượng sản phẩm đã được bảo hành theo quý năm 2022</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="spdbtq" height="600" width="600"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Bảng phân tích số lượng sản phẩm đã bảo hành theo quý
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="datatablesSimple5">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Thông số sản phẩm</th>
+                                                <th>Số lượng</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Thông số sản phẩm</th>
+                                                <th>Số lượng</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Macbook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>DELL</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>ASUS</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>11</td>
+                                                <td>ASUS</td>
+                                                <td>66</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>12</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>$170,750</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="sptn" style="width:100%">
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Thống kê số liệu sản phẩm theo năm</h1><br>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="text-align: center;">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        <i>Biểu đồ thể hiển số lượng sản phẩm đã được bảo hành theo năm (2017-2022)</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="spdbtn" height="600" width="600"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Bảng phân tích số lượng sản phẩm đã bảo hành theo năm
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="datatablesSimple6">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Thông số sản phẩm</th>
+                                                <th>Số lượng</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Thông số sản phẩm</th>
+                                                <th>Số lượng</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Macbook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>DELL</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>ASUS</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>60</td>
+                                            </tr>
+                                            <tr>
+                                                <td>11</td>
+                                                <td>ASUS</td>
+                                                <td>66</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>12</td>
+                                                <td>HP</td>
+                                                <td>61</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Vivobook</td>
+                                                <td>63</td>
+                                                <td>$170,750</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Tuf</td>
+                                                <td>66</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/client/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="/client/factory/factory.js"></script>
+    </body>
+</html>

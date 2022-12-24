@@ -43,15 +43,18 @@
         .navbar_acc-avt {width: 30px;height: 30px;border-radius: 50%;margin-top: -4px;}
         ul li:hover {cursor: pointer;}
         th {background-color:cornflowerblue;}
-        .navbar{margin-bottom: 0px;}
-        .w3-sidebar{background-color: #222;color: white;position: absolute !important;height: auto;}
+        .navbar{margin-bottom: 0px;position: fixed;width: 100%;z-index: 1;}
+        .w3-sidebar{background-color: #222;color: white;position: fixed;height: auto;}
         .w3-bar-block .w3-bar-item{text-align: center;}
         .modal {margin:auto;width: 860px;top: 12%;}
         .form-control {width: 360px;}
         .error {color: red;}
         @media (max-width:800px) {
             .modal-content {width: 60%;}
-            .form-control {width: 50%;}
+            .form-control {width: 100%;}
+            #main {
+                margin-top: 300px;
+            }
         }
     </style>
 </head>
@@ -60,7 +63,19 @@
         <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a>
-            <a class="navbar-brand" href="#" >Production Move</a>
+            <a class="navbar-brand" href="#" style="margin-top: -7px;">Production Move
+                <button id="bt" class="w3-button" 
+        onclick="if(document.getElementById('spoiler') .style.display=='none') {
+                    document.getElementById('spoiler').style.display='';
+                    document.getElementById('spoiler').style.marginTop='51px';
+                    document.getElementById('spoiler').style.width = '280px';
+                }
+                else{
+                    document.getElementById('spoiler').style.display='none';
+                    document.getElementById('main').style.marginLeft = 'auto';
+                }">&#9776;
+    </button>
+            </a>
             <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a>
           </div>
           <ul class="nav navbar-nav">
@@ -125,20 +140,8 @@
         <a class="w3-bar-item w3-button"><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"> 20020438-Đinh Duy Mạnh</a>
         <a class="w3-bar-item w3-button"><img src="/client/lap.jpg" alt="" class="navbar_acc-avt"> 20020440-Nguyễn Viết Mạnh</a>
 	</div>
-	<button id="bt" class="w3-button w3-teal w3-xlarsge" style="margin-left: -98%;" 
-        onclick="if(document.getElementById('spoiler') .style.display=='none') {
-                    document.getElementById('spoiler').style.display='';
-                    document.getElementById('spoiler').style.width = '18.75%';
-                    document.getElementById('main').style.marginLeft = '18.75%';
-                    document.getElementById('bt').style.marginLeft = '-60%';
-                }
-                else{
-                    document.getElementById('spoiler').style.display='none';
-                    document.getElementById('main').style.marginLeft = 'auto';
-                    document.getElementById('bt').style.marginLeft = '-98%';
-                }">&#9776;
-    </button>
-    <br>
+	
+    <br><br>
     <div id="main" class="container">
         <div class="tab-content">
             <div id="qlsp" class="tab-pane fade in active">
