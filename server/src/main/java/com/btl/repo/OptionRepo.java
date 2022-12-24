@@ -9,4 +9,6 @@ public interface OptionRepo extends JpaRepository<Options, Long> {
     Optional<Options> findByOptionName(String name);
 
     Options findOptionsByOptionId(long id);
+
+    Options findOptionsByScreenSize(double size);
 }

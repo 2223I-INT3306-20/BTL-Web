@@ -5,18 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-//@NamedQuery(name="Products.findAll", query="SELECT * FROM product")
 @Table(name = "product")
 public class Products {
 
@@ -33,10 +29,9 @@ public class Products {
     private String productImg;
     private int productCategoryId;
 
-
-
     @Temporal(TemporalType.DATE)
     private Date productMfg; // ngày sản xuất
+    private long warranty;
     private long productStock;
 
 
@@ -45,14 +40,14 @@ public class Products {
     @JsonBackReference
     private Options option;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private Stored location;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Stored location;
 
-//    @JsonIgnore
-//    public String getInfo() {
-//        return productSku + ", " + productName + ", " + productPrice + ", " + option.getOptionInfo() + ", " + location.getLocationInfo();
-//    }
+    @JsonIgnore
+    public String getInfo() {
+        return productSku + ", " + productName + ", " + productPrice + ", " + option.getOptionInfo() + ", " + location.getLocationInfo();
+    }
 
 
 }

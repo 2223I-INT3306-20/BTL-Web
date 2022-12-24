@@ -9,7 +9,7 @@ let button = form.submit.addEventListener("click", (e) => {
 
     fetch(login, {
         method: "POST",
-    
+
         headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
@@ -28,16 +28,11 @@ let button = form.submit.addEventListener("click", (e) => {
             } else {
                 var tokenStr = data.accessToken;
                 var name = data.name;
-                var role = data.role;
                 console.log(tokenStr)
                 window.sessionStorage.setItem('token', tokenStr);
                 window.sessionStorage.setItem('name', name)
-                if (role === "ROLE_ADMIN") {
-                    window.open(
-                        "./admin/admin.html", "_self");
-                } else if (role === "ROLE_FACTORY") {
-                    window.open("./factory/factory.html", "_self");
-                }
+                window.open(
+                    "./admin/admin.html", "_self");
             }
         })
         .catch((err) => {

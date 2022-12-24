@@ -128,7 +128,7 @@ new Chart(ctx1, {
             tension: 0.1
         }, {
             label: 'ASUS',
-            data: [04,12,25,60,36,56,59, 80, 81, 56, 55, 80],
+            data: [4,12,25,60,36,56,59, 80, 81, 56, 55, 80],
             fill: false,
             borderColor: 'blue',
             backgroundColor: 'blue',
@@ -353,3 +353,8 @@ const ctx4 = document.getElementById('myChart1');
                 maintainAspectRatio: false
             }
         });
+
+function logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.clear();
+}
