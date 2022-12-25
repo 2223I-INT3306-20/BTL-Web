@@ -107,7 +107,9 @@ const ctx = document.getElementById('myChart');
                 y: {
                 beginAtZero: true
                 }
-            }
+            },
+            responsive: true,
+            maintainAspectRatio: false
             }
   });
 
@@ -140,6 +142,10 @@ new Chart(ctx1, {
             tension: 0.1
         }
         ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
     }
 });
 
@@ -171,6 +177,10 @@ new Chart(ctx2, {
             tension: 0.1
         }
         ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
     }
 });
 
@@ -202,6 +212,10 @@ new Chart(ctx3, {
             tension: 0.1
         }
         ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
     }
 });
 
@@ -228,11 +242,13 @@ const ctx4 = document.getElementById('myChart1');
             },
             
             options: {
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            }
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
             }
   });
 
@@ -263,7 +279,9 @@ const ctx4 = document.getElementById('myChart1');
                 y: {
                 beginAtZero: true
                 }
-            }
+            },
+            responsive: true,
+            maintainAspectRatio: false
             }
   });
 
@@ -283,6 +301,10 @@ const ctx4 = document.getElementById('myChart1');
                     hoverOffset: 4
                 }]
                 
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
 
@@ -302,6 +324,10 @@ const ctx4 = document.getElementById('myChart1');
                     hoverOffset: 4
                 }]
                 
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
 
@@ -321,6 +347,10 @@ const ctx4 = document.getElementById('myChart1');
                     hoverOffset: 4
                 }]
                 
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
         });
 
