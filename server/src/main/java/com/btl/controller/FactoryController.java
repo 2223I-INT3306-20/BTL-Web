@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63344")
+@CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
 @RequestMapping("/factory")
 public class FactoryController {
     @Autowired

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63344")
+@CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
 @RolesAllowed({"ROLE_ADMIN", "ROLE_SERVICE"})
 @RequestMapping("/service")
 public class ServiceController {

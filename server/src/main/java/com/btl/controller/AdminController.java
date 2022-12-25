@@ -7,6 +7,7 @@ import com.btl.entity.Role;
 import com.btl.entity.User;
 import com.btl.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63344")
+@CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
 @RolesAllowed("ROLE_ADMIN")
 @RequestMapping("/admin")
 public class AdminController {

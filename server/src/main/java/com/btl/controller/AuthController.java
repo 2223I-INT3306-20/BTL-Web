@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63344")
+@CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
 @RequestMapping("/auth")
 public class AuthController {
 
