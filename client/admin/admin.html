@@ -50,13 +50,17 @@
         .modal {margin:auto;width: 860px;top: 12%;}
         .form-control {width: 360px;}
         .error {color: red;}
-        @media (max-width:800px) {
-            .modal-content {width: 60%;}
-            .form-control {width: 100%;}
-            #main {
-                margin-top: 300px;
-            }
-        }
+        @media (max-width:800px) {.modal-content {width: 60%;}.form-control {width: 100%;}#main {margin-top: 300px;}}
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        .search-input{width: 100%;border-radius: 5px;position: relative;box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);}
+        .search-input input{height: 40px;width: 86%;outline: none;border: none;border-radius: 5px;padding: 0 60px 0 20px;font-size: 18px;box-shadow: 0px 1px 5px rgba(0,0,0,0.1);}
+        .search-input.active input{border-radius: 5px 5px 0 0;}
+        .search-input .autocom-box{padding: 0;opacity: 0;pointer-events: none;max-height: 280px;overflow-y: auto;}
+        .search-input.active .autocom-box{padding: 10px 8px;opacity: 1;pointer-events: auto;}
+        .autocom-box li{list-style: none;padding: 6px 0px;display: none;width: 100%;cursor: default;border-radius: 3px;}
+        .search-input.active .autocom-box li{display: block;}
+        .autocom-box li:hover{cursor: pointer;}
+        .search-input .icon{position: absolute;right: 0px;top: 0px;height: 55px;width: 55px;text-align: center;line-height: 55px;font-size: 20px;cursor: pointer;}
     </style>
 </head>
 <body style="background-color:#e4dece;">
@@ -114,29 +118,35 @@
         </button>
         <button class="btn btn-success">
             <span class="glyphicon glyphicon-pencil"></span> Sửa
-        </button>
+        </button><br><br>
 		<a class="w3-bar-item w3-button">Tìm kiếm theo tên</a>
-		<a href="#" class="w3-bar-item w3-button">
+        <div class="search-input">
             <div class="fl">
                 <input type="text" class="form-control" placeholder="Search Name">
-                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+                <button type="button" class="btn btn-secondary" style="color: black;"><i class="glyphicon glyphicon-search"></i></button>
             </div>
-        </a>
+            <div class="autocom-box">
+            </div>
+        </div><br>
 		<a class="w3-bar-item w3-button">Tìm kiếm theo ID</a>
-		<a href="#" class="w3-bar-item w3-button">
+		<div class="search-input">
             <div class="fl">
                 <input type="text" class="form-control" placeholder="Search ID">
-                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+                <button type="button" class="btn btn-secondary" style="color: black;"><i class="glyphicon glyphicon-search"></i></button>
             </div>
-        </a>
+            <div class="autocom-box">
+            </div>
+        </div><br>
         <a class="w3-bar-item w3-button">Tìm kiếm theo thông số</a>
-		<a href="#" class="w3-bar-item w3-button">
+        <div class="search-input">
             <div class="fl">
-                <input type="text" class="form-control" placeholder="Search ">
-                <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="button" class="btn btn-secondary" style="color: black;"><i class="glyphicon glyphicon-search"></i></button>
             </div>
-        </a>
-        <br><br><br><br><br><br><br><br><br><br><br>
+            <div class="autocom-box">
+            </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br>
         <a class="w3-bar-item w3-button">Thành viên nhóm</a>
         <a class="w3-bar-item w3-button"><img src="/client/assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020201-Hồ Ngọc Lâm</a>
         <a class="w3-bar-item w3-button"><img src="/client/assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020438-Đinh Duy Mạnh</a>
@@ -617,5 +627,6 @@
 
     <script src="admin.js"></script>
     <script src="loadOption.js"></script>
+    <script src="autocomplete.js"></script>
 </body>
 </html>
