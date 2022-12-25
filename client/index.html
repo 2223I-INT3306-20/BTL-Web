@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                                    <label for="customCheck1" class="custom-control-label">Remember password</label>
+                                    <!-- <label for="customCheck1" class="custom-control-label">Remember password</label> -->
                                 </div>
                                 <button id="submit" type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
                             </form>
@@ -61,6 +61,20 @@
 
     </div>
 </div>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="polite" aria-atomic="true" data-bs-autohide="false">
+      <div class="toast-header"  style="background-color: red; color: white;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 18 18">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+        <strong class="me-auto">ProductionMove</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" style="background-color: white; color: red;">
+        Thông tin tài khoản hoặc mật khẩu không chính xác
+      </div>
+    </div>
+  </div>
 <footer>
     <!-- place footer here -->
 </footer>

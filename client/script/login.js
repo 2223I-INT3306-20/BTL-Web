@@ -42,12 +42,15 @@ function fetchLogin() {
             password: form.password.value,
         }),
     })
-        .then((response) => response.json())
+        .then(function(response) {
+            if (!response.ok) {
+                toastShow();
+            }
+            return response.json();})
         .then((data) => {
             console.log(data);
-            // code here //
             if (data.error) {
-                alert("Error Password or Username"); /*displays error message*/
+                alert("Error Password or Username");
             } else {
                 var tokenStr = data.accessToken;
                 var name = data.name;
@@ -60,6 +63,10 @@ function fetchLogin() {
                         "./admin/admin.html", "_self");
                 } else if (role === "ROLE_FACTORY") {
                     window.open("./factory/factory.html", "_self");
+                } else if (role === "ROLE_DEALER") {
+                    window.open("./agency/agency.html", "_self");
+                } else if (role === "ROLE_SERVICE") {
+                    window.open("./center/center.html", "_self");
                 }
             }
         })
@@ -78,4 +85,13 @@ document.getElementById("inputPassword").onfocus = function () {
     if (document.getElementById("pass").classList.contains("error")) {
         document.getElementById("pass").classList.remove("error");
     }
+}
+
+function toastShow() {
+    document.getElementById("liveToast").classList.remove("hide");
+    document.getElementById("liveToast").classList.add("show");
+    setTimeout(() => {  
+        document.getElementById("liveToast").classList.remove("show");
+        document.getElementById("liveToast").classList.add("hide");
+    }, 4000);
 }

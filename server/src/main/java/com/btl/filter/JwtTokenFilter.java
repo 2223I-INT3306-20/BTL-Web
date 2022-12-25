@@ -38,7 +38,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private User getUserDetails(String token) {
         User user = new User();
         Claims claims = jwtUtil.parseClaims(token);
-        System.out.println(claims);
+        //System.out.println(claims);
         String subject = (String) claims.get(Claims.SUBJECT);
         String role = (String) claims.get("roles");
 
@@ -50,7 +50,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         user.setUsername(jwtSubject[1]);
         user.setId(Integer.parseInt(jwtSubject[0]));
         //System.out.println(role.getName());
-        System.out.println(user);
         return user;
     }
 

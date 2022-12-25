@@ -17,6 +17,7 @@ function loadOption() {
                     let c7 = document.createElement("td");
                     let c8 = document.createElement("td");
                     let c9 = document.createElement("td");
+                    let o1 = document.createElement("option");
 
                     c1.innerHTML = objArr[i].optionId;
                     c2.innerHTML = objArr[i].brandName;
@@ -27,6 +28,7 @@ function loadOption() {
                     c7.innerHTML = (objArr[i].ram).toString() + " GB";
                     c8.innerHTML = (objArr[i].rom).toString() + " GB " + objArr[i].romType;
                     c9.innerHTML = objArr[i].gpu;
+                    o1.innerHTML = ((i + 1) + ": " + objArr[i].optionName + ", " + objArr[i].cpuBrand + " " + objArr[i].cpuName + ", RAM " + (objArr[i].ram).toString() + " GB" + ", ROM " + (objArr[i].rom).toString() + " GB " );
                     tr.appendChild(c1);
                     tr.appendChild(c2);
                     tr.appendChild(c3);
@@ -37,6 +39,7 @@ function loadOption() {
                     tr.appendChild(c8);
                     tr.appendChild(c9);
                     document.querySelector("#tblOption tbody").appendChild(tr);
+                    document.querySelector("#selectOption").append(o1);
                 }
             }
         }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,8 @@
     <title>ADMIN</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -16,57 +18,199 @@
 
 
     <style type="text/css">
-        body {text-align: center;}
-        .fl {display: flex;left: 0px;}
-        .panel-heading {background-color: whitesmoke;}
-        span.arrow::after {content: "\2BC1";}
-        th.asc span.arrow::after {content: "\2BC5";background-color: whitesmoke;font-weight: bold;}
-        th.desc span.arrow::after {content: "\2BC6";background-color: whitesmoke;font-weight: bold;}
-        .panel-footer {margin: 0px;line-height: 50px;height: 50px;background-color: white;}
-        .pagination {margin: 0px;}
-        .navbar-right {margin-top: 12px;margin-right: 20px;}
-        .container {padding: 0px;}
-        .panel-table .panel-body {padding:0;}
-        .panel-table .panel-body .table-bordered {border-style: none;margin:0;}
-        .panel-table .panel-body .table-bordered > thead > tr > th:first-of-type {text-align:center;  width: 100px;}.panel-table .panel-body .table-bordered > thead > tr > th:last-of-type, .panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {border-right: 0px;}
-        .panel-table .panel-body .table-bordered > thead > tr > th:first-of-type, .panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {border-left: 0px;}
-        .panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td {border-bottom: 0px;}
-        .panel-table .panel-body .table-bordered > thead > tr:first-of-type > th {border-top: 0px;}
-        .panel-table .panel-footer .pagination {margin:0;}
-        .panel-table .panel-footer .col {line-height: 34px;height: 34px;}
-        .panel-table .panel-heading .col h3 {line-height: 30px;height: 30px;}
-        .panel-table .panel-body .table-bordered > tbody > tr > td {line-height: 34px;}
-        .navbar-right {margin-top: 12px;margin-right: 20px;}
-        tr,th,td {text-align: center;}
-        .table>thead>tr>th {vertical-align: middle;}
-        .dropdown-menu {padding: 0px;}
-        #spbh {margin: auto;}
-        .navbar_acc-avt {width: 30px;height: 30px;border-radius: 50%;margin-top: -4px;}
-        ul li:hover {cursor: pointer;}
-        th {background-color:cornflowerblue;}
-        .navbar{margin-bottom: 0px;position: fixed;width: 100%;z-index: 1;}
-        .w3-sidebar{background-color: #222;color: white;position: fixed;height: auto;}
-        .w3-bar-block .w3-bar-item{text-align: center;}
-        .modal {margin:auto;width: 860px;top: 12%;}
-        .form-control {width: 360px;}
-        .error {color: red;}
+        body {
+            text-align: center;
+        }
+
+        .fl {
+            display: flex;
+            left: 0px;
+        }
+
+        .panel-heading {
+            background-color: whitesmoke;
+        }
+
+        span.arrow::after {
+            content: "\2BC1";
+        }
+
+        th.asc span.arrow::after {
+            content: "\2BC5";
+            background-color: whitesmoke;
+            font-weight: bold;
+        }
+
+        th.desc span.arrow::after {
+            content: "\2BC6";
+            background-color: whitesmoke;
+            font-weight: bold;
+        }
+
+        .panel-footer {
+            margin: 0px;
+            line-height: 50px;
+            height: 50px;
+            background-color: white;
+        }
+
+        .pagination {
+            margin: 0px;
+        }
+
+        .navbar-right {
+            margin-top: 12px;
+            margin-right: 20px;
+        }
+
+        .container {
+            padding: 0px;
+        }
+
+        .panel-table .panel-body {
+            padding: 0;
+        }
+
+        .panel-table .panel-body .table-bordered {
+            border-style: none;
+            margin: 0;
+        }
+
+        .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type {
+            text-align: center;
+            width: 100px;
+        }
+
+        .panel-table .panel-body .table-bordered>thead>tr>th:last-of-type,
+        .panel-table .panel-body .table-bordered>tbody>tr>td:last-of-type {
+            border-right: 0px;
+        }
+
+        .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type,
+        .panel-table .panel-body .table-bordered>tbody>tr>td:first-of-type {
+            border-left: 0px;
+        }
+
+        .panel-table .panel-body .table-bordered>tbody>tr:first-of-type>td {
+            border-bottom: 0px;
+        }
+
+        .panel-table .panel-body .table-bordered>thead>tr:first-of-type>th {
+            border-top: 0px;
+        }
+
+        .panel-table .panel-footer .pagination {
+            margin: 0;
+        }
+
+        .panel-table .panel-footer .col {
+            line-height: 34px;
+            height: 34px;
+        }
+
+        .panel-table .panel-heading .col h3 {
+            line-height: 30px;
+            height: 30px;
+        }
+
+        .panel-table .panel-body .table-bordered>tbody>tr>td {
+            line-height: 34px;
+        }
+
+        .navbar-right {
+            margin-top: 12px;
+            margin-right: 20px;
+        }
+
+        tr,
+        th,
+        td {
+            text-align: center;
+        }
+
+        .table>thead>tr>th {
+            vertical-align: middle;
+        }
+
+        .dropdown-menu {
+            padding: 0px;
+        }
+
+        #spbh {
+            margin: auto;
+        }
+
+        .navbar_acc-avt {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-top: -4px;
+        }
+
+        ul li:hover {
+            cursor: pointer;
+        }
+
+        th {
+            background-color: cornflowerblue;
+        }
+
+        .navbar {
+            margin-bottom: 0px;
+            position: fixed;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .w3-sidebar {
+            background-color: #222;
+            color: white;
+            position: fixed;
+            height: auto;
+        }
+
+        .w3-bar-block .w3-bar-item {
+            text-align: center;
+        }
+
+        .modal {
+            margin: auto;
+            width: 860px;
+            top: 12%;
+        }
+
+        .form-control {
+            width: 360px;
+        }
+
+        .error {
+            color: red;
+        }
+
         @media (max-width:800px) {
-            .modal-content {width: 60%;}
-            .form-control {width: 100%;}
+            .modal-content {
+                width: 60%;
+            }
+
+            .form-control {
+                width: 100%;
+            }
+
             #main {
                 margin-top: 300px;
             }
         }
     </style>
 </head>
+
 <body style="background-color:#e4dece;">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a>
-            <a class="navbar-brand" href="#" style="margin-top: -7px;">Production Move
-                <button id="bt" class="w3-button" 
-        onclick="if(document.getElementById('spoiler') .style.display=='none') {
+            <div class="navbar-header">
+                <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a
+                    class="navbar-brand"></a>
+                <a class="navbar-brand" href="#" style="margin-top: -7px;">Production Move
+                    <button id="bt" class="w3-button" onclick="if(document.getElementById('spoiler') .style.display=='none') {
                     document.getElementById('spoiler').style.display='';
                     document.getElementById('spoiler').style.marginTop='51px';
                     document.getElementById('spoiler').style.width = '280px';
@@ -75,34 +219,36 @@
                     document.getElementById('spoiler').style.display='none';
                     document.getElementById('main').style.marginLeft = 'auto';
                 }">&#9776;
-    </button>
-            </a>
-            <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a data-toggle="pill" href="#qlsp">Quản lý danh mục sản phẩm</a></li>
-            <li><a data-toggle="pill" href="#qldsp">Quản lý dòng sản phẩm</a></li>
-            <li><a data-toggle="pill" href="#qltk">Quản lý tài khoản</a></li>
-            <li><a data-toggle="pill" href="#qldm">Quản lý danh mục</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Theo dõi sản phẩm<span class="caret"></span></a>    
-                <ul class="dropdown-menu">
-                    <li><a data-toggle="pill" href="#spdb">Đã bán</a></li>
-                    <li><a data-toggle="pill" href="#spsx">Đã sản xuất</a></li>
-                    <li><a data-toggle="pill" href="#spbh">Đã bảo hành</a></li>
-                </ul>
-            </li>
-          </ul>
-          <ul class="navbar-nav navbar-right">
-            <li><img src="../assets/lap.jpg" alt="" class="navbar_acc-avt"></li>
-            <li>&#8194;</li>
-            <li style="color: white; margin: auto;" id="name"></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Tài khoản của tôi</a></li>                
-                    <li><a href="../index.html" onclick="logout()">Đăng xuất</a></li>
-                </ul>
-            </li>
-          </ul>
+                    </button>
+                </a>
+                <a class="navbar-brand"></a><a class="navbar-brand"></a><a class="navbar-brand"></a><a
+                    class="navbar-brand"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a data-toggle="pill" href="#qlsp">Quản lý danh mục sản phẩm</a></li>
+                <li><a data-toggle="pill" href="#qldsp">Quản lý dòng sản phẩm</a></li>
+                <li><a data-toggle="pill" href="#qltk">Quản lý tài khoản</a></li>
+                <li><a data-toggle="pill" href="#qldm">Quản lý danh mục</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Theo dõi sản phẩm<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a data-toggle="pill" href="#spdb">Đã bán</a></li>
+                        <li><a data-toggle="pill" href="#spsx">Đã sản xuất</a></li>
+                        <li><a data-toggle="pill" href="#spbh">Đã bảo hành</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <li><img src="../assets/lap.jpg" alt="" class="navbar_acc-avt"></li>
+                <li>&#8194;</li>
+                <li style="color: white; margin: auto;" id="name"></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Tài khoản của tôi</a></li>
+                        <li><a href="../index.html" onclick="logout()">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
 
@@ -115,22 +261,22 @@
         <button class="btn btn-success">
             <span class="glyphicon glyphicon-pencil"></span> Sửa
         </button>
-		<a class="w3-bar-item w3-button">Tìm kiếm theo tên</a>
-		<a href="#" class="w3-bar-item w3-button">
+        <a class="w3-bar-item w3-button">Tìm kiếm theo tên</a>
+        <a href="#" class="w3-bar-item w3-button">
             <div class="fl">
                 <input type="text" class="form-control" placeholder="Search Name">
                 <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
             </div>
         </a>
-		<a class="w3-bar-item w3-button">Tìm kiếm theo ID</a>
-		<a href="#" class="w3-bar-item w3-button">
+        <a class="w3-bar-item w3-button">Tìm kiếm theo ID</a>
+        <a href="#" class="w3-bar-item w3-button">
             <div class="fl">
                 <input type="text" class="form-control" placeholder="Search ID">
                 <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
             </div>
         </a>
         <a class="w3-bar-item w3-button">Tìm kiếm theo thông số</a>
-		<a href="#" class="w3-bar-item w3-button">
+        <a href="#" class="w3-bar-item w3-button">
             <div class="fl">
                 <input type="text" class="form-control" placeholder="Search ">
                 <button type="button" class="btn btn-secondary"><i class="glyphicon glyphicon-search"></i></button>
@@ -138,11 +284,14 @@
         </a>
         <br><br><br><br><br><br><br><br><br><br><br>
         <a class="w3-bar-item w3-button">Thành viên nhóm</a>
-        <a class="w3-bar-item w3-button"><img src="/client/assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020201-Hồ Ngọc Lâm</a>
-        <a class="w3-bar-item w3-button"><img src="/client/assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020438-Đinh Duy Mạnh</a>
-        <a class="w3-bar-item w3-button"><img src="/client/assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020440-Nguyễn Viết Mạnh</a>
-	</div>
-	
+        <a class="w3-bar-item w3-button"><img src="../assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020201-Hồ Ngọc
+            Lâm</a>
+        <a class="w3-bar-item w3-button"><img src="../assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020438-Đinh Duy
+            Mạnh</a>
+        <a class="w3-bar-item w3-button"><img src="../assets/lap.jpg" alt="" class="navbar_acc-avt"> 20020440-Nguyễn
+            Viết Mạnh</a>
+    </div>
+
     <br><br>
     <div id="main" class="container">
         <div class="tab-content">
@@ -151,8 +300,10 @@
                 <div class="panel panel-table">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col col-xs-6 text-left"><h4>Danh mục sản phẩm</h4></div>
-                            <div class="col col-xs-6 text-right">        
+                            <div class="col col-xs-6 text-left">
+                                <h4>Danh mục sản phẩm</h4>
+                            </div>
+                            <div class="col col-xs-6 text-right">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addsp">
                                     <span class="glyphicon glyphicon-plus"></span> Thêm
                                 </button>
@@ -164,7 +315,7 @@
                     </div>
 
                     <table id="tblData" class="table table-striped table-bordered table-list">
-                        <thead> 
+                        <thead>
                             <tr>
                                 <th>STT</th>
                                 <th>Dòng</th>
@@ -174,25 +325,25 @@
                                 <th class="sx">Giá Nhập <span class="caret"></span></th>
                                 <th class="sx">Giá Bán <span class="caret"></span></th>
                                 <th class="sx">Tiền Lời <span class="arrow"></span></th>
-                                
+
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div class="panel-footer"> 
-                        <div class="row"> 
-                            <div class="col col-xs-4">Trang 1 của 5 </div> 
-                            <div class="col col-xs-8"> 
-                                <ul class="pagination hidden-xs pull-right"> 
-                                    <li><a href="#">1</a></li> 
-                                    <li><a href="#">2</a></li> 
-                                    <li><a href="#">3</a></li> 
-                                    <li><a href="#">4</a></li> 
-                                    <li><a href="#">5</a></li> 
-                                </ul> 
-                            </div> 
-                        </div> 
-                    </div> 
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col col-xs-4">Trang 1 của 5 </div>
+                            <div class="col col-xs-8">
+                                <ul class="pagination hidden-xs pull-right">
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -201,9 +352,12 @@
                 <div class="panel panel-table">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col col-xs-6 text-left"><h4>Dòng sản phẩm</h4></div>
+                            <div class="col col-xs-6 text-left">
+                                <h4>Dòng sản phẩm</h4>
+                            </div>
                             <div class="col col-xs-6 text-right">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addsp">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#addOption">
                                     <span class="glyphicon glyphicon-plus"></span> Thêm
                                 </button>
                                 <button class="btn btn-success" onclick="loadOption()">
@@ -215,18 +369,18 @@
 
                     <table id="tblOption" class="table table-striped table-bordered table-list">
                         <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Hãng</th>
-                            <th>Dòng sản phẩm</th>
-                            <th>Màn hình</th>
-                            <th>Dung lượng pin</th>
-                            <th>CPU</th>
-                            <th>RAM</th>
-                            <th>ROM</th>
-                            <th>GPU</th>
+                            <tr>
+                                <th>STT</th>
+                                <th>Hãng</th>
+                                <th>Dòng sản phẩm</th>
+                                <th>Màn hình</th>
+                                <th>Dung lượng pin</th>
+                                <th>CPU</th>
+                                <th>RAM</th>
+                                <th>ROM</th>
+                                <th>GPU</th>
 
-                        </tr>
+                            </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -248,36 +402,37 @@
             </div>
 
             <div id="qltk" class="tab-pane fade">
-                <div class="row"> 
-                    <h1 class="text-center">Quản lý tài khoản</h1> 
-                    <div class="col-md-10 col-md-offset-1"> 
-                        <div class="panel panel-default panel-table"> 
-                            <div class="panel-heading"> 
-                                <div class="row"> 
-                                    <div class="col col-xs-6"> 
-                                        <h3 class="panel-title">Danh sách tài khoản</h3> 
-                                    </div> 
-                                    <div class="col col-xs-6 text-right"> 
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addtk">
+                <div class="row">
+                    <h1 class="text-center">Quản lý tài khoản</h1>
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col col-xs-6">
+                                        <h3 class="panel-title">Danh sách tài khoản</h3>
+                                    </div>
+                                    <div class="col col-xs-6 text-right">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addtk">
                                             <span class="glyphicon glyphicon-plus"></span>Thêm
-                                        </button> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                            <div class="panel-body"> 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
                                 <table id="tblAcc" class="table table-striped table-bordered table-list">
-                                    <thead> 
-                                        <tr> 
+                                    <thead>
+                                        <tr>
                                             <th><em class="fa fa-cog"></em>
-                                            </th> 
-                                            <th class="hidden-xs">Mã số</th> 
-                                            <th>Họ tên</th> 
+                                            </th>
+                                            <th class="hidden-xs">Mã số</th>
+                                            <th>Họ tên</th>
                                             <th>Username</th>
-                                            <th>Chức vụ</th> 
-                                        </tr> 
-                                    </thead> 
+                                            <th>Chức vụ</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
-                                   <!-- <tr>
+                                        <!-- <tr>
                                             <td><input type="checkbox"></td>
                                             <td class="hidden-xs">1</td>
                                             <td>Nguyễn văn A</td>
@@ -306,123 +461,134 @@
                                             <td>admin</td>
                                         </tr> -->
                                     </tbody>
-                                </table> 
-                            </div> 
-                            <div class="panel-footer"> 
-                                <div class="row"> 
-                                    <div class="col col-xs-4">Trang 1 của 5 </div> 
-                                    <div class="col col-xs-8"> 
-                                        <ul class="pagination hidden-xs pull-right"> 
-                                            <li><a href="#">1</a></li> 
-                                            <li><a href="#">2</a></li> 
-                                            <li><a href="#">3</a></li> 
-                                            <li><a href="#">4</a></li> 
-                                            <li><a href="#">5</a></li> 
-                                        </ul> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div> 
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col col-xs-4">Trang 1 của 5 </div>
+                                    <div class="col col-xs-8">
+                                        <ul class="pagination hidden-xs pull-right">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div id="qldm" class="tab-pane fade">
-                <div class="row"> 
+                <div class="row">
                     <h1>Bảng Danh Mục Các Cơ Sở</h1>
-                    <div class="col-md-10 col-md-offset-1"> 
-                        <div class="panel panel-default panel-table"> 
-                            <div class="panel-heading"> 
-                                <div class="row"> 
-                                    <div class="col col-xs-6"> 
-                                        <h3 class="panel-title">Danh sách các cơ sở</h3> 
-                                    </div> 
-                                    <div class="col col-xs-6 text-right"> 
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addcs">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col col-xs-6">
+                                        <h3 class="panel-title">Danh sách các cơ sở</h3>
+                                    </div>
+                                    <div class="col col-xs-6 text-right">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addcs">
                                             <span class="glyphicon glyphicon-plus"></span>Thêm
-                                        </button> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                            <div class="panel-body"> 
-                                <table class="table table-striped table-bordered table-list"> 
-                                <thead> 
-                                <tr> 
-                                    <th rowspan="2"><em class="fa fa-cog"></em></th> 
-                                    <th rowspan="2">STT</th> 
-                                    <th rowspan="2">Tên, Địa chỉ, Điện thoại của cơ sở</th> 
-                                    <th rowspan="2">Cơ sở</th>
-                                    <th colspan="3">Mặt hàng sản xuất</th> 
-                                </tr>
-                                <tr>
-                                    <th>Tên hàng</th>
-                                    <th>Số lượng</th>
-                                    <th>Công suất</th>
-                                </tr> 
-                                </thead> 
-                                <tbody><tr> 
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                    </td> 
-                                    <td class="hidden-xs">1</td> 
-                                    <td>Nguyễn văn A, Nghệ An - Việt Nam, 0123456789</td> 
-                                    <td>Cơ sở sản xuất</td>
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                </tr> 
-                                <tr> 
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                    </td> 
-                                    <td class="hidden-xs">2</td> 
-                                    <td>Nguyễn văn B, Hà nội - Việt Nam, 0123456789</td> 
-                                    <td>Đại lý phân phối</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                </tr> 
-                                <tr> 
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                    </td> 
-                                    <td class="hidden-xs">3</td> 
-                                    <td>Nguyễn văn C, Thừa Thiên Huế - Việt Nam, 0123456789</td> 
-                                    <td>Đại lý phân phối</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                </tr> 
-                                <tr> 
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                    </td> 
-                                    <td class="hidden-xs">4</td> 
-                                    <td>Nguyễn văn D, TP Hồ Chí Minh - Việt Nam, 0123456789</td> 
-                                    <td>Trung tâm bảo hành</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                    <td>admin</td> 
-                                </tr> 
-                                </tbody></table> 
-                            </div> 
-                            <div class="panel-footer"> 
-                                <div class="row"> 
-                                    <div class="col col-xs-4">Trang 1 của 5 </div> 
-                                    <div class="col col-xs-8"> 
-                                        <ul class="pagination hidden-xs pull-right"> 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-list">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2"><em class="fa fa-cog"></em></th>
+                                            <th rowspan="2">STT</th>
+                                            <th rowspan="2">Tên, Địa chỉ, Điện thoại của cơ sở</th>
+                                            <th rowspan="2">Cơ sở</th>
+                                            <th colspan="3">Mặt hàng sản xuất</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Tên hàng</th>
+                                            <th>Số lượng</th>
+                                            <th>Công suất</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td align="center"><a class="btn btn-default"><em
+                                                        class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em
+                                                        class="fa fa-trash"></em></a>
+                                            </td>
+                                            <td class="hidden-xs">1</td>
+                                            <td>Nguyễn văn A, Nghệ An - Việt Nam, 0123456789</td>
+                                            <td>Cơ sở sản xuất</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><a class="btn btn-default"><em
+                                                        class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em
+                                                        class="fa fa-trash"></em></a>
+                                            </td>
+                                            <td class="hidden-xs">2</td>
+                                            <td>Nguyễn văn B, Hà nội - Việt Nam, 0123456789</td>
+                                            <td>Đại lý phân phối</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><a class="btn btn-default"><em
+                                                        class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em
+                                                        class="fa fa-trash"></em></a>
+                                            </td>
+                                            <td class="hidden-xs">3</td>
+                                            <td>Nguyễn văn C, Thừa Thiên Huế - Việt Nam, 0123456789</td>
+                                            <td>Đại lý phân phối</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><a class="btn btn-default"><em
+                                                        class="fa fa-pencil"></em></a> <a class="btn btn-danger"><em
+                                                        class="fa fa-trash"></em></a>
+                                            </td>
+                                            <td class="hidden-xs">4</td>
+                                            <td>Nguyễn văn D, TP Hồ Chí Minh - Việt Nam, 0123456789</td>
+                                            <td>Trung tâm bảo hành</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                            <td>admin</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col col-xs-4">Trang 1 của 5 </div>
+                                    <div class="col col-xs-8">
+                                        <ul class="pagination hidden-xs pull-right">
                                             <li><a href="#">1</a>
-                                            </li> 
+                                            </li>
                                             <li><a href="#">2</a>
-                                            </li> 
+                                            </li>
                                             <li><a href="#">3</a>
-                                            </li> 
+                                            </li>
                                             <li><a href="#">4</a>
-                                            </li> 
+                                            </li>
                                             <li><a href="#">5</a>
-                                            </li> 
-                                        </ul> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div> 
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -436,69 +602,191 @@
                 <i>Biểu đồ thể hiển số lượng máy đã được sản xuất(2017-2022)</i>
             </div>
 
-            <div id="spbh" class="tab-pane fade"  style="width: 600px; height: 600px;">
+            <div id="spbh" class="tab-pane fade" style="width: 600px; height: 600px;">
                 <canvas id="dabh" height="40" width="100"></canvas>
                 <i>Biểu đồ thể hiển số lượng máy đã bảo hành năm 2022</i>
             </div>
 
             <div class="modal fade" id="addsp" role="dialog">
-                <div class="modal-content row"> 
+                <div class="modal-content row">
                     <div class="modal-header" style="background-color: cornflowerblue;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 class="modal-title">Thêm danh mục sản phẩm</h3>
-					</div>
-                    <div class="modal-body col-md-10 col-md-offset-1"> 
-                        <div class="panel panel-default panel-table"> 
-                            <div class="panel-body"> 
-                                <table class="table table-striped table-bordered table-list"> 
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Thêm danh mục sản phẩm</h3>
+                    </div>
+                    <div class="modal-body col-md-10 col-md-offset-1">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-list">
                                     <tbody>
-                                        <tr>  
-                                            <td>Tên sản phẩm</td> 
+                                        <tr>
+                                            <td>Tên sản phẩm</td>
                                             <td style="color: red;">(*)</td>
-                                            <td class="fl"><input class="form-control" type="text" placeholder="Nhập tên sản phẩm" id="sp" onkeyup="checkAndJump(event, 'ts')"><span id="error_sp"></span>
-                                            </td> 
-                                        </tr> 
-                                        <tr> 
-                                            <td>Thông số</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="text" placeholder="Nhập thông số sản phẩm" id="ts" onkeyup="checkAndJump(event, 'sln')"> <span id="error_ts"></span>
-                                            </td> 
-                                        </tr> 
-                                        <tr> 
-                                            <td>Số lượng nhập</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="number" placeholder="Nhập số lượng" id="sln" onkeyup="checkAndJump(event, 'slb')"><span id="error_sln"></span>
-                                            </td> 
-                                        </tr> 
-                                        <tr>  
-                                            <td>Số lượng bán</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="number" placeholder="Nhập số lượng" id="slb" onkeyup="checkAndJump(event, 'gn')"><span id="error_slb"></span>
+                                            <td class="fl"><input class="form-control" type="text"
+                                                    placeholder="Nhập tên sản phẩm" id="sp"
+                                                    onkeyup="checkAndJump(event, 'ts')"><span id="error_sp"></span>
                                             </td>
-                                        </tr> 
-                                        <tr>  
-                                            <td>Giá nhập</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="number" placeholder="Nhập số tiền" id="gn" onkeyup="checkAndJump(event, 'gb')"> <span id="error_gn"></span>
+                                        </tr>
+                                        <tr>
+                                            <td>Dòng sản phẩm</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl">
+                                                <select id="selectOption">
+                                
+                                                </select>
+                            
                                             </td>
-                                        </tr> 
-                                        <tr>  
-                                            <td>Giá bán</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="number" placeholder="Nhập số tiền" id="gb" onkeyup="checkAndJump(event, 'tl')"><span id="error_gb"></span>
+                                        </tr>
+                                        <tr>
+                                            <td>Số lượng nhập</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập số lượng" id="sln"
+                                                    onkeyup="checkAndJump(event, 'slb')"><span id="error_sln"></span>
                                             </td>
-                                        </tr> 
-                                        <tr>  
-                                            <td>Tiền lời</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="number" placeholder="Nhập số tiền" id="tl"><span id="error_tl"></span>
+                                        </tr>
+                                        <tr>
+                                            <td>Số lượng bán</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập số lượng" id="slb"
+                                                    onkeyup="checkAndJump(event, 'gn')"><span id="error_slb"></span>
                                             </td>
-                                        </tr> 
+                                        </tr>
+                                        <tr>
+                                            <td>Giá nhập</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập số tiền" id="gn"
+                                                    onkeyup="checkAndJump(event, 'gb')"> <span id="error_gn"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giá bán</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập số tiền" id="gb"
+                                                    onkeyup="checkAndJump(event, 'tl')"><span id="error_gb"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tiền lời</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập số tiền" id="tl"><span id="error_tl"></span>
+                                            </td>
+                                        </tr>
                                     </tbody>
-                                </table> 
-                            </div> 
-                        </div> 
-                    </div> 
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="Them()">Thêm</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal fade" id="addOption" role="dialog">
+                <div class="modal-content row">
+                    <div class="modal-header" style="background-color: cornflowerblue;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Thêm danh mục sản phẩm</h3>
+                    </div>
+                    <div class="modal-body col-md-10 col-md-offset-1">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-list">
+                                    <tbody>
+                                        <tr>
+                                            <td>Thương hiệu</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="text"
+                                                    placeholder="Hãng sản xuất" id="brand"
+                                                    onkeyup="checkAndJump(event, 'line')"><span id="error_brand"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dòng sản phẩm</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="text"
+                                                    placeholder="Nhập dòng sản phẩm" id="line"
+                                                    onkeyup="checkAndJump(event, 'screen')"> <span id="error_line"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Màn hình</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập kích thước màn hình" id="screen"
+                                                    onkeyup="checkAndJump(event, 'battery')"><span id="error_screen"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dung lượng pin</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập dung lượng pin" id="battery"
+                                                    onkeyup="checkAndJump(event, 'cpub')"><span id="error_battery"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CPU Brand</td>
+                                            <td style="color: red;">(*)</td>    
+                                            <td class="fl"><input class="form-control" type="text"
+                                                    placeholder="Nhập thông tin CPU" id="cpub"
+                                                    onkeyup="checkAndJump(event, 'cpu')"> <span id="error_cpu"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tên CPU</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="text"
+                                                    placeholder="Nhập thông tin CPU" id="cpu"
+                                                    onkeyup="checkAndJump(event, 'ram')"> <span id="error_cpu"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RAM</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập dung lượng RAM" id="ram"
+                                                    onkeyup="checkAndJump(event, 'rom')"><span id="error_ram"></span>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>ROM</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập dung lượng ROM" id="rom"><span
+                                                    id="error_rom"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Loại ROM</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl">
+                                                <select>
+                                                    <option>SSD</option>
+                                                    <option>HDD</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>GPU</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="number"
+                                                    placeholder="Nhập thông tin GPU" id="gpu"><span
+                                                    id="error_gpu"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" onclick="Them()">Thêm</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -508,54 +796,59 @@
             </div>
 
             <div class="modal fade" id="addtk" role="dialog">
-                <div class="modal-content row"> 
+                <div class="modal-content row">
                     <div class="modal-header" style="background-color: cornflowerblue;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 class="modal-title">Thêm tài khoản</h3>
-					</div>
-                    <div class="modal-body col-md-10 col-md-offset-1"> 
-                        <div class="panel panel-default panel-table"> 
-                            <div class="panel-body"> 
-                                <table class="table table-striped table-bordered table-list"> 
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Thêm tài khoản</h3>
+                    </div>
+                    <div class="modal-body col-md-10 col-md-offset-1">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-list">
                                     <tbody>
-                                        <tr>  
-                                            <td>Họ tên</td> 
+                                        <tr>
+                                            <td>Họ tên</td>
                                             <td style="color: red;">(*)</td>
-                                            <td class="fl"><input class="form-control" type="text" placeholder="Nhập họ tên" id="ten" onkeyup="checkAndJump(event, 'em')"><span id="error_ten"></span>
-                                            </td> 
-                                        </tr> 
-                                        <tr> 
-                                            <td>Email</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="email" placeholder="Nhập email" id="em" onkeyup="checkAndJump(event, 'pw')"><span id="error_em"></span>
+                                            <td class="fl"><input class="form-control" type="text"
+                                                    placeholder="Nhập họ tên" id="ten"
+                                                    onkeyup="checkAndJump(event, 'em')"><span id="error_ten"></span>
                                             </td>
                                         </tr>
-                                        <tr> 
-                                            <td>Password</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td class="fl"><input class="form-control" type="password" placeholder="Nhập mật khẩu" id="pw"><span id="error_pw"></span>
-                                            </td> 
-                                        </tr> 
-                                        <tr> 
-                                            <td>Chức vụ</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td style="text-align: left;">
-                                                <select>
-                                                    <option>Admin</option>
-                                                    <option>Cơ sở sản xuất</option>
-                                                    <option>Đại lý phân phối</option>
-                                                    <option>Trung tâm bảo hành</option>
+                                        <tr>
+                                            <td>Username</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="email"
+                                                    placeholder="Nhập email" id="username"
+                                                    onkeyup="checkAndJump(event, 'pw')"><span id="error_em"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Password</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td class="fl"><input class="form-control" type="password"
+                                                    placeholder="Nhập mật khẩu" id="pw"><span id="error_pw"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chức vụ</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td style="text-align: left;" >
+                                                <select id="role">
+                                                    <option value="admin">Admin</option>
+                                                    <option value="factory">Cơ sở sản xuất</option>
+                                                    <option value="dealer">Đại lý phân phối</option>
+                                                    <option value="service">Trung tâm bảo hành</option>
                                                 </select>
-                                            </td> 
-                                        </tr> 
-                                        
+                                            </td>
+                                        </tr>
+
                                     </tbody>
-                                </table> 
-                            </div> 
-                        </div> 
-                    </div> 
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" onclick="Them()">Thêm</button>
+                        <button type="button" id="btnAddAcc" class="btn btn-success">Thêm</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -563,48 +856,51 @@
             </div>
 
             <div class="modal fade" id="addcs" role="dialog">
-                <div class="modal-content row"> 
+                <div class="modal-content row">
                     <div class="modal-header" style="background-color: cornflowerblue;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 class="modal-title">Thêm tài khoản</h3>
-					</div>
-                    <div class="modal-body col-md-10 col-md-offset-1"> 
-                        <div class="panel panel-default panel-table"> 
-                            <div class="panel-body"> 
-                                <table class="table table-striped table-bordered table-list"> 
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Thêm tài khoản</h3>
+                    </div>
+                    <div class="modal-body col-md-10 col-md-offset-1">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-list">
                                     <tbody>
-                                        <tr>  
-                                            <td>Tên, Địa chỉ, Số điện thoại</td> 
+                                        <tr>
+                                            <td>Tên, Địa chỉ, Số điện thoại</td>
                                             <td style="color: red;">(*)</td>
-                                            <td><input class="form-control" type="text" placeholder="Nhập tên, địa chỉ, sđt"></td> 
-                                        </tr> 
-                                        <tr> 
-                                            <td>Tên hàng</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td><input class="form-control" type="text" placeholder="Nhập tên sản phẩm"></td> 
+                                            <td><input class="form-control" type="text"
+                                                    placeholder="Nhập tên, địa chỉ, sđt"></td>
                                         </tr>
-                                        <tr> 
-                                            <td>Số lượng</td> 
-                                            <td style="color: red;">(*)</td> 
-                                            <td><input class="form-control" type="number" placeholder="Nhập số luọng"></td> 
-                                        </tr> 
-                                        <tr> 
-                                            <td>Cơ sở</td> 
-                                            <td style="color: red;">(*)</td> 
+                                        <tr>
+                                            <td>Tên hàng</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td><input class="form-control" type="text" placeholder="Nhập tên sản phẩm">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số lượng</td>
+                                            <td style="color: red;">(*)</td>
+                                            <td><input class="form-control" type="number" placeholder="Nhập số luọng">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cơ sở</td>
+                                            <td style="color: red;">(*)</td>
                                             <td style="text-align: left;">
                                                 <select>
                                                     <option>Cơ sở sản xuất</option>
                                                     <option>Đại lý phân phối</option>
                                                     <option>Trung tâm bảo hành</option>
                                                 </select>
-                                            </td> 
-                                        </tr> 
-                                        
+                                            </td>
+                                        </tr>
+
                                     </tbody>
-                                </table> 
-                            </div> 
-                        </div> 
-                    </div> 
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success">Thêm</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -617,5 +913,7 @@
 
     <script src="admin.js"></script>
     <script src="loadOption.js"></script>
+    <script src="addAccount.js"></script>
 </body>
+
 </html>

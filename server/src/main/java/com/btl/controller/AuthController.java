@@ -17,12 +17,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
+@Transactional
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -69,8 +71,9 @@ public class AuthController {
     }*/
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestParam String type, @RequestBody SignUpDTO signUpDto) {
+    public ResponseEntity<?> registerUser(@RequestBody SignUpDTO signUpDto) {
         //type đầu vào sẽ nhận type: admin, dealer, service, factory.
+        String type = signUpDto.getRole();
         String typeRole = "";
         if (type.equals("admin")) {
             typeRole = "ROLE_ADMIN";
@@ -102,6 +105,18 @@ public class AuthController {
 
         return ResponseEntity.ok("SUCCESSFULLY");
 
+    }
+
+    @GetMapping("/deleteAcc")
+    public ResponseEntity<?> deleteAccount(@RequestParam("username") String username) {
+        try {
+            long id =  userRepo.findByUsername(username).get().getId();
+
+            userRepo.deleteUserByUsername(username);
+            return ResponseEntity.ok().body("SUCCESS");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

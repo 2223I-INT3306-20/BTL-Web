@@ -16,11 +16,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 @Configuration
@@ -32,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AppUserDetailsService userDetailsService;
 
     @Autowired
+    private DataSource dataSource;
+
+    @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
     @Bean
@@ -41,27 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-//                .antMatchers("/test/**").permitAll()// dùng để test API mà không cần đăng nhập, dùng trước khi chuyển về /api để quản lý !
-//                .antMatchers("/products").permitAll()
-//                .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
-//                .antMatchers("/factory/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FACTORY")
-//                .anyRequest()
-//                .authenticated()
-//                .and();
-////        http
-////                .addFilterBefore(new JWTLoginFilter("/api/auth/login", authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
-////                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
-//        http.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-//                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
-////        http.sessionManagement()
-////                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.cors();
-
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -80,7 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 );
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-        //http.addFilterBefore(corsFilter, );
         http.cors();
     }
 
