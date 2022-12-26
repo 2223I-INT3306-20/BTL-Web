@@ -116,52 +116,6 @@ items.forEach(function (item, index) {
     item.classList.contains('is-active') && handleIndicator(item);
 });
 
-function loadDoc() {
-    this.disabled = true;
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(){
-        if(this.readyState==4){
-            if(this.status==200){
-                let objArr = JSON.parse(this.responseText);
-                document.querySelector("#tblData tbody").innerHTML = "";
-                for(let i = 0; i< objArr.length; i++){
-                    let tr = document.createElement("tr");
-                    let c1 = document.createElement("td");
-                    let c2 = document.createElement("td");
-                    let c3 = document.createElement("td");
-                    let c4 = document.createElement("td");
-                    let c5 = document.createElement("td");
-                    let c6 = document.createElement("td");
-                    let c7 = document.createElement("td");
-                    let c8 = document.createElement("td");
-                    c1.innerHTML = ( i + 1);
-                    c2.innerHTML = objArr[i].name;
-                    c3.innerHTML = objArr[i].info;
-                    c4.innerHTML = objArr[i].slNhap;
-                    c5.innerHTML = objArr[i].slXuat;
-                    c6.innerHTML = objArr[i].giaNhap;
-                    c7.innerHTML = objArr[i].giaXuat;
-                    c8.innerHTML =  ((parseInt(objArr[i].slXuat) * parseInt(objArr[i].giaXuat))-(parseInt(objArr[i].slNhap) * parseInt(objArr[i].giaNhap))).toString();
-                    tr.appendChild(c1);
-                    tr.appendChild(c2);
-                    tr.appendChild(c3);
-                    tr.appendChild(c4);
-                    tr.appendChild(c5);
-                    tr.appendChild(c6);
-                    tr.appendChild(c7);
-                    tr.appendChild(c8);
-                    document.querySelector("#tblData tbody").appendChild(tr);
-                }
-            }
-        }
-    }
-    xhttp.open("GET","http://localhost:8080/factory/allProduct",true);
-    xhttp.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem('token'))
-    xhttp.send("null");
-}
-$(document).ready(function(){
-    loadDoc();
-})
 
 document.querySelector("#name").innerHTML += window.sessionStorage.getItem('name').toString();
 
@@ -372,4 +326,13 @@ new Chart(ctx3, {
 function logout() {
     sessionStorage.removeItem('token');
     sessionStorage.clear();
+}
+
+function toastShow() {
+    document.getElementById("liveToast").classList.remove("hide");
+    document.getElementById("liveToast").classList.add("show");
+    setTimeout(() => {
+        document.getElementById("liveToast").classList.remove("show");
+        document.getElementById("liveToast").classList.add("hide");
+    }, 4000);
 }

@@ -40,13 +40,9 @@ public class Products {
     @JsonBackReference
     private Options option;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Stored location;
-
     @JsonIgnore
     public String getInfo() {
-        return productSku + ", " + productName + ", " + productPrice + ", " + option.getOptionInfo() + ", " + location.getLocationInfo();
+        return productSku + ", " + productName + ", " + productPrice + ", " + option.getOptionInfo();
     }
 
 

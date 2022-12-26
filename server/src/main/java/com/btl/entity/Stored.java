@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,13 +22,19 @@ public class Stored {
     @Column(length = 60)
     private String locationType;
 
-    private int locationName; // chứa thông tin nơi lưu kho
+    private String name;
+
+    private String locationName; // chứa thông tin nơi lưu kho
     // factory -> 1000, dealer -> 2000, service -> 3000 (kho nào, trung tâm bảo hành nào ...)
 
-    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JsonIgnore
-    private Set<Products> products;
+    private String address;
+
+    private String phone;
+
+
+
+    @ElementCollection
+    private Set<Long> productId;
 
     public String getLocationInfo() {
         return locationType + ", " + locationName;

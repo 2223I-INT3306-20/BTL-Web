@@ -1,10 +1,9 @@
 package com.btl.controller;
 
+import com.btl.dto.LocationDTO;
 import com.btl.dto.LoginDTO;
 import com.btl.dto.SignUpDTO;
-import com.btl.entity.Products;
-import com.btl.entity.Role;
-import com.btl.entity.User;
+import com.btl.entity.*;
 import com.btl.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +28,9 @@ public class AdminController {
     private RoleRepo roleRepo;
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private LocationRepo locationRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -118,5 +120,35 @@ public class AdminController {
         user.setPassword(passwordEncoder.encode(newPass));
         userRepo.save(user);
         return ResponseEntity.ok("SUCCESS");
+    }
+
+    @GetMapping("/getListLocation")
+    @ResponseBody
+    public List<Stored> getList() {
+        List<Stored> storeds = new ArrayList<>();
+        Iterable<Stored> allLocation = locationRepo.findAll();
+        for (Stored location : allLocation) {
+            //user.setPassword("hided");
+            storeds.add(location);
+        }
+        return storeds;
+    }
+
+    @PostMapping("/addLocation")
+    public ResponseEntity<?> addLocation(@RequestBody LocationDTO locationDTO) {
+        try {
+            Stored newStored = new Stored();
+            newStored.setName(locationDTO.getName());
+            newStored.setLocationName(locationDTO.getLocationName());
+            newStored.setPhone(locationDTO.getPhone());
+            newStored.setAddress(locationDTO.getAddress());
+            newStored.setProductId(null);
+            newStored.setLocationType(locationDTO.getLocationType());
+
+            locationRepo.save(newStored);
+            return ResponseEntity.ok().body("SUCCESS");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

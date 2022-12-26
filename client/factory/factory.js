@@ -80,6 +80,28 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple10 = document.getElementById('datatablesSimple10');
+    if (datatablesSimple10) {
+        new simpleDatatables.DataTable(datatablesSimple10);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple11 = document.getElementById('datatablesSimple11');
+    if (datatablesSimple11) {
+        new simpleDatatables.DataTable(datatablesSimple11);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const tbProduct = document.getElementById('tbProduct');
+    if (tbProduct) {
+        loadDoc();
+        new simpleDatatables.DataTable(tbProduct);
+    }
+});
+
 const ctx = document.getElementById('myChart');
   new Chart(ctx, {
     type: 'bar',
