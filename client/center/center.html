@@ -65,14 +65,25 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Thống kê số liệu sản phẩm theo tháng</h1><br>
                         <div class="row">
-                            <div class="col-xl-12">
+                            <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header" style="text-align: center;">
                                         <i class="fas fa-chart-area me-1"></i>
                                         <i>Biểu đồ thể hiển số lượng sản phẩm đã được bảo hành theo tháng (T1/2022-T12/2022)</i>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="spdbtt" height="600" width="600"></canvas>
+                                        <canvas id="spdbtt" height="400px" width="600px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="text-align: center;">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        <i>Biểu đồ thể hiển số lượng sản phẩm bảo hành lỗi không thể sửa chữa (T1/2022-T12/2022)</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="myChart" height="400px" width="600px"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +101,8 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Thông số sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th>Số lượng bảo hành</th>
+                                                <th>Số lượng hoàn trả</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -98,7 +110,8 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Thông số sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th>Số lượng bảo hành</th>
+                                                <th>Số lượng hoàn trả</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -107,84 +120,98 @@
                                                 <td>Macbook</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>DELL</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>ASUS</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>4</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>5</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>6</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>7</td>
                                                 <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>8</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>9</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>10</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>11</td>
                                                 <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
-                                                <td>$86,000</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>12</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
-                                                <td>$320,800</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
-                                                <td>5</td>
+                                                <td>13</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
-                                                <td>$170,750</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
-                                                <td>6</td>
+                                                <td>14</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
-                                                <td>$86,000</td>
+                                                <td>30</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -199,14 +226,25 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Thống kê số liệu sản phẩm theo quý</h1><br>
                         <div class="row">
-                            <div class="col-xl-12">
+                            <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header" style="text-align: center;">
                                         <i class="fas fa-chart-area me-1"></i>
                                         <i>Biểu đồ thể hiển số lượng sản phẩm đã được bảo hành theo quý năm 2022</i>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="spdbtq" height="600" width="600"></canvas>
+                                        <canvas id="spdbtq" height="400px" width="600px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="text-align: center;">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        <i>Biểu đồ thể hiển số lượng sản phẩm bảo hành không thể sửa chữa theo quý</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="myChart1" height="400px" width="600px"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +262,8 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Thông số sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th>Số lượng bảo hành</th>
+                                                <th>Số lượng hoàn trả</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -232,7 +271,8 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Thông số sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th>Số lượng bảo hành</th>
+                                                <th>Số lượng hoàn trả</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -241,84 +281,98 @@
                                                 <td>Macbook</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>DELL</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>ASUS</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>4</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>5</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>6</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>7</td>
                                                 <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>8</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>9</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>10</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>11</td>
                                                 <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
-                                                <td>$86,000</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>12</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
-                                                <td>$320,800</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
-                                                <td>5</td>
+                                                <td>13</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
-                                                <td>$170,750</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
-                                                <td>6</td>
+                                                <td>14</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
-                                                <td>$86,000</td>
+                                                <td>30</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -333,14 +387,25 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Thống kê số liệu sản phẩm theo năm</h1><br>
                         <div class="row">
-                            <div class="col-xl-12">
+                            <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header" style="text-align: center;">
                                         <i class="fas fa-chart-area me-1"></i>
                                         <i>Biểu đồ thể hiển số lượng sản phẩm đã được bảo hành theo năm (2017-2022)</i>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="spdbtn" height="600" width="600"></canvas>
+                                        <canvas id="spdbtn" height="400px" width="600"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header" style="text-align: center;">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        <i>Biểu đồ thể hiển số lượng sản phẩm bảo hành không thể sửa chữa (2017-2022)</i>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="myChart2" height="400px" width="600"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +423,8 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Thông số sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th>Số lượng bảo hành</th>
+                                                <th>Số lượng hoàn trả</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -366,7 +432,8 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Thông số sản phẩm</th>
-                                                <th>Số lượng</th>
+                                                <th>Số lượng bảo hành</th>
+                                                <th>Số lượng hoàn trả</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -375,84 +442,98 @@
                                                 <td>Macbook</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>DELL</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>ASUS</td>
                                                 <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>4</td>
                                                 <td>HP</td>
-                                                <td>61</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>60</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>5</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>6</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>7</td>
                                                 <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>8</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>9</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>10</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
                                                 <td>60</td>
                                             </tr>
                                             <tr>
                                                 <td>11</td>
                                                 <td>ASUS</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
-                                                <td>$86,000</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
                                                 <td>12</td>
                                                 <td>HP</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>61</td>
-                                                <td>$320,800</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
-                                                <td>5</td>
+                                                <td>13</td>
                                                 <td>Vivobook</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>63</td>
-                                                <td>$170,750</td>
+                                                <td>30</td>
                                             </tr>
                                             <tr>
-                                                <td>6</td>
+                                                <td>14</td>
                                                 <td>Tuf</td>
+                                                <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
                                                 <td>66</td>
-                                                <td>$86,000</td>
+                                                <td>30</td>
                                             </tr>
                                         </tbody>
                                     </table>
