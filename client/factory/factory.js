@@ -102,6 +102,47 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+window.addEventListener('DOMContentLoaded', event => {
+    const tbProduct = document.getElementById('tbWareHouse');
+    if (tbWareHouse) {
+        // loadDoc();
+        new simpleDatatables.DataTable(tbWareHouse);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const tbProduct = document.getElementById('tbSell');
+    if (tbSell) {
+        // loadDoc();
+        new simpleDatatables.DataTable(tbSell);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const tbProduct = document.getElementById('tbInsurance');
+    if (tbInsurance) {
+        // loadDoc();
+        new simpleDatatables.DataTable(tbInsurance);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const tbReturns = document.getElementById('tbReturns');
+    if (tbReturns) {
+        // loadDoc();
+        new simpleDatatables.DataTable(tbReturns);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const tbSummon = document.getElementById('tbSummon');
+    if (tbSummon) {
+        // loadDoc();
+        new simpleDatatables.DataTable(tbSummon);
+    }
+});
+
+
 const ctx = document.getElementById('myChart');
   new Chart(ctx, {
     type: 'bar',

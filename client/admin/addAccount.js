@@ -8,7 +8,7 @@ const form = {
 
 let button = form.submit.addEventListener("click", (e) => {
     e.preventDefault();
-    validate();
+    Themtk();
 });
 
 
@@ -47,19 +47,19 @@ function fetchAddAcount() {
         });
 }
 
-function validate() {
-    var check  = 0;
+function Themtk() {
+    var check = 0;
     var ten = document.getElementById("ten").value;
     if (ten.trim().length === 0) {
         document.getElementById("error_ten").innerHTML = "Quý vị chưa nhập họ tên";
         document.getElementById("error_ten").classList.add("error");
-        check = 1;
+        
     } else {
         document.getElementById("error_ten").innerHTML = "";
         document.getElementById("error_ten").classList.remove("error");
     }
 
-    var em = document.getElementById("username").value;
+    var em = document.getElementById("em").value;
     if (em.trim().length === 0) {
         document.getElementById("error_em").innerHTML = "Quý vị chưa nhập email";
         document.getElementById("error_em").classList.add("error");
@@ -67,6 +67,12 @@ function validate() {
     } else {
         document.getElementById("error_em").innerHTML = "";
         document.getElementById("error_em").classList.remove("error");
+    }
+    let str = em.split("@");
+    console.log(str.length);
+    if (!em.includes("@") || str.length > 2 || str[0] === "" || str[1] === "") {
+        document.getElementById("error_em").innerHTML = "Email chưa đúng định dạng";
+        document.getElementById("error_em").classList.add("error");
     }
 
     var pw = document.getElementById("pw").value;
@@ -81,5 +87,5 @@ function validate() {
 
     if (check === 0 ) {
         fetchAddAcount();
-    } 
+    }
 }
