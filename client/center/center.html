@@ -38,6 +38,19 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Số liệu</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Sản phẩm
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapse" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested">
+                                    <a class="nav-link" data-bs-toggle="pill" href="#insurance">Bảo hành</a>
+                                    <a class="nav-link" data-bs-toggle="pill" href="#summon">Triệu hồi</a>
+									<a class="nav-link" data-bs-toggle="pill" href="#returns">Hoàn trả</a>
+                                </nav>
+                            </div>
                             <div class="sb-sidenav-menu-heading">Thống kê</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#slsp" aria-expanded="true" aria-controls="slsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -535,6 +548,117 @@
                                                 <td>66</td>
                                                 <td>30</td>
                                             </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="insurance" style="width:100%">
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Thống kê sản phẩm cần được bảo hành</h1><br>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Bảng phân tích số lượng sản phẩm cần được bảo hành
+                                <button type="button" style="position: absolute; right: 0; top: 0" class="btn btn-primary"
+                                        data-bs-toggle="modal" data-bs-target="#addPrd">
+                                    Thêm
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="tbInsurance">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Thông số</th>
+                                            <th>Lỗi cần bảo hành</th>
+                                            <th>Ngày bảo hành</th>
+                                        </tr>
+                                        </thead>
+        
+                                        <tbody>
+        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="returns" style="width:100%">
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Thống kê sản phẩm đã được bảo hành</h1><br>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Bảng phân tích số lượng sản phẩm đã được bảo hành
+                                <button type="button" style="position: absolute; right: 0; top: 0" class="btn btn-primary"
+                                        data-bs-toggle="modal" data-bs-target="#addPrd">
+                                    Thêm
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="tbReturns">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Thông số</th>
+                                            <th>Đã sửa chữa</th>
+                                            <th>Ngày trả</th>
+                                        </tr>
+                                        </thead>
+        
+                                        <tbody>
+        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="summon" style="width:100%">
+                <div id="layoutSidenav_content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Thống kê sản phẩm cần được triệu hồi</h1><br>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Bảng phân tích số lượng sản phẩm cần được triệu hồi
+                                <button type="button" style="position: absolute; right: 0; top: 0" class="btn btn-primary"
+                                        data-bs-toggle="modal" data-bs-target="#addPrd">
+                                    Thêm
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="tbSummon">
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Thông số</th>
+                                            <th>Số lượng đã nhận</th>
+                                            <th>Số lượng cần triệu hồi</th>
+                                        </tr>
+                                        </thead>
+        
+                                        <tbody>
+        
                                         </tbody>
                                     </table>
                                 </div>
