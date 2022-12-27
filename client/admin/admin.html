@@ -653,6 +653,27 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Độ phân giải</td>
+                                    <td style="color: red;">(*)</td>
+                                    <td class="fl">
+                                        <select class="form-control" id="resolution">
+                                            <option value="4k">4k</option>
+                                            <option value="2k">2k</option>
+                                            <option value="1080p">1080p</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Loại màn hình</td>
+                                    <td style="color: red;">(*)</td>
+                                    <td class="fl">
+                                        <select class="form-control" id="screenType">
+                                            <option value="Oled">Oled</option>
+                                            <option value="LCD">LCD</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Dung lượng pin</td>
                                     <td style="color: red;">(*)</td>
                                     <td class="fl"><input class="form-control" type="number"
@@ -683,7 +704,7 @@
                                     <td>RAM</td>
                                     <td style="color: red;">(*)</td>
                                     <td class="fl">
-                                        <select class="form-control">
+                                        <select class="form-control" id="ram">
                                             <option value="2">2 GB</option>
                                             <option value="4">4 GB</option>
                                             <option value="8">8 GB</option>
@@ -705,7 +726,7 @@
                                     <td>Loại ROM</td>
                                     <td style="color: red;">(*)</td>
                                     <td class="fl">
-                                        <select class="form-control">
+                                        <select class="form-control" id="romType">
                                             <option value="SSD">SSD</option>
                                             <option value="HDD">HDD</option>
                                         </select>
@@ -714,7 +735,7 @@
                                 <tr>
                                     <td>GPU</td>
                                     <td style="color: red;">(*)</td>
-                                    <td class="fl"><input class="form-control" type="number"
+                                    <td class="fl"><input class="form-control" type="text"
                                                           placeholder="Nhập thông tin GPU" id="gpu"><span
                                             id="error_gpu"></span>
                                     </td>
@@ -725,8 +746,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onclick="Them()">Thêm</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="btnAddOption">Thêm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closeAddOption">Close</button>
                 </div>
             </div>
 
@@ -756,7 +777,7 @@
                                     <td>Username</td>
                                     <td style="color: red;">(*)</td>
                                     <td class="fl"><input class="form-control" type="email"
-                                                          placeholder="Nhập email" id="username"
+                                                          placeholder="Nhập tên tài khoản" id="username"
                                                           onkeyup="checkAndJump(event, 'pw')"><span
                                             id="error_em"></span>
                                     </td>
@@ -774,10 +795,6 @@
                                     <td style="color: red;">(*)</td>
                                     <td style="text-align: left;">
                                         <select id="role">
-                                            <option value="admin">Admin</option>
-                                            <option value="factory">Cơ sở sản xuất</option>
-                                            <option value="dealer">Đại lý phân phối</option>
-                                            <option value="service">Trung tâm bảo hành</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -870,6 +887,7 @@
 <script src="addAccount.js"></script>
 <script src="getLocation.js"></script>
 <script src="addLocation.js"></script>
+<script src="addOption.js"></script>
 </body>
 
 </html>

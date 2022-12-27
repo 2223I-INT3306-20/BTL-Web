@@ -8,7 +8,7 @@ const form = {
 
 let button = form.submit.addEventListener("click", (e) => {
     e.preventDefault();
-    validate();
+    validateAccount();
 });
 
 
@@ -26,7 +26,7 @@ function fetchAddAcount() {
             name: form.name.value,
             username: form.acc.value,
             password: form.password.value,
-            role: form.role.value
+            locationId: form.role.value,
         }),
     })
         .then(function(response) {
@@ -47,7 +47,7 @@ function fetchAddAcount() {
         });
 }
 
-function validate() {
+function validateAccount() {
     var check  = 0;
     var ten = document.getElementById("ten").value;
     if (ten.trim().length === 0) {

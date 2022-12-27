@@ -2,52 +2,66 @@ package com.btl.controller;
 
 import com.btl.dto.OptionDTO;
 import com.btl.dto.ProductDTO;
-import com.btl.entity.OptionGroup;
-import com.btl.entity.Options;
+import com.btl.dto.TransferDTO;
+import com.btl.entity.*;
 import com.btl.entity.Products;
-import com.btl.entity.Products;
-import com.btl.repo.LocationRepo;
-import com.btl.repo.OptionGroupRepo;
-import com.btl.repo.OptionRepo;
-import com.btl.repo.ProductRepo;
+import com.btl.repo.*;
+import com.btl.response.MakeByResponse;
 import com.btl.response.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
 @RequestMapping("/factory")
+
 public class FactoryController {
     @Autowired
     ProductRepo productRepo;
     @Autowired
     OptionRepo optionRepo;
+
+    @Autowired
+    RoleRepo roleRepo;
     @Autowired
     LocationRepo locationRepo;
 
     @Autowired
-    OptionGroupRepo optionGroupRepo;
+    private UserRepo userRepo;
+
+    @Autowired
+    BatchRepo batchRepo;
+
 
     @GetMapping("/allProduct")
     @ResponseBody
-    public List<ProductResponse> getAllProduct() {
+    public List<ProductResponse> getAllProduct(@RequestHeader("Username") String username) {
         List<ProductResponse> products = new ArrayList<>();
-        Iterable<Products> productsAll = productRepo.findAll();
-        for (Products product : productsAll) {
+        long id = userRepo.findByUsername(username).get().getLocationId();
+        //Iterable<Products> productsAll = productRepo.findAll();
+        Iterable<Batch> allBatch = batchRepo.findByToId(id);
+        Set<Long> listPrd = new HashSet<>();
+        for (Batch batch : allBatch) {
+            listPrd.add(batch.getProductId());
+        }
+
+        System.out.println(listPrd);
+
+        for (Long pid : listPrd) {
             ProductResponse productResponse = new ProductResponse();
-            productResponse.setName(product.getOption().getOptionName());
-            productResponse.setInfo(product.getOption().getOptionInfo());
-            productResponse.setGiaXuat(100);
-            productResponse.setGiaNhap(90);
-            productResponse.setSlXuat(90);
-            productResponse.setSlNhap(100);
+
+            productResponse.setProductId(pid);
+            productResponse.setName(productRepo.findByProductId(pid).getProductName());
+            productResponse.setSku(productRepo.findByProductId(pid).getProductSku());
+            productResponse.setInfo(productRepo.findByProductId(pid).getOption().getOptionInfo());
+            productResponse.setSlXuat(calcuOut(id, pid));
+            productResponse.setSlNhap(calcuIn(id, pid));
 
             products.add(productResponse);
         }
@@ -55,55 +69,110 @@ public class FactoryController {
     }
 
 
+    @GetMapping("/allDealer")
+    @ResponseBody
+    public List<Stored> getDealer() {
+        List<Stored> storeds = new ArrayList<>();
+        Iterable<Stored> allLocation = locationRepo.findByLocationType("DEALER");
+        for (Stored location : allLocation) {
+            storeds.add(location);
+        }
+        return storeds;
+    }
+
+
     /* --------------------------------------- 3 nhiệm vụ đầu -------------------------------------------*/
     @PostMapping("/makeNew")
-    public ResponseEntity<?> makeNewProduct(@RequestParam long quantity, @RequestBody ProductDTO productDTO) {
-        //sản xuất các sản phẩm mới vào kho
+    public ResponseEntity<?> makeNewProduct(@RequestHeader("Username") String username, @RequestBody ProductDTO productDTO) {
 
+        //sản xuất các sản phẩm mới vào kho
+        Batch batch = new Batch();
         Products product = productRepo.findByProductSku(productDTO.getProductSku());
+        long fromId = (userRepo.findByUsername(username).get().getLocationId());
+
         if (product == null) {
             product = new Products();
             product.setProductSku(productDTO.getProductSku());
             product.setProductName(productDTO.getProductName());
-            product.setProductPrice(productDTO.getProductPrice());
-            product.setProductWeight(productDTO.getProductWeight());
-            product.setProductImg(productDTO.getProductImg());
-            product.setProductCategoryId(productDTO.getProductCategoryId());
             product.setProductMfg(productDTO.getProductMfg());
             product.setOption(optionRepo.findOptionsByOptionId(productDTO.getOptionId()));
-            product.setProductStock(quantity);
-            //product.setLocation(locationRepo.findByLocationType("FACTORY"));
+            product.setProductStock(productDTO.getQuantity());
         } else {
-            product.setProductStock(product.getProductStock() + quantity);
+            if (productDTO.getOptionId() != product.getOption().getOptionId()) {
+                return ResponseEntity.badRequest().body("DUPLICATE_SKU_WITH_WRONG_OPTION");
+            }
+            product.setProductStock(product.getProductStock() + productDTO.getQuantity());
         }
-
         productRepo.save(product);
+
+        batch.setDate(productDTO.getProductMfg());
+        batch.setProductId(product.getProductId());
+        batch.setQuantity(productDTO.getQuantity());
+        batch.setFromId(0);
+        batch.setStatus("MAKE");
+        batch.setToId((userRepo.findByUsername(username).get().getLocationId()));
+
+        batchRepo.save(batch);
 
         return ResponseEntity.ok("SUCCESS");
 
     }
+
     @PostMapping("/toDealer") //chuyển số lượng sản phẩm cho của hàng.
-    public ResponseEntity<?> exportToDealer(@RequestParam long productId, @RequestParam long quantity) {
-        Products products = productRepo.findByProductId(productId);
-        if (quantity > products.getProductStock() || quantity < 0) {
-            return ResponseEntity.ok("QUANTITY IS'NT AVAILABLE!");
+    public ResponseEntity<?> exportToDealer(@RequestHeader("Username") String username, @RequestBody TransferDTO transferDTO) {
+        Batch batch = new Batch();
+        long fromId = (userRepo.findByUsername(username).get().getLocationId());
+
+        List<Batch> product = batchRepo.findByToIdAndProductId(fromId, transferDTO.getProductId());
+
+        long available = 0;
+        for (int i = 0; i < product.size(); i++) {
+            available += product.get(i).getQuantity();
+        }
+
+        if (transferDTO.getQuantity() > available || transferDTO.getQuantity() < 0) {
+            return ResponseEntity.badRequest().body("QUANTITY_ISNT_AVAILABLE!");
         } else {
-            Products newProduct = products;
-            newProduct.setProductStock(quantity);
-            products.setProductStock(products.getProductStock() - quantity);
-            productRepo.save(newProduct);
-            productRepo.save(products);
+            batch.setFromId(fromId);
+            batch.setToId(transferDTO.getToId());
+            batch.setQuantity(transferDTO.getQuantity());
+            batch.setProductId(transferDTO.getProductId());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            batch.setDate(date);
+            batch.setStatus("TRANSFER");
+            batchRepo.save(batch);
 
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }
     }
 
+    private long calcuAvailable(long id, long prdId) {
+        return calcuIn(id, prdId) - calcuOut(id, prdId);
+    }
+
+    private long calcuOut(long id, long prdId) {
+        long out = 0;
+        List<Batch> productOut = batchRepo.findByFromIdAndProductId(id, prdId);
+
+        for (int i = 0; i < productOut.size(); i++) {
+            out += productOut.get(i).getQuantity();
+        }
+        return out;
+    }
+
+    private long calcuIn(long id, long prdId) {
+        long in = 0;
+        List<Batch> productOut = batchRepo.findByToIdAndProductId(id, prdId);
+
+        for (int i = 0; i < productOut.size(); i++) {
+            in += productOut.get(i).getQuantity();
+        }
+        return in;
+    }
+
     @PostMapping("/createNewOption")
     public ResponseEntity<?> createNewOption(@RequestBody OptionDTO optionDTO) {
-//        Options options = optionRepo.findByOptionName(optionDTO.getOptionName()).get();
-//        if (options != null) {
-//            return new ResponseEntity<>("OPTION_AVAILABLE", HttpStatus.BAD_REQUEST);
-//        }
 
         Options newOption = new Options();
         newOption.setBrandName(optionDTO.getBrandName());
@@ -137,18 +206,6 @@ public class FactoryController {
         return options;
     }
 
-    @GetMapping("/allGroupOption")
-    @ResponseBody
-    public List<OptionGroup> allGroup() {
-        List<OptionGroup> groups = new ArrayList<>();
-        Iterable<OptionGroup> allGroup = optionGroupRepo.findAll();
-        for (OptionGroup group : allGroup) {
-            group.setOptions(null);
-            groups.add(group);
-        }
-        return groups;
-    }
-
     @GetMapping("/getByMFG")
     @ResponseBody
     public List<Products> getByMfg(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date mfgDate) {
@@ -160,53 +217,143 @@ public class FactoryController {
         return products;
     }
 
-    /* Trả về tỷ lệ lỗi của từng loại */
-//    @GetMapping("/faultRate")
-//    public
+    @GetMapping("/makeByMonth")
+    @ResponseBody
+    public List<MakeByResponse> makeByMonthResponese(@RequestHeader("Username") String username) {
+        long id = userRepo.findByUsername(username).get().getLocationId();
+        Iterable<Batch> batches = batchRepo.findByToIdAndFromId(id, 0);
+        List<MakeByResponse> res = new ArrayList<>();
 
+        SortedSet<Integer> month = new TreeSet<Integer>();
+        SortedSet<Integer> year = new TreeSet<Integer>();
 
+        for (Batch batch : batches) {
+            int mm = batch.getDate().getMonth();
+            int yyyy = batch.getDate().getYear();
+            month.add(mm);
+            year.add(yyyy);
+        }
 
-
-    private void importProduct(Products product, long quantity) {
-        System.out.println("Nhap thanh cong");
+        for (int y : year) {
+            for (int m : month) {
+                MakeByResponse makeByMonthRespone = new MakeByResponse();
+                long qtt = 0;
+                for (Batch batch : batches) {
+                    if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y) {
+                        qtt += batch.getQuantity();
+                    }
+                }
+                if (qtt == 0) {
+                    continue;
+                }
+                makeByMonthRespone.setLabel((m + 1) + " / " + (y + 1900));
+                makeByMonthRespone.setQuantity(qtt);
+                res.add(makeByMonthRespone);
+            }
+        }
+        return res;
     }
 
-    private void exportToDealer(Products product, long dealerId, long quantity) {
-        System.out.println("Xuat den " + dealerId + " thanh cong!");
+    @GetMapping("/makeByYear")
+    @ResponseBody
+    public List<MakeByResponse> makeByYearResponese(@RequestHeader("Username") String username) {
+
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> batches = batchRepo.findByToIdAndFromId(id, 0);
+
+        List<MakeByResponse> res = new ArrayList<>();
+
+        SortedSet<Integer> year = new TreeSet<Integer>();
+
+        for (Batch batch : batches) {
+            int yyyy = batch.getDate().getYear();
+            year.add(yyyy);
+        }
+
+        for (int y : year) {
+            MakeByResponse makeByRespone = new MakeByResponse();
+            long qtt = 0;
+            for (Batch batch : batches) {
+                if (batch.getDate().getYear() == y) {
+                    qtt += batch.getQuantity();
+                }
+            }
+            makeByRespone.setLabel((y + 1900) + "");
+            makeByRespone.setQuantity(qtt);
+            res.add(makeByRespone);
+        }
+        return res;
     }
 
-    private void getFailProduct(Products product, long serviceId, long quantity) {
-        System.out.println("Nhap " + quantity + " pham loi tu " + serviceId + " thanh cong");
+    @GetMapping("/xuatByYear")
+    @ResponseBody
+    public List<MakeByResponse> xuatByYearResponese(@RequestHeader("Username") String username) {
+
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> batches = batchRepo.findByFromId(id);
+
+        List<MakeByResponse> res = new ArrayList<>();
+
+        SortedSet<Integer> year = new TreeSet<Integer>();
+
+        for (Batch batch : batches) {
+            int yyyy = batch.getDate().getYear();
+            year.add(yyyy);
+        }
+
+        for (int y : year) {
+            MakeByResponse makeByRespone = new MakeByResponse();
+            long qtt = 0;
+            for (Batch batch : batches) {
+                if (batch.getDate().getYear() == y) {
+                    qtt += batch.getQuantity();
+                }
+            }
+            makeByRespone.setLabel((y + 1900) + "");
+            makeByRespone.setQuantity(qtt);
+            res.add(makeByRespone);
+        }
+        return res;
     }
 
+    @GetMapping("/xuatByMonth")
+    @ResponseBody
+    public List<MakeByResponse> xuatByMonthResponese(@RequestHeader("Username") String username) {
 
-    /* ---------------- Trả về danh sách sản phẩm theo từng loại ----------------------------*/
+        long id = userRepo.findByUsername(username).get().getLocationId();
+        Iterable<Batch> batches = batchRepo.findByFromId(id);
+        List<MakeByResponse> res = new ArrayList<>();
 
-    @GetMapping("/getType")
-    public RequestEntity<?> getProductByType(@RequestParam String type) {
-        return null;
+        SortedSet<Integer> month = new TreeSet<Integer>();
+        SortedSet<Integer> year = new TreeSet<Integer>();
+
+        for (Batch batch : batches) {
+            int mm = batch.getDate().getMonth();
+            int yyyy = batch.getDate().getYear();
+            month.add(mm);
+            year.add(yyyy);
+        }
+
+        for (int y : year) {
+            for (int m : month) {
+                MakeByResponse makeByMonthRespone = new MakeByResponse();
+                long qtt = 0;
+                for (Batch batch : batches) {
+                    if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y) {
+                        qtt += batch.getQuantity();
+                    }
+                }
+                if (qtt == 0) {
+                    continue;
+                }
+                makeByMonthRespone.setLabel((m + 1) + " / " + (y + 1900));
+                makeByMonthRespone.setQuantity(qtt);
+                res.add(makeByMonthRespone);
+            }
+        }
+        return res;
     }
-
-
-    /*------------------ Số lượng sản phẩm bán ra theo ngày, tháng, năm -----------------------*/
-    @GetMapping("/getSold")
-    public RequestEntity<?> getSolByDate(@RequestParam String type) {
-        return null;
-    }
-
-
-    /*-------------------- Trả về tỷ lệ sản phẩm lỗi -------------------------------------------*/
-    @GetMapping("/getFail")
-    public RequestEntity<?> getRateFail(@RequestParam long lineId) {
-        //Tìm số sản phẩm bị lỗi theo mã id của dòng sản phẩm, tính toán, trả về tỉ lệ , fe dùng biểu đồ đề biểu diễn
-        return null;
-    }
-
-
-
-
-
-
-
 
 }

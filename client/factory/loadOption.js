@@ -8,8 +8,8 @@ function loadOption() {
                 for(let i = 0; i< objArr.length; i++){
                     let o1 = document.createElement("option");
 
-                    o1.innerHTML = ((i + 1) + ": " + objArr[i].optionName + ", " + objArr[i].cpuBrand + " " + objArr[i].cpuName + ", RAM " + (objArr[i].ram).toString() + " GB" + ", ROM " + (objArr[i].rom).toString() + " GB " );
-
+                    o1.innerHTML = (objArr[i].optionId + ": " + objArr[i].optionName + ", " + objArr[i].cpuBrand + " " + objArr[i].cpuName + ", RAM " + (objArr[i].ram).toString() + " GB" + ", ROM " + (objArr[i].rom).toString() + " GB " );
+                    o1.value = objArr[i].optionId;
                     document.querySelector("#type").append(o1);
                 }
             }

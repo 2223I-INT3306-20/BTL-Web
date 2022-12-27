@@ -24,16 +24,13 @@ public class Products {
     private String productSku;
     @Column(nullable = false, length = 200)
     private String productName;
-    private String productPrice;
-    private String productWeight;
-    private String productImg;
-    private int productCategoryId;
 
     @Temporal(TemporalType.DATE)
     private Date productMfg; // ngày sản xuất
     private long warranty;
     private long productStock;
 
+    private long daXuat;
 
     @ManyToOne
     @JoinColumn(name = "option_id", nullable = false, referencedColumnName = "option_id")
@@ -42,7 +39,7 @@ public class Products {
 
     @JsonIgnore
     public String getInfo() {
-        return productSku + ", " + productName + ", " + productPrice + ", " + option.getOptionInfo();
+        return productSku + ", " + productName + ", " + option.getOptionInfo();
     }
 
 

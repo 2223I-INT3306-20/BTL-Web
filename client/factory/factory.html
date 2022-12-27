@@ -9,6 +9,7 @@
     <title>Cơ sở sản xuất</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <link href="../css/bootstrap.css" rel="stylesheet"/>
+    <link href="factory.css">
 
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -111,7 +112,7 @@
     <div class="tab-pane fade show active" id="dbtt" style="width:100%">
         <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đã bán theo tháng</h1><br>
+                <h1 class="mt-4">Thống kê sản phẩm đã xuất kho theo tháng</h1><br>
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <div class="card mb-4">
@@ -129,7 +130,7 @@
                         <div class="card mb-4">
                             <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
                                                           alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số sản phẩm bán ra
+                                Tổng số sản phẩm xuất kho
                             </div>
                             <div class="card-body">
                                 <a style="font-size: 1.4rem;">226</a>
@@ -167,7 +168,7 @@
                         <div class="card mb-4">
                             <div class="card-header" style="text-align: center;">
                                 <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được bán (T1/2022-T12/2022)</i>
+                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được xuất kho</i>
                             </div>
                             <div class="card-body">
                                 <canvas id="spdbtt" height="600px" width="600px"></canvas>
@@ -297,51 +298,36 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Quản lý sản xuất sản phẩm</h1><br>
                 <div class="row">
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-4 col-md-6">
                         <div class="card mb-4">
                             <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/102/102665.png"
                                                           alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đơn hàng
+                                Tổng số đã sản xuất
                             </div>
                             <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
+                                <a style="margin-left: 40%;font-size: 1.4rem;" id="daSx">226</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-4 col-md-6">
                         <div class="card mb-4">
                             <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
                                                           alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số sản phẩm bán ra
+                                Tổng số đã xuất đi
                             </div>
                             <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
+                                <a style="margin-left: 40%;font-size: 1.4rem;" id="daXuat">226</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/9063/9063682.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Sản phẩm có đơn hàng
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-4 col-md-6">
                         <div class="card mb-4">
                             <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/6707/6707113.png"
                                                           alt="icon" style="width: 30px;margin-top: -10px;">
-                                SKU có đơn hàng
+                                Tỉ lệ đã xuất đi
                             </div>
                             <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
+                                <a style="color:green;margin-left: 50%;font-size: 1.4rem;" id="daXuatRate"></a>
                             </div>
                         </div>
                     </div>
@@ -349,7 +335,11 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Bảng phân tích số lượng sản phẩm đã bán
+
+                        <button type="button" style="position: absolute; right: 130px; top: 0" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#xuatPrd" onclick="loadDealer()">
+                            Xuất sản phẩm
+                        </button>
                         <button type="button" style="position: absolute; right: 0; top: 0" class="btn btn-primary"
                                 data-bs-toggle="modal" data-bs-target="#addPrd">
                             Sản xuất thêm
@@ -361,11 +351,11 @@
                                 <thead>
                                 <tr>
                                     <th>STT</th>
+                                    <th>SKU</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Thông số</th>
                                     <th>Số lượng đã sản xuất</th>
                                     <th>Số lượng đã xuất đi</th>
-                                    <th>Xuất</th>
                                 </tr>
                                 </thead>
 
@@ -550,194 +540,194 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="dbtq" style="width: 100%;">
-        <div id="layoutSidenav_content">
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đã bán theo quý</h1><br>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/102/102665.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đơn hàng
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số sản phẩm bán ra
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/9063/9063682.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Sản phẩm có đơn hàng
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/6707/6707113.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                SKU có đơn hàng
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.4rem;">226</a>
-                                <a style="color:green;margin-left: 60%;">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-4">
-                            <div class="card-header" style="text-align: center;">
-                                <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được bán theo quý (năm 2022)</i>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="spdbtq" height="40" width="100"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Bảng phân tích số lượng sản phẩm đã bán
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="datatablesSimple1">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Macbook</td>
-                                        <td>61</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>DELL</td>
-                                        <td>63</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>ASUS</td>
-                                        <td>66</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>HP</td>
-                                        <td>61</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Vivobook</td>
-                                        <td>63</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Tuf</td>
-                                        <td>66</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>ASUS</td>
-                                        <td>66</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>HP</td>
-                                        <td>61</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Vivobook</td>
-                                        <td>63</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Tuf</td>
-                                        <td>66</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11</td>
-                                        <td>ASUS</td>
-                                        <td>66</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12</td>
-                                        <td>HP</td>
-                                        <td>61</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Vivobook</td>
-                                        <td>63</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Tuf</td>
-                                        <td>66</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="tab-pane fade" id="dbtq" style="width: 100%;">-->
+<!--        <div id="layoutSidenav_content">-->
+<!--            <div class="container-fluid px-4">-->
+<!--                <h1 class="mt-4">Thống kê sản phẩm đã bán theo quý</h1><br>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xl-3 col-md-6">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/102/102665.png"-->
+<!--                                                          alt="icon" style="width: 30px;margin-top: -10px;">-->
+<!--                                Tổng số đơn hàng-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+<!--                                <a style="font-size: 1.4rem;">226</a>-->
+<!--                                <a style="color:green;margin-left: 60%;">1638.8%</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-xl-3 col-md-6">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"-->
+<!--                                                          alt="icon" style="width: 30px;margin-top: -10px;">-->
+<!--                                Tổng số sản phẩm xuất kho-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+<!--                                <a style="font-size: 1.4rem;">226</a>-->
+<!--                                <a style="color:green;margin-left: 60%;">1638.8%</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-xl-3 col-md-6">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/9063/9063682.png"-->
+<!--                                                          alt="icon" style="width: 30px;margin-top: -10px;">-->
+<!--                                Sản phẩm có đơn hàng-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+<!--                                <a style="font-size: 1.4rem;">226</a>-->
+<!--                                <a style="color:green;margin-left: 60%;">1638.8%</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-xl-3 col-md-6">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/6707/6707113.png"-->
+<!--                                                          alt="icon" style="width: 30px;margin-top: -10px;">-->
+<!--                                SKU có đơn hàng-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+<!--                                <a style="font-size: 1.4rem;">226</a>-->
+<!--                                <a style="color:green;margin-left: 60%;">1638.8%</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xl-12">-->
+<!--                        <div class="card mb-4">-->
+<!--                            <div class="card-header" style="text-align: center;">-->
+<!--                                <i class="fas fa-chart-area me-1"></i>-->
+<!--                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được xuất kho</i>-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+<!--                                <canvas id="spdbtq" height="40" width="100"></canvas>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card mb-4">-->
+<!--                        <div class="card-header">-->
+<!--                            <i class="fas fa-table me-1"></i>-->
+<!--                            Bảng phân tích số lượng sản phẩm đã xuất kho-->
+<!--                        </div>-->
+<!--                        <div class="card-body">-->
+<!--                            <div class="table-responsive">-->
+<!--                                <table id="datatablesSimple1">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>STT</th>-->
+<!--                                        <th>Tên sản phẩm</th>-->
+<!--                                        <th>Số lượng</th>-->
+<!--                                        <th>Thành tiền</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tfoot>-->
+<!--                                    <tr>-->
+<!--                                        <th>STT</th>-->
+<!--                                        <th>Tên sản phẩm</th>-->
+<!--                                        <th>Số lượng</th>-->
+<!--                                        <th>Thành tiền</th>-->
+<!--                                    </tr>-->
+<!--                                    </tfoot>-->
+<!--                                    <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <td>1</td>-->
+<!--                                        <td>Macbook</td>-->
+<!--                                        <td>61</td>-->
+<!--                                        <td>$320,800</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>2</td>-->
+<!--                                        <td>DELL</td>-->
+<!--                                        <td>63</td>-->
+<!--                                        <td>$170,750</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>3</td>-->
+<!--                                        <td>ASUS</td>-->
+<!--                                        <td>66</td>-->
+<!--                                        <td>$86,000</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>4</td>-->
+<!--                                        <td>HP</td>-->
+<!--                                        <td>61</td>-->
+<!--                                        <td>$320,800</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>5</td>-->
+<!--                                        <td>Vivobook</td>-->
+<!--                                        <td>63</td>-->
+<!--                                        <td>$170,750</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>6</td>-->
+<!--                                        <td>Tuf</td>-->
+<!--                                        <td>66</td>-->
+<!--                                        <td>$86,000</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>7</td>-->
+<!--                                        <td>ASUS</td>-->
+<!--                                        <td>66</td>-->
+<!--                                        <td>$86,000</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>8</td>-->
+<!--                                        <td>HP</td>-->
+<!--                                        <td>61</td>-->
+<!--                                        <td>$320,800</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>9</td>-->
+<!--                                        <td>Vivobook</td>-->
+<!--                                        <td>63</td>-->
+<!--                                        <td>$170,750</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>10</td>-->
+<!--                                        <td>Tuf</td>-->
+<!--                                        <td>66</td>-->
+<!--                                        <td>$86,000</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>11</td>-->
+<!--                                        <td>ASUS</td>-->
+<!--                                        <td>66</td>-->
+<!--                                        <td>$86,000</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>12</td>-->
+<!--                                        <td>HP</td>-->
+<!--                                        <td>61</td>-->
+<!--                                        <td>$320,800</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>5</td>-->
+<!--                                        <td>Vivobook</td>-->
+<!--                                        <td>63</td>-->
+<!--                                        <td>$170,750</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td>6</td>-->
+<!--                                        <td>Tuf</td>-->
+<!--                                        <td>66</td>-->
+<!--                                        <td>$86,000</td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <div class="tab-pane fade" id="dbtn" style="width:100%">
         <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đã bán theo năm</h1><br>
+                <h1 class="mt-4">Thống kê sản phẩm đã xuất theo năm</h1><br>
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <div class="card mb-4">
@@ -755,7 +745,7 @@
                         <div class="card mb-4">
                             <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
                                                           alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số sản phẩm bán ra
+                                Tổng số sản phẩm xuất kho
                             </div>
                             <div class="card-body">
                                 <a style="font-size: 1.4rem;">226</a>
@@ -793,7 +783,7 @@
                         <div class="card mb-4">
                             <div class="card-header" style="text-align: center;">
                                 <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được bán theo năm (2017-2022)</i>
+                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được xuất kho</i>
                             </div>
                             <div class="card-body">
                                 <canvas id="spdbtn" height="40" width="100"></canvas>
@@ -803,7 +793,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Bảng phân tích số lượng sản phẩm đã bán
+                            Bảng phân tích số lượng sản phẩm xuất kho
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -927,10 +917,10 @@
                         <div class="card mb-4">
                             <div class="card-header" style="text-align: center;">
                                 <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được sản xuất theo tháng (T1/2022-T12/2022)</i>
+                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được sản xuất theo tháng</i>
                             </div>
-                            <div class="card-body">
-                                <canvas id="myChart" height="40" width="100"></canvas>
+                            <div class="card-body" id="chart-wrapper">
+                                <canvas id="myChart" width="auto"></canvas>
                             </div>
                         </div>
                     </div>
@@ -1733,26 +1723,36 @@
                     <table class="table table-striped table-bordered table-list">
                         <tbody>
                         <tr>
-                            <td>Tên sản phẩm</td>
+                            <td>SKU</td>
                             <td style="color: red;">(*)</td>
-                            <td><input id="locationName" class="form-control" type="text"
-                                       placeholder="Nhập tên Sản phẩm">
+                            <td><input id="sku" class="form-control" type="text" placeholder="Nhập SKU">
                                 <span
-                                        id="error_name"></span>
+                                        id="error_sku"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ngày sản xuất</td>
+                            <td style="color: red;">(*)</td>
+                            <td><input id="pname" class="form-control" type="date"
+                                       placeholder="Nhập ngày sản xuất">
+                                <span
+                                        id="error_pname"></span>
                             </td>
                         </tr>
                         <tr>
                             <td>Dòng sản phẩm</td>
                             <td style="color: red;">(*)</td>
-                            <td><select id="type">
-                            </select></td>
+                            <td>
+                                <select id="type">
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Số lượng</td>
                             <td style="color: red;">(*)</td>
-                            <td><input id="phone" class="form-control" type="number" placeholder="Nhập số lượng">
+                            <td><input id="quantity" class="form-control" type="number" min="1" pattern="^[1-9]\d*$" placeholder="Nhập số lượng">
                                 <span
-                                        id="error_phone"></span>
+                                        id="error_quantity"></span>
                             </td>
                         </tr>
 
@@ -1761,12 +1761,65 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="toast align-items-center text-white bg-primary border-0 position-absolute buttom-1 start-0 p-3" role="alert" id="liveToast"  aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                Số lượng sản phẩm không hợp lệ.
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeMake" >Đóng</button>
+                    <button type="button" class="btn btn-primary" id="make">Nhập</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="xuatPrd" tabindex="-1" aria-labelledby="lbxuat" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="lbxuat">Xuất sản phẩm</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered table-list">
+                            <tbody>
+                            <tr>
+                                <td>SKU: </td>
+                                <td style="color: red;">(*)</td>
+                                <td>
+                                    <select id="tfPrd">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Đến đại lý: </td>
+                                <td style="color: red;">(*)</td>
+                                <td>
+                                    <select id="toDealer">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số lượng</td>
+                                <td style="color: red;">(*)</td>
+                                <td><input id="quantityXuat" class="form-control" type="number" min="1" pattern="^[1-9]\d*$" placeholder="Nhập số lượng">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeXuat" >Đóng</button>
+                        <button type="button" class="btn btn-primary" id="xuat">Xuất</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
 </div>
 
 
@@ -1776,5 +1829,11 @@
 <script src="loadProduct.js"></script>
 <script src="makeProduct.js"></script>
 <script src="loadOption.js"></script>
+<script src="getDealer.js"></script>
+<script src="transferProduct.js"></script>
+<script src="sptt.js"></script>
+<script src="sptn.js"></script>
+<script src="spbtn.js"></script>
+<script src="spdbtt.js"></script>
 </body>
 </html>

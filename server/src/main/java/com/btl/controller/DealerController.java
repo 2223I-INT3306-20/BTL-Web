@@ -46,7 +46,6 @@ public class DealerController {
             soldProduct.setDealerId(1);
             soldProduct.setProductId(sellDTO.getProductId());
             soldProduct.setSoldDate(new java.sql.Date(System.currentTimeMillis()));
-            soldProduct.setSoldPrice(products.getProductPrice());
             soldProduct.setQuantity(products.getWarranty());
             soldProduct.setQuantity(sellDTO.getQuantity());
 

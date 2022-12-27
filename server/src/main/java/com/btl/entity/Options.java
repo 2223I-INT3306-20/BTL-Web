@@ -46,12 +46,12 @@ public class Options {
     @OneToMany(mappedBy = "option", cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnore
-    private Set<Products> products = new HashSet<>();
+    private Set<Products> products;
 
-    @ManyToOne
-    @JoinColumn(name = "option_group_id", nullable = false, referencedColumnName = "option_group_id")
-    @JsonBackReference
-    private OptionGroup optionGroup;
+//    @ManyToOne
+//    @JoinColumn(name = "option_group_id", nullable = false, referencedColumnName = "option_group_id")
+//    @JsonBackReference
+//    private OptionGroup optionGroup;
 
     @JsonIgnore
     public String getOptionInfo() {

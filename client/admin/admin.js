@@ -140,7 +140,7 @@ function loadAcc() {
                     c1.innerHTML = objArr[i].id;
                     c2.innerHTML = objArr[i].name;
                     c3.innerHTML = objArr[i].username;
-                    c4.innerHTML = objArr[i].firstRole;
+                    c4.innerHTML = objArr[i].location;
 
                     tr.appendChild(c0);
                     tr.appendChild(c1);

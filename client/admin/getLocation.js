@@ -6,6 +6,7 @@ function loadLocation() {
             if(this.status==200){
                 let objArr = JSON.parse(this.responseText);
                 document.querySelector("#tblLocation tbody").innerHTML = "";
+                document.querySelector("#role").innerHTML = "";
                 for(let i = 0; i< objArr.length; i++){
                     let tr = document.createElement("tr");
                     let c1 = document.createElement("td");
@@ -15,6 +16,7 @@ function loadLocation() {
                     let c5 = document.createElement("td");
                     let c6 = document.createElement("td");
                     let c7 = document.createElement("td")
+                    let o1 = document.createElement("option");
 
                     c1.innerHTML += "<td align=\"center\"><a class=\"btn btn-default\"><em\n" +
                         "                                                        class=\"fa fa-pencil\"></em></a> <a class=\"btn btn-danger\"><em\n" +
@@ -27,6 +29,8 @@ function loadLocation() {
                     c6.innerHTML = convertName(objArr[i].locationType);
                     c7.innerHTML = objArr[i].address;
 
+                    o1.innerHTML = objArr[i].locationName;
+
                     tr.appendChild(c1);
                     tr.appendChild(c2);
                     tr.appendChild(c3);
@@ -34,8 +38,11 @@ function loadLocation() {
                     tr.appendChild(c5);
                     tr.appendChild(c6);
                     tr.appendChild(c7);
+                    o1.setAttribute("value", objArr[i].id);
+
 
                     document.querySelector("#tblLocation tbody").appendChild(tr);
+                    document.querySelector("#role").append(o1);
                 }
             }
         }

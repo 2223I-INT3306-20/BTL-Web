@@ -9,7 +9,7 @@ const formAddLocation = {
 
 let buttonLocation = formAddLocation.submit.addEventListener("click", (e) => {
     e.preventDefault();
-    validate();
+    validateLocation();
 });
 
 
@@ -50,7 +50,7 @@ function fetchAddLocation() {
         });
 }
 
-function validate() {
+function validateLocation() {
     var check  = 0;
     var ten = document.getElementById("locationName").value;
     if (ten.trim().length === 0) {

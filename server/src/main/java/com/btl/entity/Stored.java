@@ -33,9 +33,6 @@ public class Stored {
 
 
 
-    @ElementCollection
-    private Set<Long> productId;
-
     public String getLocationInfo() {
         return locationType + ", " + locationName;
     }

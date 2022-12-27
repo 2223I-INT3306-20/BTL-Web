@@ -9,5 +9,5 @@ public interface LocationRepo extends JpaRepository<Stored, Long> {
 
     Stored findByLocationName(String locationName);
 
-    Stored findByLocationType(String locationType);
+    Iterable<Stored> findByLocationType(String locationType);
 }

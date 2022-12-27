@@ -1,9 +1,11 @@
 package com.btl.controller;
 
 import com.btl.entity.Role;
+import com.btl.entity.Stored;
 import com.btl.entity.User;
 import com.btl.dto.LoginDTO;
 import com.btl.dto.SignUpDTO;
+import com.btl.repo.LocationRepo;
 import com.btl.repo.RoleRepo;
 import com.btl.repo.UserRepo;
 import com.btl.response.AuthResponse;
@@ -36,6 +38,9 @@ public class AuthController {
 
     @Autowired
     private RoleRepo roleRepo;
+
+    @Autowired
+    LocationRepo locationRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -73,15 +78,17 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDTO signUpDto) {
         //type đầu vào sẽ nhận type: admin, dealer, service, factory.
-        String type = signUpDto.getRole();
+        long id = signUpDto.getLocationId();
+        Stored stored = locationRepo.findById(id).get();
+        String type = stored.getLocationType();
         String typeRole = "";
-        if (type.equals("admin")) {
+        if (type.equals("ADMIN")) {
             typeRole = "ROLE_ADMIN";
-        } else if (type.equals("dealer")) {
+        } else if (type.equals("DEALER")) {
             typeRole = "ROLE_DEALER";
-        } else if (type.equals("factory")) {
+        } else if (type.equals("FACTORY")) {
             typeRole = "ROLE_FACTORY";
-        } else if (type.equals("service")) {
+        } else if (type.equals("SERVICE")) {
             typeRole = "ROLE_SERVICE";
         } else {
             return ResponseEntity.ok("NOT_SUPPORT");
@@ -100,6 +107,8 @@ public class AuthController {
 
         Role roles = roleRepo.findByName(typeRole).get(0);
         user.setRoles(Collections.singleton(roles));
+
+        user.setStoreds(Collections.singleton(stored));
 
         userRepo.save(user);
 

@@ -102,74 +102,6 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
-const ctx = document.getElementById('myChart');
-  new Chart(ctx, {
-    type: 'bar',
-            data: {
-            labels: ['01','02','03','04','05','06','07', '08', '09', '10', '11', '12'],
-            datasets: [{
-                label: 'Macbook',
-                data: [20, 18, 14, 16, 19, 28, 12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }, {
-                label: 'ASUS',
-                data: [30, 24, 16, 12, 17, 25, 15, 16, 6, 3, 1, 4],
-                borderWidth: 1
-            }, {
-                label: 'DELL',
-                data: [24, 26, 14, 12, 18, 28, 8, 9, 6, 4, 3, 2],
-                borderWidth: 1
-            }
-            
-            ]
-            },
-            
-            options: {
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false
-            }
-  });
-
-
-const ctx1 = document.getElementById('spdbtt');
-new Chart(ctx1, {
-    type: 'line',
-    data: {
-        labels: ['01','02','03','04','05','06','07','08','09','10','11','12'],
-        datasets: [{
-            label: 'Macbook',
-            data: [12,22,33,44,55,66,80, 70, 89, 49, 60, 90],
-            fill: false,
-            borderColor: 'red',
-            backgroundColor: 'red',
-            tension: 0.1
-        }, {
-            label: 'ASUS',
-            data: [4,12,25,60,36,56,59, 80, 81, 56, 55, 80],
-            fill: false,
-            borderColor: 'blue',
-            backgroundColor: 'blue',
-            tension: 0.1
-        },  {
-            label: 'DELL',
-            data: [11,25,36,42,15,28,70, 84, 86, 60, 66, 87],
-            fill: false,
-            borderColor: 'green',
-            backgroundColor: 'green',
-            tension: 0.1
-        }
-        ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-    }
-});
 
 const ctx2 = document.getElementById('spdbtq');
 new Chart(ctx2, {
@@ -206,41 +138,6 @@ new Chart(ctx2, {
     }
 });
 
-const ctx3 = document.getElementById('spdbtn');
-new Chart(ctx3, {
-    type: 'line',
-    data: {
-        labels: ['2017','2018','2019','2020','2021','2022'],
-        datasets: [{
-            label: 'Macbook',
-            data: [80, 70, 89, 49, 60, 90],
-            fill: false,
-            borderColor: 'red',
-            backgroundColor: 'red',
-            tension: 0.1
-        }, {
-            label: 'ASUS',
-            data: [59, 80, 81, 56, 55, 80],
-            fill: false,
-            borderColor: 'blue',
-            backgroundColor: 'blue',
-            tension: 0.1
-        },  {
-            label: 'DELL',
-            data: [70, 84, 86, 60, 66, 87],
-            fill: false,
-            borderColor: 'green',
-            backgroundColor: 'green',
-            tension: 0.1
-        }
-        ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-    }
-});
-
 const ctx4 = document.getElementById('myChart1');
   new Chart(ctx4, {
     type: 'bar',
@@ -259,10 +156,10 @@ const ctx4 = document.getElementById('myChart1');
                 data: [24, 26, 14, 12],
                 borderWidth: 1
             }
-            
+
             ]
             },
-            
+
             options: {
                 scales: {
                     y: {
@@ -271,39 +168,6 @@ const ctx4 = document.getElementById('myChart1');
                 },
                 responsive: true,
                 maintainAspectRatio: false
-            }
-  });
-
-  const ctx5 = document.getElementById('myChart2');
-  new Chart(ctx5, {
-    type: 'bar',
-            data: {
-                labels: ['2017', '2018', '2019', '2020', '2021', '2022'],
-                datasets: [{
-                    label: 'Macbook',
-                    data: [20, 18, 14, 16, 19, 28],
-                    borderWidth: 1
-                }, {
-                    label: 'ASUS',
-                    data: [30, 24, 16, 12, 17, 25],
-                    borderWidth: 1
-                }, {
-                    label: 'DELL',
-                    data: [24, 26, 14, 12, 18, 28],
-                    borderWidth: 1
-                }
-            
-            ]
-            },
-            
-            options: {
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false
             }
   });
 

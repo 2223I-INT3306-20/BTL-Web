@@ -129,7 +129,11 @@ public class AdminController {
         Iterable<Stored> allLocation = locationRepo.findAll();
         for (Stored location : allLocation) {
             //user.setPassword("hided");
-            storeds.add(location);
+            if (location.getLocationName().equals("all")) {
+                break;
+            } else {
+                storeds.add(location);
+            }
         }
         return storeds;
     }
@@ -142,7 +146,6 @@ public class AdminController {
             newStored.setLocationName(locationDTO.getLocationName());
             newStored.setPhone(locationDTO.getPhone());
             newStored.setAddress(locationDTO.getAddress());
-            newStored.setProductId(null);
             newStored.setLocationType(locationDTO.getLocationType());
 
             locationRepo.save(newStored);

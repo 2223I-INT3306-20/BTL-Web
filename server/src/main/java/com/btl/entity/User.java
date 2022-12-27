@@ -35,10 +35,34 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "managa_account",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "location_id", referencedColumnName = "id"))
+    @JsonIgnore
+    private Set<Stored> storeds = new HashSet<>();
+
     public String getFirstRole() {
         Iterator<Role> iter = roles.iterator();
         Role first = iter.next();
         return first.getName();
+    }
+
+    public String getLocation() {
+        Iterator<Stored> iter = storeds.iterator();
+        Stored first = iter.next();
+        if (first.getLocationName().equals("all")) {
+            return "ADMIN";
+        } else {
+            return first.getLocationName();
+        }
+    }
+
+    @JsonIgnore
+    public long getLocationId() {
+        Iterator<Stored> iter = storeds.iterator();
+        Stored first = iter.next();
+        return first.getId();
     }
 
     @Override

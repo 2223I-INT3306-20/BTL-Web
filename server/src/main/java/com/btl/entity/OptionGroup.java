@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@Entity
+//@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "option_group")
@@ -23,10 +23,10 @@ public class OptionGroup {
     private String optionGroupName;
     private long sold;
 
-    @OneToMany(mappedBy = "optionGroup", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @JsonIgnore
-    private Set<Options> options = new HashSet<>();
+//    @OneToMany(mappedBy = "optionGroup", cascade = CascadeType.ALL)
+//    @JsonManagedReference
+//    @JsonIgnore
+//    private Set<Options> options = new HashSet<>();
 
 
 }

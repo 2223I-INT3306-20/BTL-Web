@@ -13,15 +13,14 @@ import java.util.Set;
 public interface ProductRepo extends JpaRepository<Products, Long> {
 
     Products findByProductId(long id);
-    Optional<Products> findByProductCategoryId(int categoryId);
-
     Optional<Products> findByProductName(String name);
-
 
     Products findByProductSku(String SKU);
 
     List<Products> findByProductMfg(Date date);
 
-    Set<Products> findByOption(Options options);
+    Products findByOption(Options options);
+
+
 
 }

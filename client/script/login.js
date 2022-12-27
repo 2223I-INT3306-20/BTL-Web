@@ -55,9 +55,10 @@ function fetchLogin() {
                 var tokenStr = data.accessToken;
                 var name = data.name;
                 var role = data.role;
-                console.log(tokenStr)
+                var username = data.username;
                 window.sessionStorage.setItem('token', tokenStr);
-                window.sessionStorage.setItem('name', name)
+                window.sessionStorage.setItem('name', name);
+                window.sessionStorage.setItem('username', username);
                 if (role === "ROLE_ADMIN") {
                     window.open(
                         "./admin/admin.html", "_self");
