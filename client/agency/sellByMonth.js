@@ -1,9 +1,7 @@
-/* Lấy dữ liệu sản phẩm được sản xuất theo các tháng */
-
 $(document).ready(function(){
-    getData();
+    getDataSellMonth();
 })
-async function getData() {
+async function getDataSellMonth() {
     const settings = {
         method: 'GET',
         headers: {
@@ -13,18 +11,18 @@ async function getData() {
             'Username': window.sessionStorage.getItem('username')
         }
     };
-    const response = await fetch(
-        'http://localhost:8080/factory/makeByMonth', settings);
-    const datas = await response.json();
+    const responseChartSellMonth = await fetch(
+        'http://localhost:8080/dealer/getSellByMonth', settings);
+    const dataSellByMonth = await responseChartSellMonth.json();
 
-    new Chart(document.getElementById("myChart"), {
+    new Chart(document.getElementById("chartSellByMonth"), {
         type: 'bar',
-        data: datas,
+        data: dataSellByMonth,
         options: {
             legend: { display: false },
             title: {
                 display: true,
-                text: 'Product by Month'
+                text: 'Product by Year'
             },
             maintainAspectRatio: false
         }

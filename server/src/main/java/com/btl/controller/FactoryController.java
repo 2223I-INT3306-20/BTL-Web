@@ -1,13 +1,10 @@
 package com.btl.controller;
 
-import com.btl.dto.OptionDTO;
-import com.btl.dto.ProductDTO;
-import com.btl.dto.TransferDTO;
+import com.btl.dto.*;
 import com.btl.entity.*;
 import com.btl.entity.Products;
 import com.btl.repo.*;
-import com.btl.response.MakeByResponse;
-import com.btl.response.ProductResponse;
+import com.btl.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -38,6 +35,11 @@ public class FactoryController {
     @Autowired
     BatchRepo batchRepo;
 
+    @Autowired
+    RequestTransferRepo requestTransferRepo;
+
+    @Autowired
+    BillRepo billRepo;
 
     @GetMapping("/allProduct")
     @ResponseBody
@@ -110,6 +112,7 @@ public class FactoryController {
         batch.setQuantity(productDTO.getQuantity());
         batch.setFromId(0);
         batch.setStatus("MAKE");
+        batch.setPrice(0);
         batch.setToId((userRepo.findByUsername(username).get().getLocationId()));
 
         batchRepo.save(batch);
@@ -118,7 +121,8 @@ public class FactoryController {
 
     }
 
-    @PostMapping("/toDealer") //chuyển số lượng sản phẩm cho của hàng.
+    /*   Chuyển số lượng sản phẩm cho của hàng.   */
+    @PostMapping("/toDealer")
     public ResponseEntity<?> exportToDealer(@RequestHeader("Username") String username, @RequestBody TransferDTO transferDTO) {
         Batch batch = new Batch();
         long fromId = (userRepo.findByUsername(username).get().getLocationId());
@@ -141,6 +145,7 @@ public class FactoryController {
             Date date = new Date(System.currentTimeMillis());
             batch.setDate(date);
             batch.setStatus("TRANSFER");
+            batch.setPrice(transferDTO.getPrice());
             batchRepo.save(batch);
 
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
@@ -219,70 +224,106 @@ public class FactoryController {
 
     @GetMapping("/makeByMonth")
     @ResponseBody
-    public List<MakeByResponse> makeByMonthResponese(@RequestHeader("Username") String username) {
+    public ChartResponse makeByMonthResponese(@RequestHeader("Username") String username) {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
         long id = userRepo.findByUsername(username).get().getLocationId();
-        Iterable<Batch> batches = batchRepo.findByToIdAndFromId(id, 0);
-        List<MakeByResponse> res = new ArrayList<>();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("MAKE", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+
+        List<ComponentResponse> componentResponses = new ArrayList<>();
 
         SortedSet<Integer> month = new TreeSet<Integer>();
         SortedSet<Integer> year = new TreeSet<Integer>();
 
-        for (Batch batch : batches) {
+        for (Batch batch : sellBatch) {
             int mm = batch.getDate().getMonth();
             int yyyy = batch.getDate().getYear();
             month.add(mm);
             year.add(yyyy);
         }
 
-        for (int y : year) {
-            for (int m : month) {
-                MakeByResponse makeByMonthRespone = new MakeByResponse();
-                long qtt = 0;
-                for (Batch batch : batches) {
-                    if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y) {
-                        qtt += batch.getQuantity();
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+            List<Long> data = new ArrayList<>();
+            for (int y : year) {
+
+                for (int m : month) {
+                    long qtt = 0;
+                    for (Batch batch : sellBatch) {
+                        if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                            qtt += batch.getQuantity();
+                        }
                     }
+                    label.add((m + 1) + " / " + (y + 1900));
+                    data.add(qtt);
                 }
-                if (qtt == 0) {
-                    continue;
-                }
-                makeByMonthRespone.setLabel((m + 1) + " / " + (y + 1900));
-                makeByMonthRespone.setQuantity(qtt);
-                res.add(makeByMonthRespone);
+
             }
+            temp.setData(data);
+            componentResponses.add(temp);
         }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
         return res;
     }
 
     @GetMapping("/makeByYear")
     @ResponseBody
-    public List<MakeByResponse> makeByYearResponese(@RequestHeader("Username") String username) {
+    public ChartResponse makeByYearResponese(@RequestHeader("Username") String username) {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
 
         long id = userRepo.findByUsername(username).get().getLocationId();
 
-        Iterable<Batch> batches = batchRepo.findByToIdAndFromId(id, 0);
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("MAKE", id);
+        Set<Long> listPrd = new HashSet<>();
 
-        List<MakeByResponse> res = new ArrayList<>();
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
 
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+
+        SortedSet<Integer> month = new TreeSet<Integer>();
         SortedSet<Integer> year = new TreeSet<Integer>();
 
-        for (Batch batch : batches) {
+        for (Batch batch : sellBatch) {
+            int mm = batch.getDate().getMonth();
             int yyyy = batch.getDate().getYear();
+            month.add(mm);
             year.add(yyyy);
         }
 
-        for (int y : year) {
-            MakeByResponse makeByRespone = new MakeByResponse();
-            long qtt = 0;
-            for (Batch batch : batches) {
-                if (batch.getDate().getYear() == y) {
-                    qtt += batch.getQuantity();
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+            List<Long> data = new ArrayList<>();
+            for (int y : year) {
+                long qtt = 0;
+                for (Batch batch : sellBatch) {
+                    if (batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                        qtt += batch.getQuantity();
+                    }
                 }
+                label.add((y + 1900) + "");
+                data.add(qtt);
             }
-            makeByRespone.setLabel((y + 1900) + "");
-            makeByRespone.setQuantity(qtt);
-            res.add(makeByRespone);
+            temp.setData(data);
+            componentResponses.add(temp);
         }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
         return res;
     }
 
@@ -354,6 +395,45 @@ public class FactoryController {
             }
         }
         return res;
+    }
+
+    @GetMapping("/getListRequest")
+    @ResponseBody
+    public List<RequestTransfer> getListRequest(@RequestHeader("Username") String username) {
+
+        long id = userRepo.findByUsername(username).get().getLocationId();
+        List<RequestTransfer> requestTransfers = new ArrayList<>();
+        Iterable<RequestTransfer> allRequest = requestTransferRepo.findByFactoryIdAndStatus(id, 1);
+        for (RequestTransfer requestTransfer : allRequest) {
+            requestTransfers.add(requestTransfer);
+        }
+        return requestTransfers;
+    }
+
+    @PostMapping("/confirmTransfer")
+    public ResponseEntity<?> confirmTransfer(@RequestHeader("Username") String username, @RequestBody ConfirmDTO confirmDTO) {
+        RequestTransfer transfer = requestTransferRepo.findByRequestId(confirmDTO.getRequestId());
+
+        if (confirmDTO.getCode() == 2) {
+            transfer.setStatus(2);
+
+            Batch batch = new Batch();
+            batch.setToId(transfer.getDealerId());
+            batch.setFromId(transfer.getFactoryId());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = new java.util.Date(System.currentTimeMillis());
+            batch.setDate(date);
+            batch.setStatus("TRANSFER");
+            batch.setPrice(transfer.getPrice());
+            batch.setQuantity(transfer.getQuantity());
+            batch.setProductId(transfer.getProductId());
+
+            batchRepo.save(batch);
+            return ResponseEntity.ok("CONFIRM_SUCCESS");
+        } else {
+            transfer.setStatus(0);
+            return ResponseEntity.ok("REJECT_SUCCESS");
+        }
     }
 
 }

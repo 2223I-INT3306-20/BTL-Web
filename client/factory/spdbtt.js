@@ -1,3 +1,5 @@
+/* Lấy dữ liệu sản phẩm đã bán theo tháng */
+
 $(document).ready(function(){
     getDataXuatTT();
 })

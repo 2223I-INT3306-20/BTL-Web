@@ -5,6 +5,8 @@ import com.btl.dto.LoginDTO;
 import com.btl.dto.SignUpDTO;
 import com.btl.entity.*;
 import com.btl.repo.*;
+import com.btl.response.ChartResponse;
+import com.btl.response.ComponentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,22 +28,14 @@ public class AdminController {
     private RoleRepo roleRepo;
     @Autowired
     private UserRepo userRepo;
-
+    @Autowired
+    ProductRepo productRepo;
     @Autowired
     private LocationRepo locationRepo;
-
+    @Autowired
+    BatchRepo batchRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @GetMapping("/test")
-    public ResponseEntity<?> getTest() {
-        return ResponseEntity.ok("test succesfully!!");
-    }
-
-    @GetMapping("/getLineProduct")
-    public ResponseEntity<?> getLineProducts() {
-        return null;
-    }
 
     @PostMapping("/changeRole")
     public ResponseEntity<?> changRole(@RequestBody LoginDTO loginDTO, @RequestParam int targetRoleId) {
@@ -130,10 +122,10 @@ public class AdminController {
         for (Stored location : allLocation) {
             //user.setPassword("hided");
             if (location.getLocationName().equals("all")) {
-                break;
-            } else {
-                storeds.add(location);
+                continue;
             }
+            storeds.add(location);
+
         }
         return storeds;
     }
@@ -153,5 +145,98 @@ public class AdminController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/sellByYear")
+    @ResponseBody
+    public ChartResponse getSellByYear() {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatus("SELL");
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+
+        SortedSet<Integer> year = new TreeSet<Integer>();
+
+        for (Batch batch : sellBatch) {
+            int mm = batch.getDate().getMonth();
+            int yyyy = batch.getDate().getYear();
+            year.add(yyyy);
+        }
+
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+            List<Long> data = new ArrayList<>();
+            for (int y : year) {
+                long qtt = 0;
+                for (Batch batch : sellBatch) {
+                    if (batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                        qtt += batch.getQuantity();
+                    }
+                }
+                label.add((y + 1900) + "");
+                data.add(qtt);
+            }
+            temp.setData(data);
+            componentResponses.add(temp);
+        }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
+        return res;
+    }
+
+    @GetMapping("/makeByYear")
+    @ResponseBody
+    public ChartResponse getMakeByYear() {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatus("MAKE");
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+
+        SortedSet<Integer> year = new TreeSet<Integer>();
+
+        for (Batch batch : sellBatch) {
+            int yyyy = batch.getDate().getYear();
+            year.add(yyyy);
+        }
+
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+            List<Long> data = new ArrayList<>();
+            for (int y : year) {
+                long qtt = 0;
+                for (Batch batch : sellBatch) {
+                    if (batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                        qtt += batch.getQuantity();
+                    }
+                }
+                label.add((y + 1900) + "");
+                data.add(qtt);
+            }
+            temp.setData(data);
+            componentResponses.add(temp);
+        }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
+        return res;
     }
 }

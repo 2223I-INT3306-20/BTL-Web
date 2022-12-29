@@ -17,9 +17,15 @@ public class Fault {
 
     private long productId;
 
+    private long fromId;
+
     private long serviceId; // địa chỉ nhận hàng lỗi
 
     private Date receiveDate;
 
     private Date passDate;
+
+    private String status;
+
+
 }

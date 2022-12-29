@@ -1,3 +1,5 @@
+/* Sản xuất các sản phẩm mới */
+
 const form = {
     sku: document.getElementById("sku"),
     date: document.getElementById("pname"),

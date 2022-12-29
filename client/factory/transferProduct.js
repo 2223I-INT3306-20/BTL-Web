@@ -1,7 +1,10 @@
+/* Chuyển sản phẩm từ cơ sở sản xuất đến đại lý */
+
 const formTransfer = {
     id : document.getElementById("tfPrd"),
     dealer: document.getElementById("toDealer"),
     quantity: document.getElementById("quantityXuat"),
+    price: document.getElementById("priceXuat"),
     submit: document.getElementById("xuat"),
 }
 
@@ -26,6 +29,7 @@ function fetchTransfer() {
             productId: formTransfer.id.value,
             toId: formTransfer.dealer.value,
             quantity: formTransfer.quantity.value,
+            price:formTransfer.price.value
         }),
     })
         .then(function(response) {

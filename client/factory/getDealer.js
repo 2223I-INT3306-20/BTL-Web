@@ -1,3 +1,5 @@
+/* Lấy danh sách các đại lý */
+
 function loadDealer () {
     this.disabled = true;
     let xhttp = new XMLHttpRequest();

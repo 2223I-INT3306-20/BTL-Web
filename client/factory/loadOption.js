@@ -1,3 +1,5 @@
+/* Tải các cấu hình mà ADMIN cung cấp phục vụ sản xuất */
+
 function loadOption() {
     this.disabled = true;
     let xhttp = new XMLHttpRequest();

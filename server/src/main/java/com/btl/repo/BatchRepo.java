@@ -15,7 +15,15 @@ public interface BatchRepo extends JpaRepository<Batch, Long> {
 
     Iterable<Batch> findByToId(long id);
 
+    Iterable<Batch> findByStatus(String status);
+
     List<Batch> findByToIdAndProductId(long toId, long productId);
 
     Iterable<Batch> findByToIdAndFromId(long id, long fromid);
+
+    Iterable<Batch> findByStatusAndFromId(String status, long id);
+
+    Iterable<Batch> findByStatusAndToId(String make, long id);
+
+    Iterable<Batch> findByFromIdAndStatus(long id, String status);
 }

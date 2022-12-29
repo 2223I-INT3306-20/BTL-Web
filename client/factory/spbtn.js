@@ -1,3 +1,5 @@
+/* Lấy dữ liệu sản phẩm được bán theo năm */
+
 $(document).ready(function(){
     getDataXuatTN();
 })

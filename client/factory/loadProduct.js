@@ -1,3 +1,5 @@
+/* Tải các sản phẩm có trong kho nội bộ */
+
 function loadDoc() {
     this.disabled = true;
     let xhttp = new XMLHttpRequest();

@@ -1,30 +1,27 @@
-/* Lấy dữ liệu sản phẩm được sản xuất theo các tháng */
-
 $(document).ready(function(){
-    getData();
+    getSellByYear();
 })
-async function getData() {
+async function getSellByYear() {
     const settings = {
         method: 'GET',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + window.sessionStorage.getItem('token'),
-            'Username': window.sessionStorage.getItem('username')
         }
     };
-    const response = await fetch(
-        'http://localhost:8080/factory/makeByMonth', settings);
-    const datas = await response.json();
+    const responseMake = await fetch(
+        'http://localhost:8080/admin/makeByYear', settings);
+    const dataMake = await responseMake.json();
 
-    new Chart(document.getElementById("myChart"), {
+    new Chart(document.getElementById("dasx"), {
         type: 'bar',
-        data: datas,
+        data: dataMake,
         options: {
             legend: { display: false },
             title: {
                 display: true,
-                text: 'Product by Month'
+                text: 'Make by Year'
             },
             maintainAspectRatio: false
         }

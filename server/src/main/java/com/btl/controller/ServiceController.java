@@ -1,14 +1,17 @@
 package com.btl.controller;
 
-import com.btl.entity.Fault;
-import com.btl.entity.User;
-import com.btl.repo.FaultRepo;
+import com.btl.dto.TransferDTO;
+import com.btl.entity.*;
+import com.btl.repo.*;
+import com.btl.response.SoldHistoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,39 +20,63 @@ import java.util.List;
 @RequestMapping("/service")
 public class ServiceController {
 
-
     @Autowired
-    private FaultRepo faultRepo;
+    BillRepo billRepo;
+    @Autowired
+    BatchRepo batchRepo;
+    @Autowired
+    UserRepo userRepo;
+    @Autowired
+    ProductRepo productRepo;
 
-    /*Hoàn thành bảo hành và trả về cho cơ sở sản xuất */
-    @PostMapping("/doneWarranty")
-    public ResponseEntity<?> doneWarranty(@RequestBody Fault fault) {
-        return null;
-    }
+    @GetMapping("/allNeedWarranty")
+    @ResponseBody
+    public List<SoldHistoryResponse> allNeedWarranty(@RequestHeader("Username") String username) {
 
-    /*Trả các sản phẩn không thể bảo hành về cho cơ sở sản xuất*/
-    @PostMapping("/cantWarranty")
-    public ResponseEntity<?> cantWarranty(@RequestBody Fault fault) {
-        return null;
-    }
+        long id = userRepo.findByUsername(username).get().getLocationId();
 
-    /*Thống kê sản phẩm lỗi theo từng loại */
-    /*Theo ngày*/
-    @GetMapping("/getStatisticByDate")
-    public ResponseEntity<?> getStatisticByDate(@RequestParam String type, @RequestParam String date) {
+        List<SoldHistoryResponse> res = new ArrayList<>();
 
-        List<Fault> res = new ArrayList<>();
-        Iterable<Fault> allFault = faultRepo.findAll();
-        if (type.equals("year")) {
-            // theo năm
-            for (Fault fault : allFault) {
+        Iterable<Batch> batches = batchRepo.findByStatusAndToId("WARRANTY", id);
 
-            }
-        } else if (type.equals("month")) {
-            //theo tháng
-        } else {
-            //theo ngày
+        for (Batch batch : batches) {
+            SoldHistoryResponse temp = new SoldHistoryResponse();
+            BillCustomer billCustomer = billRepo.findByBatchId(batch.getId());
+
+            temp.setCustomerId(billCustomer.getId());
+            temp.setBatchId(batch.getId());
+            temp.setQuantity(batch.getQuantity());
+            temp.setPrice(batch.getPrice());
+            temp.setSku(productRepo.findByProductId(batch.getProductId()).getProductSku());
+            temp.setCustomerName(billCustomer.getCustomerName());
+            temp.setCustomerPhone(billCustomer.getCustomerPhone());
+            temp.setWarranty(batch.getWarrantyDate());
+            temp.setSoldDate(batch.getDate());
+            temp.setCustomerAddress(billCustomer.getCustomerAddress());
+
+            res.add(temp);
         }
+        return res;
+    }
+
+    @PostMapping("/canWarranty")
+    public ResponseEntity<?> canWarranty(@RequestHeader("Username") String username, @RequestBody TransferDTO transferDTO) {
+
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Batch batch = new Batch();
+
+        batch.setFromId(id);
+        batch.setToId(-1); // Trả luôn cho khách hàng
+        batch.setQuantity(transferDTO.getQuantity());
+        batch.setProductId(transferDTO.getProductId());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        batch.setDate(date);
+        batch.setStatus("DONE_WARRANTY");
+        batch.setPrice(0);
+        batchRepo.save(batch);
+
         return null;
     }
 

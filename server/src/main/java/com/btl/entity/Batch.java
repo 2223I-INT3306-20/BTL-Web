@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
+/* Lưu trữ thông tin giao dịch  */
 
 @Data
 @Entity
@@ -25,4 +26,9 @@ public class Batch {
     private long quantity;
 
     private String status;
+
+    private long price;
+
+    @Temporal(TemporalType.DATE)
+    private Date warrantyDate;
 }
