@@ -17,34 +17,9 @@ async function getDataXuatTT() {
         'http://localhost:8080/factory/xuatByMonth', settings);
     const dataXuatTT = await responseXuatTT.json();
 
-    sizeXuatTT = dataXuatTT.length;
-
-    labelsXuatTT = [];
-    valuesXuatTT = [];
-    for (i = 0; i < sizeXuatTT; i++) {
-        labelsXuatTT.push(dataXuatTT[i].label);
-        valuesXuatTT.push(dataXuatTT[i].quantity);
-    }
-
-
     new Chart(document.getElementById("spdbtt"), {
         type: 'bar',
-        data: {
-            labels: labelsXuatTT,
-            datasets: [
-                {
-                    label: "Mades",
-                    backgroundColor: ["#3e95cd",
-                        "#8e5ea2",
-                        "#3cba9f",
-                        "#e8c3b9",
-                        "#c45850",
-                        "#CD5C5C",
-                        "#40E0D0"],
-                    data: valuesXuatTT
-                }
-            ]
-        },
+        data: dataXuatTT,
         options: {
             legend: { display: false },
             title: {

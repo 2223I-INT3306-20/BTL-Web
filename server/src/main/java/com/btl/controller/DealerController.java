@@ -245,6 +245,7 @@ public class DealerController {
             listPrd.add(batch.getProductId());
         }
         List<ComponentResponse> componentResponses = new ArrayList<>();
+        int count = 0;
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
             temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
@@ -253,18 +254,22 @@ public class DealerController {
             int y = now.getYear();
             List<Long> data = new ArrayList<>();
             long qtt = 0;
+
             for (int m = 0; m < 12; m++) {
                 for (Batch batch : sellBatch) {
                     if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y && batch.getProductId() == pid) {
                         qtt += batch.getQuantity();
                     }
                 }
-                if (m == 2 || m == 5 || m == 8 || m == 11) {
-                    label.add("Quý " + (((int) (m / 3)) + 1) + " - " + (y + 1900));
+                if ((m == 2 || m == 5 || m == 8 || m == 11)) {
+                    if (count == 0) {
+                        label.add("Quý " + (((int) (m / 3)) + 1) + " - " + (y + 1900));
+                    }
                     data.add(qtt);
                     qtt = 0;
                 }
             }
+            count = 1;
             temp.setData(data);
             componentResponses.add(temp);
         }
@@ -330,6 +335,11 @@ public class DealerController {
         for (Batch batch : sellBatch) {
             listPrd.add(batch.getProductId());
         }
+
+        java.util.Date now = new java.util.Date(System.currentTimeMillis());
+        int y = now.getYear();
+        int m = now.getMonth();
+
         List<StatisticRespone> res = new ArrayList<>();
         for (Long pid : listPrd) {
 
@@ -338,9 +348,6 @@ public class DealerController {
             temp.setSku(productRepo.findByProductId(pid).getProductSku());
             temp.setInfo(productRepo.findByProductId(pid).getOption().getOptionInfo());
 
-            java.util.Date now = new java.util.Date(System.currentTimeMillis());
-            int y = now.getYear();
-            int m = now.getMonth();
             long qtt = 0;
             long price = 0;
             for (Batch batch : sellBatch) {

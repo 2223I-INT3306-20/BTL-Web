@@ -1,9 +1,7 @@
-/* Lấy dữ liệu sản phẩm được bán theo năm */
-
 $(document).ready(function(){
-    getDataXuatTN();
+    getDatachartXuatByQuarter();
 })
-async function getDataXuatTN() {
+async function getDatachartXuatByQuarter() {
     const settings = {
         method: 'GET',
         headers: {
@@ -13,13 +11,13 @@ async function getDataXuatTN() {
             'Username': window.sessionStorage.getItem('username')
         }
     };
-    const responseXuatTN = await fetch(
-        'http://localhost:8080/factory/xuatByYear', settings);
-    const dataXuatTN = await responseXuatTN.json();
+    const responsechartXuatByQuarter = await fetch(
+        'http://localhost:8080/factory/xuatByQuarter', settings);
+    const chartXuatByQuarter = await responsechartXuatByQuarter.json();
 
-    new Chart(document.getElementById("spdbtn"), {
+    new Chart(document.getElementById("chartXuatByQuarter"), {
         type: 'bar',
-        data: dataXuatTN,
+        data: chartXuatByQuarter,
         options: {
             legend: { display: false },
             title: {

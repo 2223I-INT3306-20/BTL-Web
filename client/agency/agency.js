@@ -43,3 +43,7 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+function logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.clear();
+}

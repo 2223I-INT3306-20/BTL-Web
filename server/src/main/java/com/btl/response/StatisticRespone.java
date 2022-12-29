@@ -9,4 +9,5 @@ public class StatisticRespone {
     private String info;
     private long quantity;
     private long price;
+    private String toName;
 }
