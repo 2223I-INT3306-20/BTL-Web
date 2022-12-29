@@ -10,4 +10,7 @@ public interface FaultRepo extends JpaRepository<Fault, Long> {
 
     List<Fault> getFaultByReceiveDate(Date date);
 
+    List<Fault> findByServiceIdAndStatus(long id,String s);
+
+    Fault findByBatchId(long id);
 }

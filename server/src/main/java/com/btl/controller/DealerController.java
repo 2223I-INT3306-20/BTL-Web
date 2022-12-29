@@ -8,9 +8,7 @@ import com.btl.repo.*;
 import com.btl.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -38,6 +36,9 @@ public class DealerController {
 
     @Autowired
     private BillRepo billRepo;
+
+    @Autowired
+    private FaultRepo faultRepo;
 
     /* Danh sách các sản phẩm có trong kho */
     @GetMapping("/allProductInStore")
@@ -115,6 +116,7 @@ public class DealerController {
 
         Batch recieve = new Batch();
         Batch warranty = new Batch();
+        Fault fault = new Fault();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date date = new java.util.Date(System.currentTimeMillis());
@@ -122,7 +124,7 @@ public class DealerController {
         recieve.setFromId(-1);
         recieve.setToId(id);
         recieve.setQuantity(warrantyDTO.getQuantity());
-        recieve.setProductId(warrantyDTO.getProductId());
+        recieve.setProductId(batchRepo.findById(warrantyDTO.getBatchId()).get().getProductId());
         recieve.setDate(date);
         recieve.setStatus("RECEIVE");
         recieve.setPrice(0);
@@ -131,11 +133,21 @@ public class DealerController {
         warranty.setFromId(id);
         warranty.setToId(warrantyDTO.getServiceId());
         warranty.setQuantity(warrantyDTO.getQuantity());
-        warranty.setProductId(warrantyDTO.getProductId());
+        warranty.setProductId(batchRepo.findById(warrantyDTO.getBatchId()).get().getProductId());
         warranty.setDate(date);
         warranty.setStatus("TO_SERVICE");
         warranty.setPrice(0);
-        batchRepo.save(recieve);
+        batchRepo.save(warranty);
+
+        fault.setProductId(warranty.getProductId());
+        fault.setFromId(id);
+        fault.setServiceId(warrantyDTO.getServiceId());
+        fault.setReceiveDate(date);
+        fault.setQuantity(warrantyDTO.getQuantity());
+        fault.setBatchId(warrantyDTO.getBatchId());
+        fault.setStatus("WARRANTY");
+
+        faultRepo.save(fault);
 
         return ResponseEntity.ok("SUCCESS");
     }
@@ -149,6 +161,22 @@ public class DealerController {
 
         for (Stored stored : all) {
             if (stored.getLocationType().equals("FACTORY")) {
+                res.add(stored);
+            }
+        }
+
+        return res;
+    }
+
+    @GetMapping("/validService")
+    @ResponseBody
+    public List<Stored> getListValidService() {
+
+        List<Stored> res = new ArrayList<>();
+        Iterable<Stored> all = locationRepo.findByLocationType("SERVICE");
+
+        for (Stored stored : all) {
+            if (stored.getLocationType().equals("SERVICE")) {
                 res.add(stored);
             }
         }
@@ -203,6 +231,7 @@ public class DealerController {
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
             temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
 
             java.util.Date now = new java.util.Date(System.currentTimeMillis());
             int y = now.getYear();
@@ -214,14 +243,10 @@ public class DealerController {
                         qtt += batch.getQuantity();
                     }
                 }
-//                if (qtt == 0) {
-//                    continue;
-//                }
                 label.add((m + 1) + " / " + (y + 1900));
                 data.add(qtt);
             }
             temp.setData(data);
-
             componentResponses.add(temp);
         }
         res.setDatasets(componentResponses);
@@ -245,7 +270,6 @@ public class DealerController {
             listPrd.add(batch.getProductId());
         }
         List<ComponentResponse> componentResponses = new ArrayList<>();
-        int count = 0;
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
             temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
@@ -254,6 +278,7 @@ public class DealerController {
             int y = now.getYear();
             List<Long> data = new ArrayList<>();
             long qtt = 0;
+            label = new ArrayList<>();
 
             for (int m = 0; m < 12; m++) {
                 for (Batch batch : sellBatch) {
@@ -262,14 +287,11 @@ public class DealerController {
                     }
                 }
                 if ((m == 2 || m == 5 || m == 8 || m == 11)) {
-                    if (count == 0) {
                         label.add("Quý " + (((int) (m / 3)) + 1) + " - " + (y + 1900));
-                    }
                     data.add(qtt);
                     qtt = 0;
                 }
             }
-            count = 1;
             temp.setData(data);
             componentResponses.add(temp);
         }
@@ -296,6 +318,7 @@ public class DealerController {
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
             temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
 
             java.util.Date now = new java.util.Date(System.currentTimeMillis());
             int year = now.getYear();
@@ -490,6 +513,139 @@ public class DealerController {
         return price;
     }
 
+    @GetMapping("/getNhapByMonth")
+    @ResponseBody
+    public ChartResponse getNhapByMonth(@RequestHeader("Username") String username) {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("TRANSFER", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+
+            java.util.Date now = new java.util.Date(System.currentTimeMillis());
+            int y = now.getYear();
+            List<Long> data = new ArrayList<>();
+            for (int m = 0; m < 12; m++) {
+                long qtt = 0;
+                for (Batch batch : sellBatch) {
+                    if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                        qtt += batch.getQuantity();
+                    }
+                }
+                label.add((m + 1) + " / " + (y + 1900));
+                data.add(qtt);
+            }
+            temp.setData(data);
+
+            componentResponses.add(temp);
+        }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
+        return res;
+    }
+
+
+    @GetMapping("/getNhapByQuarter")
+    @ResponseBody
+    public ChartResponse getNhapByQuarter(@RequestHeader("Username") String username) {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("TRANSFER", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+
+            java.util.Date now = new java.util.Date(System.currentTimeMillis());
+            int y = now.getYear();
+            List<Long> data = new ArrayList<>();
+            long qtt = 0;
+
+            for (int m = 0; m < 12; m++) {
+                for (Batch batch : sellBatch) {
+                    if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                        qtt += batch.getQuantity();
+                    }
+                }
+                if ((m == 2 || m == 5 || m == 8 || m == 11)) {
+                        label.add("Quý " + (((int) (m / 3)) + 1) + " - " + (y + 1900));
+                    data.add(qtt);
+                    qtt = 0;
+                }
+            }
+            temp.setData(data);
+            componentResponses.add(temp);
+        }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
+        return res;
+    }
+
+    @GetMapping("/getNhapByYear")
+    @ResponseBody
+    public ChartResponse getNhapByYear(@RequestHeader("Username") String username) {
+        ChartResponse res = new ChartResponse();
+        List<String> label = new ArrayList<>();
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("TRANSFER", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+        List<ComponentResponse> componentResponses = new ArrayList<>();
+        for (Long pid : listPrd) {
+            ComponentResponse temp = new ComponentResponse();
+            temp.setLabel(productRepo.findByProductId(pid).getOption().getOptionName() + " - " + productRepo.findByProductId(pid).getProductSku());
+            label = new ArrayList<>();
+            java.util.Date now = new java.util.Date(System.currentTimeMillis());
+            int year = now.getYear();
+            List<Long> data = new ArrayList<>();
+            long qtt = 0;
+            for (int y = year - 5; y <= year; y++) {
+                for (int m = 0; m < 12; m++) {
+                    for (Batch batch : sellBatch) {
+                        if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                            qtt += batch.getQuantity();
+                        }
+                    }
+                    if (m == 11) {
+                        label.add("" + (y + 1900));
+                        data.add(qtt);
+                        qtt = 0;
+                    }
+                }
+            }
+            temp.setData(data);
+            componentResponses.add(temp);
+        }
+        res.setDatasets(componentResponses);
+        res.setLabels(label);
+
+        return res;
+    }
+
     @PostMapping("/requestTransfer")
     public ResponseEntity<?> submitTransfer(@RequestHeader("Username") String username, @RequestBody RequestTransferDTO requestTransferDTO) {
         long dealerId = userRepo.findByUsername(username).get().getLocationId();
@@ -637,6 +793,135 @@ public class DealerController {
         res.setNhap(inValue);
         res.setXuat(outValue);
 
+        return res;
+    }
+
+    @GetMapping("/listNhapByMonth")
+    @ResponseBody
+    public List<StatisticRespone> listNhapByMonth(@RequestHeader("Username") String username) {
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("TRANSFER", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+
+        java.util.Date now = new java.util.Date(System.currentTimeMillis());
+        int y = now.getYear();
+        int m = now.getMonth();
+
+        List<StatisticRespone> res = new ArrayList<>();
+        for (Long pid : listPrd) {
+
+            StatisticRespone temp = new StatisticRespone();
+            temp.setName(productRepo.findByProductId(pid).getOption().getOptionName());
+            temp.setSku(productRepo.findByProductId(pid).getProductSku());
+            temp.setInfo(productRepo.findByProductId(pid).getOption().getOptionInfo());
+
+            long qtt = 0;
+            long price = 0;
+            for (Batch batch : sellBatch) {
+                if (batch.getDate().getMonth() == m && batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                    qtt += batch.getQuantity();
+                    price += batch.getPrice() * batch.getQuantity();
+                }
+            }
+
+            temp.setQuantity(qtt);
+            temp.setPrice(price);
+            res.add(temp);
+
+        }
+        return res;
+    }
+
+    @GetMapping("/listNhapByQuarter")
+    @ResponseBody
+    public List<StatisticRespone> listNhapByQuarter(@RequestHeader("Username") String username) {
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("TRANSFER", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+        List<StatisticRespone> res = new ArrayList<>();
+        for (Long pid : listPrd) {
+
+            StatisticRespone temp = new StatisticRespone();
+            temp.setName(productRepo.findByProductId(pid).getOption().getOptionName());
+            temp.setSku(productRepo.findByProductId(pid).getProductSku());
+            temp.setInfo(productRepo.findByProductId(pid).getOption().getOptionInfo());
+
+            java.util.Date now = new java.util.Date(System.currentTimeMillis());
+            int y = now.getYear();
+            int m = now.getMonth();
+
+            int thisQuarter = (int) (m / 3);
+            List<Integer> quarter = new ArrayList<>();
+
+            quarter.add(thisQuarter * 3);
+            quarter.add(thisQuarter * 3 + 1);
+            quarter.add(thisQuarter * 3 + 2);
+
+            long qtt = 0;
+            long price = 0;
+            for (int month : quarter) {
+                for (Batch batch : sellBatch) {
+                    if (batch.getDate().getMonth() == month && batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                        qtt += batch.getQuantity();
+                        price += batch.getPrice() * batch.getQuantity();
+                    }
+                }
+            }
+
+            temp.setQuantity(qtt);
+            temp.setPrice(price);
+            res.add(temp);
+
+        }
+        return res;
+    }
+
+    @GetMapping("/listNhapByYear")
+    @ResponseBody
+    public List<StatisticRespone> listNhapByYear(@RequestHeader("Username") String username) {
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        Iterable<Batch> sellBatch = batchRepo.findByStatusAndToId("TRANSFER", id);
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Batch batch : sellBatch) {
+            listPrd.add(batch.getProductId());
+        }
+        List<StatisticRespone> res = new ArrayList<>();
+        for (Long pid : listPrd) {
+
+            StatisticRespone temp = new StatisticRespone();
+            temp.setName(productRepo.findByProductId(pid).getOption().getOptionName());
+            temp.setSku(productRepo.findByProductId(pid).getProductSku());
+            temp.setInfo(productRepo.findByProductId(pid).getOption().getOptionInfo());
+
+            java.util.Date now = new java.util.Date(System.currentTimeMillis());
+            int y = now.getYear();
+            long qtt = 0;
+            long price = 0;
+
+            for (Batch batch : sellBatch) {
+                if (batch.getDate().getYear() == y && batch.getProductId() == pid) {
+                    qtt += batch.getQuantity();
+                    price += batch.getPrice() * batch.getQuantity();
+                }
+            }
+
+            temp.setQuantity(qtt);
+            temp.setPrice(price);
+            res.add(temp);
+
+        }
         return res;
     }
 

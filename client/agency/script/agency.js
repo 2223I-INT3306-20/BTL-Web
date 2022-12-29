@@ -35,7 +35,26 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('listNhapMonth');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
 
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('listNhapQuarter');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('listNhapYear');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
 window.addEventListener('DOMContentLoaded', event => {
     const datatablesSimple = document.getElementById('listSellYear');
     if (datatablesSimple) {
@@ -46,4 +65,8 @@ window.addEventListener('DOMContentLoaded', event => {
 function logout() {
     sessionStorage.removeItem('token');
     sessionStorage.clear();
+}
+
+function printValue() {
+    let data = document.querySelector("#")
 }

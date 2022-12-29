@@ -162,20 +162,15 @@ public class AdminController {
 
         List<ComponentResponse> componentResponses = new ArrayList<>();
 
-        SortedSet<Integer> year = new TreeSet<Integer>();
-
-        for (Batch batch : sellBatch) {
-            int mm = batch.getDate().getMonth();
-            int yyyy = batch.getDate().getYear();
-            year.add(yyyy);
-        }
+        Date now = new Date(System.currentTimeMillis());
+        int year = now.getYear();
 
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
             temp.setLabel(productRepo.findByProductId(pid).getProductSku());
             label = new ArrayList<>();
             List<Long> data = new ArrayList<>();
-            for (int y : year) {
+            for (int y = year - 1; y <= year; y++) {
                 long qtt = 0;
                 for (Batch batch : sellBatch) {
                     if (batch.getDate().getYear() == y && batch.getProductId() == pid) {
@@ -209,19 +204,15 @@ public class AdminController {
 
         List<ComponentResponse> componentResponses = new ArrayList<>();
 
-        SortedSet<Integer> year = new TreeSet<Integer>();
-
-        for (Batch batch : sellBatch) {
-            int yyyy = batch.getDate().getYear();
-            year.add(yyyy);
-        }
+        Date now = new Date(System.currentTimeMillis());
+        int year = now.getYear();
 
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
             temp.setLabel(productRepo.findByProductId(pid).getProductSku());
             label = new ArrayList<>();
             List<Long> data = new ArrayList<>();
-            for (int y : year) {
+            for (int y = year - 2; y <= year; y++) {
                 long qtt = 0;
                 for (Batch batch : sellBatch) {
                     if (batch.getDate().getYear() == y && batch.getProductId() == pid) {
@@ -239,4 +230,6 @@ public class AdminController {
 
         return res;
     }
+
+
 }

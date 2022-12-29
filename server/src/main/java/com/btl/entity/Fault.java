@@ -17,12 +17,18 @@ public class Fault {
 
     private long productId;
 
+    private long batchId;
+
     private long fromId;
+
+    private long quantity;
 
     private long serviceId; // địa chỉ nhận hàng lỗi
 
+    @Temporal(TemporalType.DATE)
     private Date receiveDate;
 
+    @Temporal(TemporalType.DATE)
     private Date passDate;
 
     private String status;

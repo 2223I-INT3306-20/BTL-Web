@@ -58,7 +58,27 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('listMakeByYear');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
 
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('listMakeByQuarter');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
+
+
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('listMakeByMonth');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
 
 function logout() {
     sessionStorage.removeItem('token');

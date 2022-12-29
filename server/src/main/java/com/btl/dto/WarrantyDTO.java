@@ -7,7 +7,7 @@ public class WarrantyDTO {
 
     private long quantity;
 
-    private long productId;
+    private long batchId;
 
     private long serviceId;
 

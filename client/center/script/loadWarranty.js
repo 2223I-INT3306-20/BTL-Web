@@ -1,3 +1,5 @@
+/* Tải danh sách các sản phẩm cần bảo hành */
+
 function loadValidWarranty() {
     this.disabled = true;
     let xhttp = new XMLHttpRequest();
@@ -5,7 +7,7 @@ function loadValidWarranty() {
         if(this.readyState==4){
             if(this.status==200){
                 let objArr = JSON.parse(this.responseText);
-                document.querySelector("#tblValidWarranty tbody").innerHTML = "";
+                document.querySelector("#tbInsurance tbody").innerHTML = "";
 
                 for(let i = 0; i< objArr.length; i++){
                     let tr = document.createElement("tr");
@@ -19,8 +21,12 @@ function loadValidWarranty() {
                     let c7 = document.createElement("td");
                     let c8 = document.createElement("td");
                     let c9 = document.createElement("td");
-                    let c10 = document.createElement("td")
-
+                    let c10 = document.createElement("input");
+                    let o1 = document.createElement("option");
+                    o1.innerHTML = (objArr[i].batchId + " - " + objArr[i].customerName + " - " + objArr[i].customerPhone);
+                    o1.setAttribute("value", objArr[i].batchId);
+                    //let o1 = ;
+                    c10.setAttribute("type", "checkbox");
                     c1.innerHTML = (i+1);
                     c2.innerHTML = objArr[i].batchId;
                     c3.innerHTML = objArr[i].sku;
@@ -30,11 +36,7 @@ function loadValidWarranty() {
                     c7.innerHTML = objArr[i].soldDate;
                     c8.innerHTML = objArr[i].quantity;
                     c9.innerHTML = objArr[i].warranty;
-                    c10.innerHTML += "<td style=\"align-content: center\"><a class=\"btn btn-default\"><em\n" +
-                        "                                                        class=\"fa fa-flag-checkered\" aria-hidden=\"true\"></em></a>" +
-                        "                                            </td>";
 
-                    c10.setAttribute("style", "align-content: center");
                     tr.appendChild(c1)
                     tr.appendChild(c2);
                     tr.appendChild(c3);
@@ -44,15 +46,15 @@ function loadValidWarranty() {
                     tr.appendChild(c7);
                     tr.appendChild(c8);
                     tr.appendChild(c9);
-                    tr.appendChild(c10);
+                    // tr.appendChild(c10);
 
-
-                    document.querySelector("#tblValidWarranty tbody").appendChild(tr);
+                    document.querySelector("#tbInsurance tbody").appendChild(tr);
+                    document.querySelector("#thamChieu").appendChild(o1);
                 }
             }
         }
     }
-    xhttp.open("GET","http://localhost:8080/dealer/validWarranty",true);
+    xhttp.open("GET","http://localhost:8080/service/allNeedWarranty",true);
     xhttp.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem('token'));
     xhttp.setRequestHeader("Username", window.sessionStorage.getItem('username'));
     xhttp.send("null");

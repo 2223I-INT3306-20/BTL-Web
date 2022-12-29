@@ -35,7 +35,7 @@
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
-                <li><a class="dropdown-item" href="../index.html" onclick="logout()">Đăng xuất</a></li>
+                <li><a class="dropdown-item" href="../index.html">Đăng xuất</a></li>
             </ul>
         </li>
     </ul>
@@ -45,49 +45,27 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Số liệu</div>
+                    <div class="sb-sidenav-menu-heading">Sản phẩm</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collap"
                        aria-expanded="false" aria-controls="collap">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Sản phẩm
+                        Dòng sản phẩm
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collap" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link" data-bs-toggle="pill" href="#kho">Kho</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#sell">Lịch sử bán hàng</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#insurance">Sản phẩm còn bảo hành</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#inWarranty">Sản phẩm đang bảo hành</a>
-                        </nav>
-                    </div>
-                    <div class="sb-sidenav-menu-heading">Thống kê</div>
+                    <div class="sb-sidenav-menu-heading">Tài khoản</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                        aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Sản phẩm đã bán
+                        Quản lý Tài khoản
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link active" data-bs-toggle="pill" href="#dbtt">Theo tháng</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#dbtq">Theo quý</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#dbtn">Theo năm</a>
-                        </nav>
-                    </div>
+                    <div class="sb-sidenav-menu-heading">Cơ sở</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#slsp"
                        aria-expanded="true" aria-controls="slsp">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Sản phẩm đã nhập
+                        Quản lý Cơ sở
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="slsp" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link" data-bs-toggle="pill" href="#sptt">Theo tháng</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#sptq">Theo quý</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#sptn">Theo năm</a>
-                        </nav>
-                    </div>
                 </div>
             </div>
             <div class="sb-sidenav-footer" style="text-align: center;">
@@ -101,270 +79,22 @@
     <div class="tab-pane fade show active" id="dbtt" style="width:100%">
         <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đã bán theo tháng</h1><br>
-                <div class="row">
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/102/102665.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đã nhập trong tháng này
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.6rem;margin-left: 35%" id="tsdntt">226</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đã bán trong tháng này
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.6rem;margin-left: 35%;" id="tsdbtt">226</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/9063/9063682.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tỉ lệ bán
-                            </div>
-                            <div class="card-body">
-                                <a style="color:green;margin-left: 40%;font-size: 1.6rem;" id="ratett">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-4">
-                            <div class="card-header" style="text-align: center;">
-                                <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được bán</i>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="chartSellByMonth" height="600px" width="600px"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Bảng phân tích số lượng sản phẩm đã bán
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="listSellMonth">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
-                                    <th>Số lượng</th>
-                                    <th>Thành tiền</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
-                                    <th>Số lượng</th>
-                                    <th>Thành tiền</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="mt-4">Quản lý Dòng Sản Phẩm</h1><br>
             </div>
         </div>
     </div>
     <div class="tab-pane fade" id="dbtq" style="width: 100%;">
         <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đã bán theo quý</h1><br>
-                <div class="row">
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/102/102665.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đã nhập trong quý này
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.6rem;margin-left: 35%" id="tsdntq">226</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đã bán trong quý này
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.6rem;margin-left: 35%;" id="tsdbtq">226</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/9063/9063682.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tỉ lệ bán
-                            </div>
-                            <div class="card-body">
-                                <a style="color:green;margin-left: 40%;font-size: 1.6rem;" id="ratetq">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
+                <h1 class="mt-4">Quản lý tài khoản</h1><br>
 
-                </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-4">
-                            <div class="card-header" style="text-align: center;">
-                                <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được bán theo quý</i>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="chartSellByQuarter" height="40" width="100"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Bảng phân tích số lượng sản phẩm đã bán
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="listSellQuarter">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>SKU</th>
-                                        <th>Thông tin</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>SKU</th>
-                                        <th>Thông tin</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <div class="tab-pane fade" id="dbtn" style="width:100%">
         <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đã bán theo năm</h1><br>
-                <div class="row">
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/102/102665.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đã nhập trong năm nay
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.6rem;margin-left: 35%" id="tsdntn">226</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tổng số đã bán trong năm nay
-                            </div>
-                            <div class="card-body">
-                                <a style="font-size: 1.6rem;margin-left: 35%;" id="tsdbtn">226</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header"><img src="https://cdn-icons-png.flaticon.com/512/9063/9063682.png"
-                                                          alt="icon" style="width: 30px;margin-top: -10px;">
-                                Tỉ lệ bán
-                            </div>
-                            <div class="card-body">
-                                <a style="color:green;margin-left: 40%;font-size: 1.6rem;" id="ratetn">1638.8%</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-4">
-                            <div class="card-header" style="text-align: center;">
-                                <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã được bán theo năm</i>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="chartSellByYear" height="40" width="100"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Bảng phân tích số lượng sản phẩm đã bán
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="listSellYear">
-                                    <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>SKU</th>
-                                        <th>Thông tin</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>SKU</th>
-                                        <th>Thông tin</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="mt-4">Quản lý cơ sở</h1><br>
             </div>
         </div>
     </div>
@@ -380,7 +110,7 @@
                                 <i>Biểu đồ thể hiển số lượng sản phẩm đã mua theo tháng</i>
                             </div>
                             <div class="card-body">
-                                <canvas id="chartNhapByMonth" height="40" width="100"></canvas>
+                                <canvas id="" height="40" width="100"></canvas>
                             </div>
                         </div>
                     </div>
@@ -388,17 +118,16 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Bảng phân tích số lượng sản phẩm đã mua trong tháng
+                        Bảng phân tích số lượng sản phẩm đã mua theo tháng
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="listNhapMonth">
+                            <table id="datatablesSimple4">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
+                                    <th>Thông số sản phẩm</th>
                                     <th>Số lượng</th>
                                 </tr>
                                 </thead>
@@ -406,13 +135,95 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
+                                    <th>Thông số sản phẩm</th>
                                     <th>Số lượng</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-
+                                <tr>
+                                    <td>1</td>
+                                    <td>Macbook</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>DELL</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>ASUS</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>ASUS</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>ASUS</td>
+                                    <td>66</td>
+                                    <td>$86,000</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>$86,000</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -433,7 +244,7 @@
                                 <i>Biểu đồ thể hiển số lượng sản phẩm đã mua theo quý năm 2022</i>
                             </div>
                             <div class="card-body">
-                                <canvas id="chartNhapByQuarter" height="40" width="100"></canvas>
+                                <canvas id="myChart1" height="40" width="100"></canvas>
                             </div>
                         </div>
                     </div>
@@ -441,17 +252,16 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Bảng phân tích số lượng sản phẩm đã mua trong quý
+                        Bảng phân tích số lượng sản phẩm đã mua theo quý
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="listNhapQuarter">
+                            <table id="datatablesSimple5">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
+                                    <th>Thông số sản phẩm</th>
                                     <th>Số lượng</th>
                                 </tr>
                                 </thead>
@@ -459,13 +269,95 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
+                                    <th>Thông số sản phẩm</th>
                                     <th>Số lượng</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-
+                                <tr>
+                                    <td>1</td>
+                                    <td>Macbook</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>DELL</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>ASUS</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>ASUS</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>ASUS</td>
+                                    <td>66</td>
+                                    <td>$86,000</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>$86,000</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -483,10 +375,10 @@
                         <div class="card mb-4">
                             <div class="card-header" style="text-align: center;">
                                 <i class="fas fa-chart-area me-1"></i>
-                                <i>Biểu đồ thể hiển số lượng sản phẩm đã nhập trong năm</i>
+                                <i>Biểu đồ thể hiển số lượng sản phẩm đã mua theo năm (2017-2022)</i>
                             </div>
                             <div class="card-body">
-                                <canvas id="chartNhapByYear" height="40" width="100"></canvas>
+                                <canvas id="myChart2" height="40" width="100"></canvas>
                             </div>
                         </div>
                     </div>
@@ -494,17 +386,16 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Bảng phân tích số lượng sản phẩm đã nhập trong năm
+                        Bảng phân tích số lượng sản phẩm đã mua theo năm
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="listNhapYear">
+                            <table id="datatablesSimple6">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
+                                    <th>Thông số sản phẩm</th>
                                     <th>Số lượng</th>
                                 </tr>
                                 </thead>
@@ -512,12 +403,95 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Thông tin</th>
+                                    <th>Thông số sản phẩm</th>
                                     <th>Số lượng</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Macbook</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>DELL</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>ASUS</td>
+                                    <td>Intel, Core i7,11500HZ, Ram 8GB, SSD 512GB, Màn Hình Oled, Phân giải 4k</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>ASUS</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>ASUS</td>
+                                    <td>66</td>
+                                    <td>$86,000</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>HP</td>
+                                    <td>61</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Vivobook</td>
+                                    <td>63</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tuf</td>
+                                    <td>66</td>
+                                    <td>$86,000</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -624,8 +598,8 @@
                         <i class="fas fa-table me-1"></i>
                         Bảng phân tích số lượng sản phẩm còn hạn bảo hành
                         <button type="button" style="position: absolute; right: 0; top: 0" class="btn btn-primary"
-                                data-bs-toggle="modal" data-bs-target="#doWarranty" onclick="getValidService()">
-                            Bảo hành
+                                data-bs-toggle="modal" data-bs-target="#addPrd">
+                            Thêm
                         </button>
                     </div>
                     <div class="card-body">
@@ -643,42 +617,6 @@
                                     <th>Số lượng đã bán</th>
                                     <th>Hạn bảo hành</th>
                                     <th>Bảo hành</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="inWarranty" style="width:100%">
-        <div id="layoutSidenav_content">
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Thống kê sản phẩm đang được bảo hành</h1><br>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Bảng quản lý sản phẩm đang bảo hành
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tblInWarranty">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Mã tham chiếu</th>
-                                    <th>SKU</th>
-                                    <th>Tên khách hàng</th>
-                                    <th>Địa chỉ khách hàng</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Ngày bán</th>
-                                    <th>Số lượng đã bán</th>
-                                    <th>Ngày bảo hành</th>
                                 </tr>
                                 </thead>
 
@@ -781,50 +719,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="doWarranty" tabindex="-1" aria-labelledby="labelS" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelS">Nhận bảo hành</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped table-bordered table-list">
-                        <tbody>
-                        <tr>
-                            <td>Tham chiếu</td>
-                            <td style="color: red;">(*)</td>
-                            <td><select id="batchId">
-
-                            </select>
-                            </td>
-                        </tr>
-                            <tr>
-                                <td>Trung tâm</td>
-                                <td style="color: red;">(*)</td>
-                                <td>
-                                    <select id="serviceId">
-
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sô lượng</td>
-                                <td style="color: red;">(*)</td>
-                                <td><input id="qttWarranty" class="form-control" type="number" min="1"
-                                           placeholder="Nhập số lượng">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeWarranty">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="sendWarranty">Gửi</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="ycNhap" tabindex="-1" aria-labelledby="labelA" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -881,25 +775,17 @@
 <script src="../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="../factory/script/factory.js"></script>
-<script src="script/agency.js"></script>
-<script src="script/loadStore.js"></script>
-<script src="script/sellProduct.js"></script>
-<script src="script/soldHistory.js"></script>
-<script src="script/loadAnalysis.js"></script>
-<script src="script/validWarranty.js"></script>
-<script src="script/requestNhap.js"></script>
-<script src="script/sellByMonth.js"></script>
-<script src="script/sellByQuarter.js"></script>
-<script src="script/sellByYear.js"></script>
-<script src="script/dataSellMonth.js"></script>
-<script src="script/dataSellQuarter.js"></script>
-<script src="script/dataSellYear.js"></script>
-<script src="script/nhapByMonth.js"></script>
-<script src="script/nhapByQuarter.js"></script>
-<script src="script/nhapByYear.js"></script>
-<script src="script/dataNhapMonth.js"></script>
-<script src="script/dataNhapQuarter.js"></script>
-<script src="script/dataNhapYear.js"></script>
-<script src="script/doWarranty.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+        const sidebarToggle = document.body.querySelector('#sidebarToggle');
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', event => {
+                event.preventDefault();
+                document.body.classList.toggle('sb-sidenav-toggled');
+                localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+            });
+        }
+
+    });</script>
 </body>
 </html>

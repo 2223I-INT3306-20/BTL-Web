@@ -25,7 +25,6 @@ function getValidFactory() {
 
                     o1.innerHTML = objArr[i].locationName;
                     o1.setAttribute("value", objArr[i].id);
-             
 
                     document.querySelector("#factoryId").appendChild(o1);
                 }
@@ -33,6 +32,32 @@ function getValidFactory() {
         }
     }
     xhttp.open("GET","http://localhost:8080/dealer/validFactory",true);
+    xhttp.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem('token'))
+    xhttp.send("null");
+}
+
+function getValidService() {
+    this.disabled = true;
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+        if(this.readyState==4){
+            if(this.status==200){
+                let objArr = JSON.parse(this.responseText);
+                document.querySelector("#serviceId").innerHTML = "";
+                for(let i = 0; i< objArr.length; i++){
+
+                    let o1 = document.createElement("option");
+
+                    o1.innerHTML = objArr[i].locationName;
+
+                    o1.setAttribute("value", objArr[i].id);
+
+                    document.querySelector("#serviceId").appendChild(o1);
+                }
+            }
+        }
+    }
+    xhttp.open("GET","http://localhost:8080/dealer/validService",true);
     xhttp.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem('token'))
     xhttp.send("null");
 }

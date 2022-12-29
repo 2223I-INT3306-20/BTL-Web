@@ -25,7 +25,7 @@ items.forEach(function (item, index) {
 });
 
 
-document.querySelector("#name").innerHTML += window.sessionStorage.getItem('name').toString();
+// document.querySelector("#name").innerHTML += window.sessionStorage.getItem('name').toString();
 
 /* Load acc list */
 function loadAcc() {
@@ -150,67 +150,6 @@ function tblSort() {
     }
 }
 
-const ctx1 = document.getElementById('daban');
-new Chart(ctx1, {
-    type: 'bar',
-    data: {
-        labels: ['2017', '2018', '2019', '2020', '2021', '2022'],
-        datasets: [{
-            label: 'Macbook',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-        }, {
-            label: 'ASUS',
-            data: [15, 16, 6, 3, 1, 4],
-            borderWidth: 1
-        }, {
-            label: 'DELL',
-            data: [8, 9, 6, 4, 3, 2],
-            borderWidth: 1
-        }
-
-        ]
-    },
-
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-
-// const ctx2 = document.getElementById('dasx');
-// new Chart(ctx2, {
-//     type: 'line',
-//     data: {
-//         labels: ['2017','2018','2019','2020','2021','2022'],
-//         datasets: [{
-//             label: 'Macbook',
-//             data: [80, 70, 89, 49, 60, 90],
-//             fill: false,
-//             borderColor: 'red',
-//             backgroundColor: 'red',
-//             tension: 0.1
-//         }, {
-//             label: 'ASUS',
-//             data: [59, 80, 81, 56, 55, 80],
-//             fill: false,
-//             borderColor: 'blue',
-//             backgroundColor: 'blue',
-//             tension: 0.1
-//         },  {
-//             label: 'DELL',
-//             data: [70, 84, 86, 60, 66, 87],
-//             fill: false,
-//             borderColor: 'green',
-//             backgroundColor: 'green',
-//             tension: 0.1
-//         }
-//         ]
-//     }
-// });
 
 const ctx3 = document.getElementById('dabh');
 new Chart(ctx3, {
