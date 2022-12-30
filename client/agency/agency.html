@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Đại lý phân phối</title>
+    <title>BigCorp - ProductionMove</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <link href="../css/bootstrap.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -29,7 +29,7 @@
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false"><i class="fas fa-user fa-fw"></i>USER</a>
+               aria-expanded="false"><i class="fas fa-user fa-fw"></i>DEALER</a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#!">Cài đặt</a></li>
                 <li>
@@ -677,7 +677,7 @@
                                     <th>Địa chỉ khách hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Ngày bán</th>
-                                    <th>Số lượng đã bán</th>
+                                    <th>Số lượng</th>
                                     <th>Ngày bảo hành</th>
                                 </tr>
                                 </thead>
@@ -839,7 +839,7 @@
                             <td>Nơi yêu cầu nhập</td>
                             <td style="color: red;">(*)</td>
                             <td>
-                                <select id="factoryId" onchange="getProductValid()q">
+                                <select id="factoryId" onchange="getProductValid()">
 
                                 </select>
                             </td>
@@ -868,11 +868,11 @@
                             </td>
                         </tr>
                         </tbody>
-                    </table>
+                    </table>cầu
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeYc">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="sendYc">Yêu cầu</button>
+                    <button type="button" class="btn btn-primary" id="sendYc" onclick="sendRq()">Yêu cầu</button>
                 </div>
             </div>
         </div>
@@ -901,5 +901,6 @@
 <script src="script/dataNhapQuarter.js"></script>
 <script src="script/dataNhapYear.js"></script>
 <script src="script/doWarranty.js"></script>
+<script src="script/listInWarranty.js"></script>
 </body>
 </html>

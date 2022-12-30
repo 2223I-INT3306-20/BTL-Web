@@ -151,25 +151,6 @@ function tblSort() {
 }
 
 
-const ctx3 = document.getElementById('dabh');
-new Chart(ctx3, {
-    type: 'pie',
-    data: {
-        labels: ['Macbook','ASUS','DELL'],
-        datasets: [{
-            label: 'Số máy',
-            data: [300, 50, 100],
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
-            ],
-            hoverOffset: 4
-        }]
-
-    }
-});
-
 function logout() {
     sessionStorage.removeItem('token');
     sessionStorage.clear();

@@ -1,11 +1,13 @@
-function loadHistory() {
+/* Tải danh sách các sản phẩm cần bảo hành */
+
+function loadInWarranty() {
     this.disabled = true;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
         if(this.readyState==4){
             if(this.status==200){
                 let objArr = JSON.parse(this.responseText);
-                document.querySelector("#tblSell tbody").innerHTML = "";
+                document.querySelector("#tblInWarranty tbody").innerHTML = "";
 
                 for(let i = 0; i< objArr.length; i++){
                     let tr = document.createElement("tr");
@@ -19,9 +21,7 @@ function loadHistory() {
                     let c7 = document.createElement("td");
                     let c8 = document.createElement("td");
                     let c9 = document.createElement("td");
-                    let c10 = document.createElement("td")
-                    let c11 = document.createElement("td")
-
+                    //let o1 = ;
                     c1.innerHTML = (i+1);
                     c2.innerHTML = objArr[i].batchId;
                     c3.innerHTML = objArr[i].sku;
@@ -30,10 +30,7 @@ function loadHistory() {
                     c6.innerHTML = objArr[i].customerPhone;
                     c7.innerHTML = objArr[i].soldDate;
                     c8.innerHTML = objArr[i].quantity;
-                    c9.innerHTML = ((parseInt(objArr[i].price) * parseInt(objArr[i].quantity)).toFixed(2)).toString();
-                    c10.innerHTML = objArr[i].price;
-                    c11.innerHTML = objArr[i].warranty;
-
+                    c9.innerHTML = objArr[i].warranty;
 
                     tr.appendChild(c1)
                     tr.appendChild(c2);
@@ -44,20 +41,24 @@ function loadHistory() {
                     tr.appendChild(c7);
                     tr.appendChild(c8);
                     tr.appendChild(c9);
-                    tr.appendChild(c10);
-                    tr.appendChild(c11);
 
-
-                    document.querySelector("#tblSell tbody").appendChild(tr);
+                    document.querySelector("#tblInWarranty tbody").appendChild(tr);
                 }
             }
         }
     }
-    xhttp.open("GET","http://localhost:8080/dealer/getSoldHistory",true);
+    xhttp.open("GET","http://localhost:8080/dealer/inWarranty",true);
     xhttp.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem('token'));
     xhttp.setRequestHeader("Username", window.sessionStorage.getItem('username'));
     xhttp.send("null");
 }
+
+window.addEventListener('DOMContentLoaded', event => {
+    const datatablesSimple = document.getElementById('tblInWarranty');
+    if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+    }
+});
 $(document).ready(function(){
-    loadHistory();
+    loadInWarranty();
 })

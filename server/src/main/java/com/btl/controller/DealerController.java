@@ -38,6 +38,9 @@ public class DealerController {
     private BillRepo billRepo;
 
     @Autowired
+    RequestTransferRepo requestTransferRepo;
+
+    @Autowired
     private FaultRepo faultRepo;
 
     /* Danh sách các sản phẩm có trong kho */
@@ -662,6 +665,8 @@ public class DealerController {
         newRequest.setDealerId(dealerId);
         newRequest.setStatus(1);
 
+        requestTransferRepo.save(newRequest);
+
         return ResponseEntity.ok("SUCCESS");
     }
 
@@ -954,6 +959,43 @@ public class DealerController {
 
                 res.add(temp);
             }
+        }
+        return res;
+    }
+
+    @GetMapping("/inWarranty")
+    @ResponseBody
+    public List<SoldHistoryResponse> inWarranty(@RequestHeader("Username") String username) {
+
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        List<SoldHistoryResponse> res = new ArrayList<>();
+
+        Iterable<Fault> faults = faultRepo.findByFromIdAndStatus(id, "WARRANTY");
+
+        List<Batch> batches = new ArrayList<>();
+        for (Fault fault : faults) {
+            Batch temp = batchRepo.findById(fault.getBatchId()).get();
+            batches.add(temp);
+        }
+
+        for (Batch batch : batches) {
+
+            SoldHistoryResponse temp = new SoldHistoryResponse();
+            BillCustomer billCustomer = billRepo.findByBatchId(batch.getId());
+
+            temp.setCustomerId(billCustomer.getId());
+            temp.setBatchId(batch.getId());
+            temp.setQuantity(batch.getQuantity());
+            temp.setPrice(batch.getPrice());
+            temp.setSku(productRepo.findByProductId(batch.getProductId()).getProductSku());
+            temp.setCustomerName(billCustomer.getCustomerName());
+            temp.setCustomerPhone(billCustomer.getCustomerPhone());
+            temp.setWarranty(faultRepo.findByBatchId(batch.getId()).getReceiveDate());
+            temp.setSoldDate(batch.getDate());
+            temp.setCustomerAddress(billCustomer.getCustomerAddress());
+
+            res.add(temp);
         }
         return res;
     }

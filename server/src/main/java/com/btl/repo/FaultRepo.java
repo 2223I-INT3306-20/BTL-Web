@@ -13,4 +13,6 @@ public interface FaultRepo extends JpaRepository<Fault, Long> {
     List<Fault> findByServiceIdAndStatus(long id,String s);
 
     Fault findByBatchId(long id);
+
+    Iterable<Fault> findByFromIdAndStatus(long id, String warranty);
 }

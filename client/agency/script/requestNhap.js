@@ -87,3 +87,43 @@ function getProductValid() {
     xhttp.setRequestHeader("Authorization", "Bearer " + window.sessionStorage.getItem('token'))
     xhttp.send(null);
 }
+
+function sendRq() {
+    const login = "http://localhost:8080/dealer/requestTransfer";
+
+    fetch(login, {
+        method: "POST",
+
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + window.sessionStorage.getItem('token'),
+            "Username": window.sessionStorage.getItem('username'),
+        },
+        body: JSON.stringify({
+            productId: document.querySelector("#productId").value,
+            quantity: document.querySelector("#slYcNhap").value,
+            price: document.querySelector("#giaYcNhap").value,
+            factoryId: document.querySelector("#factoryId").value,
+        }),
+    })
+        .then(function(response) {
+            if (response.ok) {
+                document.getElementById('closeYc').click();
+            }
+
+            return response.json();})
+        .then((data) => {
+            console.log(data);
+            // code here //
+            if (data.error) {
+                alert("Error Password or Username"); /*displays error message*/
+            } else {
+                alert("Oke");
+
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}

@@ -11,11 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:63342", "http://127.0.0.1:5500"})
+@RolesAllowed({"ROLE_ADMIN", "ROLE_FACTORY"})
 @RequestMapping("/factory")
 
 public class FactoryController {
@@ -34,6 +36,9 @@ public class FactoryController {
 
     @Autowired
     BatchRepo batchRepo;
+
+    @Autowired
+    FaultRepo faultRepo;
 
     @Autowired
     RequestTransferRepo requestTransferRepo;
@@ -769,8 +774,8 @@ public class FactoryController {
     @GetMapping("/getListRequest")
     @ResponseBody
     public List<RequestTransfer> getListRequest(@RequestHeader("Username") String username) {
-
         long id = userRepo.findByUsername(username).get().getLocationId();
+
         List<RequestTransfer> requestTransfers = new ArrayList<>();
         Iterable<RequestTransfer> allRequest = requestTransferRepo.findByFactoryIdAndStatus(id, 1);
         for (RequestTransfer requestTransfer : allRequest) {
@@ -795,7 +800,7 @@ public class FactoryController {
             batch.setStatus("TRANSFER");
             batch.setPrice(transfer.getPrice());
             batch.setQuantity(transfer.getQuantity());
-            batch.setProductId(transfer.getProductId());
+            batch.setProductId(productRepo.findByProductSku(Long.toString(transfer.getFactoryId())).getProductId());
 
             batchRepo.save(batch);
             return ResponseEntity.ok("CONFIRM_SUCCESS");
@@ -805,4 +810,31 @@ public class FactoryController {
         }
     }
 
+    @GetMapping("/cantWarranty")
+    @ResponseBody
+    public List<WarrantyResponse> listCantWarranty(@RequestHeader("Username") String username) {
+        return findList(username);
+    }
+
+    private List<WarrantyResponse> findList(String username) {
+        long id = userRepo.findByUsername(username).get().getLocationId();
+
+        List<WarrantyResponse> res = new ArrayList<>();
+        List<Fault> done = faultRepo.findByServiceIdAndStatus(id, "CANT");
+        //List<Fault> cant = faultRepo.findByServiceIdAndStatus(id, "CANT");
+
+        for (Fault fault : done) {
+            BillCustomer billCustomer = billRepo.findByBatchId(fault.getBatchId());
+            WarrantyResponse temp = new WarrantyResponse();
+            temp.setPassDate(fault.getPassDate());
+            temp.setReceiveDate(fault.getReceiveDate());
+            temp.setCustomerPhone(billCustomer.getCustomerPhone());
+            temp.setCustomerName(billCustomer.getCustomerName());
+            temp.setCustomerAddress(billCustomer.getCustomerAddress());
+            temp.setBatchId(fault.getBatchId());
+
+            res.add(temp);
+        }
+        return res;
+    }
 }

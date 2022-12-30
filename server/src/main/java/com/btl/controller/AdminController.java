@@ -2,15 +2,18 @@ package com.btl.controller;
 
 import com.btl.dto.LocationDTO;
 import com.btl.dto.LoginDTO;
+import com.btl.dto.OptionDTO;
 import com.btl.dto.SignUpDTO;
 import com.btl.entity.*;
 import com.btl.repo.*;
 import com.btl.response.ChartResponse;
 import com.btl.response.ComponentResponse;
+import com.btl.response.PieChartResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +37,11 @@ public class AdminController {
     private LocationRepo locationRepo;
     @Autowired
     BatchRepo batchRepo;
+
+    @Autowired
+    OptionRepo optionRepo;
+    @Autowired
+    FaultRepo faultRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -167,7 +175,7 @@ public class AdminController {
 
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
-            temp.setLabel(productRepo.findByProductId(pid).getProductSku());
+            temp.setLabel(productRepo.findByProductId(pid).getProductSku() + " - " + productRepo.findByProductId(pid).getOption().getOptionName());
             label = new ArrayList<>();
             List<Long> data = new ArrayList<>();
             for (int y = year - 1; y <= year; y++) {
@@ -209,7 +217,7 @@ public class AdminController {
 
         for (Long pid : listPrd) {
             ComponentResponse temp = new ComponentResponse();
-            temp.setLabel(productRepo.findByProductId(pid).getProductSku());
+            temp.setLabel(productRepo.findByProductId(pid).getProductSku() + " - " + productRepo.findByProductId(pid).getOption().getOptionName());
             label = new ArrayList<>();
             List<Long> data = new ArrayList<>();
             for (int y = year - 2; y <= year; y++) {
@@ -231,5 +239,61 @@ public class AdminController {
         return res;
     }
 
+    @PostMapping("/createNewOption")
+    public ResponseEntity<?> createNewOption(@RequestBody OptionDTO optionDTO) {
+
+        Options newOption = new Options();
+        newOption.setBrandName(optionDTO.getBrandName());
+        newOption.setResolution(optionDTO.getResolution());
+        newOption.setRomType(optionDTO.getRomType());
+        newOption.setScreenType(optionDTO.getScreenType());
+        newOption.setOptionName(optionDTO.getOptionName());
+        newOption.setScreenSize(optionDTO.getScreenSize());
+        newOption.setBattery(optionDTO.getBattery());
+        newOption.setCpuBrand(optionDTO.getCpuBrand());
+        newOption.setCpuName(optionDTO.getCpuName());
+        newOption.setRam(optionDTO.getRam());
+        newOption.setRom(optionDTO.getRom());
+        newOption.setGpu(optionDTO.getGpu());
+        newOption.setProducts(null);
+
+        optionRepo.save(newOption);
+
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @GetMapping("/faultByYear")
+    @ResponseBody
+    public PieChartResponse faultRete() {
+        PieChartResponse res = new PieChartResponse();
+        List<String> label = new ArrayList<>();
+
+        Iterable<Fault> faults = faultRepo.findAll();
+        Set<Long> listPrd = new HashSet<>();
+
+        for (Fault fault : faults) {
+            listPrd.add(fault.getProductId());
+        }
+
+        List<Long> datasets = new ArrayList<>();
+
+        Date now = new Date(System.currentTimeMillis());
+        int year = now.getYear();
+
+        for (Long pid : listPrd) {
+            long data = 0;
+            label.add(productRepo.findByProductId(pid).getProductSku() + " - " + productRepo.findByProductId(pid).getOption().getOptionName());
+            for (Fault fault : faults) {
+                if (fault.getReceiveDate().getYear() == year && fault.getProductId() == pid) {
+                    data += fault.getQuantity();
+                }
+            }
+            datasets.add(data);
+        }
+        res.setDatasets(datasets);
+        res.setLabels(label);
+
+        return res;
+    }
 
 }

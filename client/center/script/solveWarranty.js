@@ -3,12 +3,12 @@ const formWarranty = {
     sl: document.querySelector("#sl"),
 };
 
-document.querySelector("#can").addEventListener("click", (e) => {
+document.querySelector("#cando").addEventListener("click", (e) => {
     e.preventDefault();
     fetchDoneWarranty()
 });
 
-document.querySelector("#cant").addEventListener("click", (e) => {
+document.querySelector("#cannot").addEventListener("click", (e) => {
     e.preventDefault();
     fetchCantWarranty()
 });

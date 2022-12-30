@@ -21,7 +21,7 @@ let buttonOption = formAddOption.submit.addEventListener("click", (e) => {
 
 
 function fetchAddOption() {
-    const login = "http://localhost:8080/factory/createNewOption";
+    const login = "http://localhost:8080/admin/createNewOption";
 
     fetch(login, {
         method: "POST",

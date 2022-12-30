@@ -1,5 +1,8 @@
 /* Tải các yêu cầu xuất hàng từ các Đại lý cho các Cơ sở sản xuất */
 
+$(document).ready(function(){
+    loadYCXH();
+});
 function loadYCXH() {
     this.disabled = true;
     let xhttp = new XMLHttpRequest();
@@ -8,6 +11,7 @@ function loadYCXH() {
             if(this.status==200){
                 let objArr = JSON.parse(this.responseText);
                 document.querySelector("#tblYcxh tbody").innerHTML = "";
+                document.querySelector("#requestId").innerHTML = "";
                 for(let i = 0; i< objArr.length; i++){
 
                     let tr = document.createElement("tr");
@@ -17,16 +21,17 @@ function loadYCXH() {
                     let c4 = document.createElement("td");
                     let c5 = document.createElement("td");
                     let c6 = document.createElement("td");
-                    let c7 = document.createElement("td");
-                    let c8 = document.createElement("button");
+                    let o1 = document.createElement("option");
+                    o1.setAttribute("value", objArr[i].requestId);
 
                     c1.innerHTML = ( i + 1);
                     c2.innerHTML = objArr[i].requestId;
                     c3.innerHTML = objArr[i].productId;
                     c4.innerHTML = objArr[i].dealerId;
-                    c5.innerHTML = objArr[i].slXuat;
-                    c7.innerHTML = objArr[i].price;
-                    c8.innerHTML = "<button>Xử lý</button>"
+                    c5.innerHTML = objArr[i].quantity;
+                    c6.innerHTML = objArr[i].price;
+                    o1.innerHTML = objArr[i].requestId + " - SL: " + objArr[i].quantity + ", price: " + objArr[i].price;
+
 
                     tr.appendChild(c1);
                     tr.appendChild(c2);
@@ -34,9 +39,8 @@ function loadYCXH() {
                     tr.appendChild(c4);
                     tr.appendChild(c5);
                     tr.appendChild(c6);
-                    tr.appendChild(c7);
-                    tr.appendChild(c8);
 
+                    document.querySelector("#requestId").appendChild(o1);
                     document.querySelector("#tblYcxh tbody").appendChild(tr);
                 }
             }
