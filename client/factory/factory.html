@@ -71,9 +71,9 @@
                     </a>
                     <div class="collapse" id="spdb" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#dbtt">Theo tháng</a>
-                            <a class="nav-link" data-bs-toggle="tab" href="#dbtq">Theo quý</a>
-                            <a class="nav-link" data-bs-toggle="tab" href="#dbtn">Theo năm</a>
+                            <a class="nav-link active" data-bs-toggle="tab" href="#dbtt" onclick="xuatMonth()">Theo tháng</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#dbtq" onclick="xuatQuarter()">Theo quý</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#dbtn" onclick="xuatYear()">Theo năm</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#slsp"
@@ -84,9 +84,9 @@
                     </a>
                     <div class="collapse" id="slsp" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link" data-bs-toggle="tab" href="#sptt">Theo tháng</a>
-                            <a class="nav-link" data-bs-toggle="tab" href="#sptq">Theo quý</a>
-                            <a class="nav-link" data-bs-toggle="tab" href="#sptn">Theo năm</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#sptt" onclick="makeMonth()">Theo tháng</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#sptq" onclick="makeQuarter()">Theo quý</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#sptn" onclick="makeYear()">Theo năm</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#lsp"
@@ -97,7 +97,7 @@
                     </a>
                     <div class="collapse" id="lsp" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link" data-bs-toggle="tab" href="#ldsp">Theo dòng sản phâm</a>
+                            <a class="nav-link" data-bs-toggle="tab" href="#ldsp" onclick="loadFaultList()">Theo dòng sản phâm</a>
 <!--                            <a class="nav-link" data-bs-toggle="tab" href="#lcs">Theo cơ sở sản xuất</a>-->
 <!--                            <a class="nav-link" data-bs-toggle="tab" href="#ltt">Theo trung tâm bảo hành</a>-->
                         </nav>
@@ -273,7 +273,7 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>SKU</th>
-                                    <th>Tên sản phẩm</th>
+                                    <th>Option Id</th>
                                     <th>Thông số</th>
                                     <th>Số lượng đã sản xuất</th>
                                     <th>Số lượng đã xuất đi</th>
@@ -878,7 +878,6 @@
                                     <th>Địa chỉ khách hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Ngày bán</th>
-                                    <th>Ngày bảo hành</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -889,7 +888,6 @@
                                     <th>Địa chỉ khách hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Ngày bán</th>
-                                    <th>Ngày bảo hành</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -1180,7 +1178,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeCf" >Đóng</button>
-                    <button type="button" class="btn btn-primary" id="cf">Xuất</button>
                 </div>
             </div>
         </div>

@@ -54,10 +54,10 @@
                     </a>
                     <div class="collapse" id="collap" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link" data-bs-toggle="pill" href="#kho">Kho</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#sell">Lịch sử bán hàng</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#insurance">Sản phẩm còn bảo hành</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#inWarranty">Sản phẩm đang bảo hành</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#kho" onclick="loadStore()">Kho</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#sell" onclick="loadHistory();">Lịch sử bán hàng</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#insurance" onclick="loadValidWarranty();">Sản phẩm còn bảo hành</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#inWarranty" onclick="loadInWarranty();">Sản phẩm đang bảo hành</a>
                         </nav>
                     </div>
                     <div class="sb-sidenav-menu-heading">Thống kê</div>
@@ -70,9 +70,9 @@
                     <div class="collapse" id="collapsePages" aria-labelledby="headingOne"
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link active" data-bs-toggle="pill" href="#dbtt">Theo tháng</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#dbtq">Theo quý</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#dbtn">Theo năm</a>
+                            <a class="nav-link active" data-bs-toggle="pill" href="#dbtt" onclick="sellMonth()">Theo tháng</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#dbtq" onclick="sellQuarter()">Theo quý</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#dbtn" onclick="sellYear()">Theo năm</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#slsp"
@@ -83,9 +83,9 @@
                     </a>
                     <div class="collapse" id="slsp" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested">
-                            <a class="nav-link" data-bs-toggle="pill" href="#sptt">Theo tháng</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#sptq">Theo quý</a>
-                            <a class="nav-link" data-bs-toggle="pill" href="#sptn">Theo năm</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#sptt" onclick="nhapMonth()">Theo tháng</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#sptq" onclick="nhapQuarter()">Theo quý</a>
+                            <a class="nav-link" data-bs-toggle="pill" href="#sptn" onclick="nhapYear()">Theo năm</a>
                         </nav>
                     </div>
                 </div>
@@ -868,7 +868,7 @@
                             </td>
                         </tr>
                         </tbody>
-                    </table>cầu
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeYc">Đóng</button>

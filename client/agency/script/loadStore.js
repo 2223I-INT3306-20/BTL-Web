@@ -26,9 +26,9 @@ function loadStore() {
                     c4.innerHTML = objArr[i].sku;
                     c5.innerHTML = objArr[i].info;
                     c6.innerHTML = objArr[i].slNhap;
-                    c7.innerHTML = objArr[i].giaNhap;
+                    c7.innerHTML = (objArr[i].giaNhap / objArr[i].slNhap);
                     c8.innerHTML = objArr[i].slXuat;
-                    o1.innerHTML = objArr[i].sku + " - Tối đa: " + (objArr[i].slNhap - objArr[i].slXuat);
+                    o1.innerHTML = objArr[i].sku + " - Tối đa: " + (objArr[i].slNhap - objArr[i].slXuat) + " - " + (objArr[i].giaNhap / objArr[i].slNhap);
 
                     tr.appendChild(c2);
                     tr.appendChild(c3);

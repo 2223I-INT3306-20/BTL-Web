@@ -1,0 +1,34 @@
+* Thành viên nhóm 
+---------------------------------------------------------------------------------------------------------------------------------
+| STT 	| Họ và Tên             | Mã Sinh Viên | Công việc thực hiện                                            		|
+---------------------------------------------------------------------------------------------------------------------------------
+|  1 	| Đinh Duy Mạnh	|   20020438	| Back-end  (API, auth, ...) , Thiết kế và xây dựng CSDL, Thuyết trình		|
+---------------------------------------------------------------------------------------------------------------------------------
+|  2 	| Nguyễn Viết Mạnh	|   20020440	| Thiết kế giao diện, xây dựng giao diện, responsive				|
+---------------------------------------------------------------------------------------------------------------------------------
+|  3 	| Hồ Ngọc Lâm		|   20020201	| Fetch API, kết nối giữa Back-end và Front-end				|
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+
+* GitHub nhóm: https://github.com/Web-Dev-App/BTL-Web
+
+
++ Back-end	: sử dụng Java Spring Boot, Spring Security, JWT, Hibernate/JPA ...
++ Front-end	: sử dụng Bootstrap (3, 5), ChartJS, DataTables, ...
++ DBMS		: MySQL liên kết bằng Hibernate.
+
+* Lưu ý: 
++ Trong quá trình nhập Data vào bảng, nhóm đã thay đổi một sô thông số (ngày tháng, ...) nên có thể sẽ dẫn đến một số sai sót trong database.
+Tuy nhiên trong thực tế, người dùng không thể thay thế với những dữ liệu đó. 
++ Một số config được lưu trong server/src/main/resources/application.properties (liên quan đến CSDL)
++ CORS mở cho localhost với: http://127.0.0.1:5500 (VSCode - Live) và http://localhost:63342 (PhpStorm Live)
+
+
+* Account
+   + Admin	: manhdinhadmin - admin
+   + Factory	: manhdinhfactory - admin
+   + Service	: manhdinhservice - admin
+   + Dealer	: manhdinhdealer - admin	
+   
+

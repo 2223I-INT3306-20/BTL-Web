@@ -48,9 +48,9 @@
                             </a>
                             <div class="collapse" id="collapse" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested">
-                                    <a class="nav-link active" data-bs-toggle="pill" href="#insurance">Bảo hành</a>
-                                    <a class="nav-link" data-bs-toggle="pill" href="#done">Hoàn thành</a>
-                                    <a class="nav-link" data-bs-toggle="pill" href="#cant">Không thể sửa</a>
+                                    <a class="nav-link active" data-bs-toggle="pill" href="#insurance" onclick="loadValidWarranty()">Bảo hành</a>
+                                    <a class="nav-link" data-bs-toggle="pill" href="#done" onclick="loadDoneList()">Hoàn thành</a>
+                                    <a class="nav-link" data-bs-toggle="pill" href="#cant" onclick="loadCantList()">Không thể sửa</a>
 									<!--<a class="nav-link" data-bs-toggle="pill" href="#summon">Triệu hồi</a>-->
                                 </nav>
                             </div>
@@ -410,7 +410,6 @@
                                             <th>Địa chỉ khách hàng</th>
                                             <th>Số điện thoại</th>
                                             <th>Ngày bán</th>
-                                            <th>Ngày bảo hành</th>
                                         </tr>
                                         </thead>
                                         <tbody>

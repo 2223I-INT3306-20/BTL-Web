@@ -62,11 +62,37 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+function sellMonth() {
+    getDataMonth();
+    getDataSellMonth();
+}
+
+function sellQuarter() {
+    getDataQuarter();
+    getDataSellQuarter();
+}
+
+function sellYear() {
+    getDataYear();
+    getDataSellYear();
+}
+
+function nhapMonth() {
+    getListDataMonth();
+    getDataNhapMonth();
+}
+
+function nhapQuarter() {
+    getListDataQuarter();
+    getDataNhapQuarter();
+}
+
+function nhapYear(){
+    getListDataYear();
+    getDataNhapYear();
+}
+
 function logout() {
     sessionStorage.removeItem('token');
     sessionStorage.clear();
-}
-
-function printValue() {
-    let data = document.querySelector("#")
 }

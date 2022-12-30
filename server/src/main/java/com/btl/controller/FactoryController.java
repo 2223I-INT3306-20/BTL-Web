@@ -64,7 +64,7 @@ public class FactoryController {
             ProductResponse productResponse = new ProductResponse();
 
             productResponse.setProductId(pid);
-            productResponse.setName(productRepo.findByProductId(pid).getProductName());
+            productResponse.setName(Long.toString(productRepo.findByProductId(pid).getOption().getOptionId()));
             productResponse.setSku(productRepo.findByProductId(pid).getProductSku());
             productResponse.setInfo(productRepo.findByProductId(pid).getOption().getOptionInfo());
             productResponse.setSlXuat(calcuOut(id, pid));
@@ -800,12 +800,14 @@ public class FactoryController {
             batch.setStatus("TRANSFER");
             batch.setPrice(transfer.getPrice());
             batch.setQuantity(transfer.getQuantity());
-            batch.setProductId(productRepo.findByProductSku(Long.toString(transfer.getFactoryId())).getProductId());
+            batch.setProductId(productRepo.findByProductSku(Long.toString(transfer.getProductId())).getProductId());
 
             batchRepo.save(batch);
+            requestTransferRepo.save(transfer);
             return ResponseEntity.ok("CONFIRM_SUCCESS");
         } else {
             transfer.setStatus(0);
+            requestTransferRepo.save(transfer);
             return ResponseEntity.ok("REJECT_SUCCESS");
         }
     }
@@ -820,7 +822,7 @@ public class FactoryController {
         long id = userRepo.findByUsername(username).get().getLocationId();
 
         List<WarrantyResponse> res = new ArrayList<>();
-        List<Fault> done = faultRepo.findByServiceIdAndStatus(id, "CANT");
+        List<Fault> done = faultRepo.findByStatus("CANT");
         //List<Fault> cant = faultRepo.findByServiceIdAndStatus(id, "CANT");
 
         for (Fault fault : done) {

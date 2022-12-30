@@ -55,7 +55,7 @@ public class ServiceController {
 
             temp.setCustomerId(billCustomer.getId());
             temp.setBatchId(batch.getId());
-            temp.setQuantity(batch.getQuantity());
+            temp.setQuantity(faultRepo.findByBatchId(batch.getId()).getQuantity());
             temp.setPrice(batch.getPrice());
             temp.setSku(productRepo.findByProductId(batch.getProductId()).getProductSku());
             temp.setCustomerName(billCustomer.getCustomerName());

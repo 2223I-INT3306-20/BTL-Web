@@ -1,9 +1,9 @@
 /* Lấy dữ liệu sản phẩm được sản xuất theo các tháng */
 
 $(document).ready(function(){
-    getchartXuatTT();
+    getchartMakeTT();
 })
-async function getchartXuatTT() {
+async function getchartMakeTT() {
     const settings = {
         method: 'GET',
         headers: {

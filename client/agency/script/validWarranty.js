@@ -6,7 +6,7 @@ function loadValidWarranty() {
             if(this.status==200){
                 let objArr = JSON.parse(this.responseText);
                 document.querySelector("#tblValidWarranty tbody").innerHTML = "";
-
+                document.querySelector("#batchId").innerHTML = "";
                 for(let i = 0; i< objArr.length; i++){
                     let tr = document.createElement("tr");
 

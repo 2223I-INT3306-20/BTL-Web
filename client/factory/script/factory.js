@@ -80,7 +80,40 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
+function xuatMonth() {
+    getDataMonth();
+    getDataXuatTT();
+}
+
+function xuatQuarter() {
+    getDataQuarter();
+    getDatachartXuatByQuarter();
+}
+
+function xuatYear() {
+    getDataXuatTN();
+    getDataXuatTN();
+}
+
+function makeMonth() {
+    getDataMakeByMonth();
+    getchartMakeTT();
+}
+
+function makeQuarter() {
+    getDatachartMakeByQuarter();
+    getDataMakeByQuarter();
+}
+
+function makeYear() {
+    getDataMakeByYear();
+    getData2();
+}
+
+
+
 function logout() {
     sessionStorage.removeItem('token');
     sessionStorage.clear();
 }
+

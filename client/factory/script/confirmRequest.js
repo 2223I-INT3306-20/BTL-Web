@@ -1,16 +1,15 @@
 /* Trả lời các yêu cầu nhập hàng từ các đại lý */
-cf
 const formConfirm = {
     requestId: document.getElementById("requestId"),
 }
 
 document.querySelector("#confirmXuat").addEventListener('click',(e) => {
     confirmXuat(2);
-})
+});
 
 document.querySelector("#reject").addEventListener('click', (e) => {
     confirmXuat(0);
-})
+});
 function confirmXuat(code) {
     const login = "http://localhost:8080/factory/confirmTransfer";
 
@@ -31,7 +30,7 @@ function confirmXuat(code) {
     })
         .then(function(response) {
             if (response.ok) {
-                document.getElementById('closeMake').click();
+                document.getElementById('closeCf').click();
                 loadYCXH()
             }
 
@@ -40,7 +39,7 @@ function confirmXuat(code) {
             console.log(data);
             // code here //
             if (data.error) {
-                alert("Error Password or Username"); /*displays error message*/
+                alert("Error"); /*displays error message*/
             } else {
                 alert("Oke");
 
